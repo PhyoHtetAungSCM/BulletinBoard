@@ -22,7 +22,7 @@
                                 Description<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <textarea class="form-control" rows="3">{{$post->description}}</textarea>
+                                <textarea id="description" class="form-control" name="description" rows="3">{{$post->description}}</textarea>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -35,7 +35,7 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="confirmFormData()">
                                     Confirm
                                 </button>
                                 <button type="button" class="btn btn-secondary">
@@ -43,39 +43,34 @@
                                 </button>
                             </div>
                         </div>
-
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Update Post Confirmation</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group row">
-                                        <label class="col-md-4 col-form-label font-weight-bold">
-                                            Title
-                                        </label>
-                                        <label class="col-form-label">
-                                            Post 1
-                                        </label>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Update Post Confirmation</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-4 col-form-label font-weight-bold">
-                                            Description
-                                        </label>
-                                        <label class="col-form-label">
-                                            This is description for post 1
-                                        </label>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label class="col-md-4 col-form-label font-weight-bold">
+                                                Title
+                                            </label>
+                                            <label class="col-form-label" id="confirmTitle"></label>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-4 col-form-label font-weight-bold">
+                                                Description
+                                            </label>
+                                            <label class="col-form-label" id="confirmDescription"></label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Create</button>
-                                    <button type="button" class="btn btn-secondary">Cancel</button>
-                                </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Create</button>
+                                        <button type="button" class="btn btn-secondary">Cancel</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -85,4 +80,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/confirm-form-data.js') }}" defer></script>
 @endsection

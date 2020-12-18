@@ -3,16 +3,17 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header font-weight-bold">
-                    Post List
+                    <a href="{{ route('post.index') }}">Post List</a> 
                 </div>
                 <div class="card-body">
+                    <!-- post list options form -->
                     <form method="POST" action="{{ route('post.searchPost') }}">
                         @csrf
                         <div class="form-group row">
-                            <div class="col-lg-3 col-md-12 col-sm-12 p-1">
+                            <div class="col-lg-4 col-md-12 col-sm-12 p-1">
                                 <input type="text" class="form-control" name="search" placeholder="Search...">
                             </div>
                             <div class="col-lg-2 col-md-6 col-sm-12 p-1">
@@ -24,12 +25,15 @@
                             <div class="col-lg-2 col-md-6 col-sm-12 p-1">
                                 <a href="{{ route('post.getUploadPost') }}" type="button" class="btn btn-primary btn-block">Upload</a>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-12 p-1">
-                                <button type="button" class="btn btn-primary btn-block">Download</button>
+                            <div class="col-lg-2 col-md-6 col-sm-12 p-1">
+                                <button type="button" class="btn btn-primary btn-block">
+                                    <img src="{{asset('images/download-icon.png')}}"/>
+                                </button>
                             </div>
                         </div>
                     </form>
-                    <!-- Post List -->
+                    
+                    <!-- post list table -->
                     <table class="table">
                         <thead>
                             <tr>
@@ -44,18 +48,94 @@
                         <tbody>
                             @foreach($postList as $post)
                                 <tr>
-                                    <td>{{$post->title}}</td>
+                                    <td>
+                                        <a 
+                                            href="#"
+                                            class="postDetail"
+                                            data-title = "{{$post->title}}" 
+                                            data-description = "{{$post->description}}"
+                                        >
+                                            {{$post->title}}
+                                        </a>
+                                    </td>
                                     <td>{{$post->description}}</td>
-                                    <td>##comming soon##</td>
+                                    <td>{{$post->user->name}}</td>
                                     <td>{{$post->created_at}}</td>
-                                    <td><a href="{{ route('post.getUpdatePost', ['id' => $post->id]) }}">Edit</a></td>
-                                    <td><a href="#">Delete</a></td>
+                                    <td>
+                                        <a type="button" class="btn btn-primary btn-sm btn-block" href="{{ route('post.getUpdatePost', ['id' => $post->id]) }}">Edit</a>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm btn-block deletePost" data-deletePostId = "{{$post->id}}">Delete</button>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+
+                    <!-- post detail modal -->
+                    <div class="modal fade" id="postDetailModal" tabindex="-1" role="dialog" aria-labelledby="postDetailModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <form method="POST" action="{{ route('post.deletePost') }}">
+                                {{ method_field('delete') }}
+                                {{ csrf_field() }}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title font-weight-bold" id="postDetailModalLabel">Post Detail</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label class="col-md-4 col-form-label font-weight-bold">
+                                                Title
+                                            </label>
+                                            <label class="col-form-label" id="detailTitle"></label>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-4 col-form-label font-weight-bold">
+                                                Description
+                                            </label>
+                                            <label class="col-form-label" id="detailDescription"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- delete confirm modal -->
+                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <form method="POST" action="{{ route('post.deletePost') }}">
+                                {{ method_field('delete') }}
+                                {{ csrf_field() }}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title font-weight-bold" id="deleteModalLabel">Delete Post Confirmation</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label class="col-md-12 col-form-label">
+                                                Are you sure that you want to delete?
+                                            </label>
+                                        </div>
+                                        <input type="hidden" name="deletePostId" id="deletePostId">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <!-- Pagination -->
+
+                <!-- pagination -->
                 <div class="d-flex justify-content-center">
                     {!! $postList->links() !!}
                 </div>
@@ -63,4 +143,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/confirm-form-data.js') }}" defer></script>
 @endsection

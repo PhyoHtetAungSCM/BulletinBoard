@@ -7,14 +7,14 @@
             <div class="card">
                 <div class="card-header font-weight-bold">Create User</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('user.createUser') }}">
                         @csrf
                         <div class="form-group row">
                             <label for="title" class="col-md-4 col-form-label text-md-right">
                                 Name<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" autofocus>
+                                <input type="text" class="form-control" id="name" name="name" autofocus>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -22,7 +22,7 @@
                                 Email Address<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" autofocus>
+                                <input type="email" class="form-control" id="email" name="email">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -30,7 +30,7 @@
                                 Password<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
+                                <input type="password" class="form-control" id="password" name="password">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -46,10 +46,10 @@
                                 Type<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <select class="form-control">
+                                <select class="form-control" id="type" name="type">
                                     <option></option>
-                                    <option>Admin</option>
-                                    <option>User</option>
+                                    <option  value="0">Admin</option>
+                                    <option  value="1">User</option>
                                 </select>
                             </div>
                         </div>
@@ -58,21 +58,13 @@
                                 Phone
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="phone">
+                                <input type="text" class="form-control" id="phone" name="phone">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="dateOfBirth" class="col-md-4 col-form-label text-md-right">Date of Birth</label>
                             <div class="col-md-6">
-                                <input class="form-control" type="date" value="2000-12-31">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="address" class="col-md-4 col-form-label text-md-right">
-                                Address
-                            </label>
-                            <div class="col-md-6">
-                                <textarea class="form-control" rows="3"></textarea>
+                                <input class="form-control" type="date" value="2000-12-31" id="dob" name="dob">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -80,7 +72,7 @@
                                 Profile
                             </label>
                             <div class="col-md-6">
-                                <input type="file" accept="image/*" onchange="loadFile(event)">
+                                <input type="file" accept="image/*" onchange="loadFile(event)" id="profile" name="profile">
                                 <div class="create-profile-container">
                                     <img id="createUserProfile" class="create-profile-image"/>
                                 </div>
@@ -88,7 +80,7 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal" onclick="confirmCreateUser()">
                                     Confirm
                                 </button>
                                 <button type="button" class="btn btn-secondary px-3">
@@ -98,11 +90,11 @@
                         </div>
 
                         <!-- Confirmation Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Create User Confirmation</h5>
+                                    <h5 class="modal-title font-weight-bold" id="createUserModalLabel">Create User Confirmation</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
@@ -119,54 +111,36 @@
                                         <label class="col-md-4 col-form-label font-weight-bold">
                                             Name
                                         </label>
-                                        <label class="col-md-8 col-form-label">
-                                            Name 1
-                                        </label>
+                                        <label class="col-md-8 col-form-label" id="confirmName"></label>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-4 col-form-label font-weight-bold">
                                             Email Address
                                         </label>
-                                        <label class="col-md-8 col-form-label">
-                                            name1@gmail.com
-                                        </label>
+                                        <label class="col-md-8 col-form-label" id="confirmAddress"></label>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-4 col-form-label font-weight-bold">
                                             Type
                                         </label>
-                                        <label class="col-md-8 col-form-label">
-                                            User
-                                        </label>
+                                        <label class="col-md-8 col-form-label" id="confirmType"></label>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-4 col-form-label font-weight-bold">
                                             Phone
                                         </label>
-                                        <label class="col-md-8 col-form-label">
-                                            09123456789
-                                        </label>
+                                        <label class="col-md-8 col-form-label" id="confirmPhone"></label>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-4 col-form-label font-weight-bold">
-                                            Address
+                                            DOB
                                         </label>
-                                        <p class="col-md-8 col-form-label">
-                                            This is description for post
-                                        </label>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-4 col-form-label font-weight-bold">
-                                            Description
-                                        </label>
-                                        <label class="col-md-8 col-form-label">
-                                            This is description for post 1
-                                        </label>
+                                        <label class="col-md-8 col-form-label" id="confirmDob"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Create</button>
-                                    <button type="button" class="btn btn-secondary">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 </div>
                                 </div>
                             </div>
@@ -180,13 +154,14 @@
 @endsection
 
 @section('scripts')
-<script>
-    var loadFile = function(event) {
-        var createUserProfile = document.getElementById('createUserProfile');
-        createUserProfile.src = URL.createObjectURL(event.target.files[0]);
-        createUserProfile.onload = function() {
-        URL.revokeObjectURL(createUserProfile.src) // free memory
-        }
-    };
-</script>
+    <script src="{{ asset('js/confirm-create-user.js') }}" defer></script>
+    <script>
+        var loadFile = function(event) {
+            var createUserProfile = document.getElementById('createUserProfile');
+            createUserProfile.src = URL.createObjectURL(event.target.files[0]);
+            createUserProfile.onload = function() {
+            URL.revokeObjectURL(createUserProfile.src) // free memory
+            }
+        };
+    </script>
 @endsection

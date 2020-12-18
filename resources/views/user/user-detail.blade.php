@@ -5,7 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12 user-detail-wrap">
             <div class="card">
-                <div class="card-header font-weight-bold">User Detail</div>
+                <div class="card-header font-weight-bold">
+                    <a href="{{ route('user.index') }}">User Detail</a> 
+                </div>
 
                 <div class="card-body">
                     <!-- User Detail Form -->
@@ -28,7 +30,7 @@
                                 <input type="submit" class="btn btn-primary btn-block" value="Search">
                             </div>
                             <div class="col-lg-2 col-md-6 col-sm-6 p-1 my-col">
-                                <input type="submit" class="btn btn-primary btn-block" value="Add">
+                                <a href="{{ route('post.getCreateUser') }}" type="button" class="btn btn-primary btn-block">Add</a>
                             </div>
                         </div>
                     </form>
@@ -38,65 +40,34 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Created User</th>
+                                <th scope="col">Type</th>
                                 <th scope="col">Phone</th>
-                                <th scope="col">Birth Date</th>
-                                <th scope="col">Address</th>
-                                <th scope="col">Created Date</th>
-                                <th scope="col">Updated Date</th>
-                                <th scope="col">Delete</th>
+                                <th scope="col">Date Of Birth</th>
+                                <th scope="col">Created User</th>
+                                <th scope="col">Updated User</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><a href="#">User 1</a></td>
-                                <td>user1@gmail.com</td>
-                                <td>User 1</td>
-                                <td>0912345789</td>
-                                <td>01/01/01</td>
-                                <td>user1 address</td>
-                                <td><a href="#">01/01/01</a></td>
-                                <td><a href="#">01/01/01</a></td>
-                                <td><a href="#">Delete</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">User 2</a></td>
-                                <td>user2@gmail.com</td>
-                                <td>User 2</td>
-                                <td>0912345789</td>
-                                <td>01/01/01</td>
-                                <td>user2 address</td>
-                                <td><a href="#">01/01/01</a></td>
-                                <td><a href="#">01/01/01</a></td>
-                                <td><a href="#">Delete</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">User 3</a></td>
-                                <td>user3@gmail.com</td>
-                                <td>User 3</td>
-                                <td>0912345789</td>
-                                <td>01/01/01</td>
-                                <td>user3 address</td>
-                                <td><a href="#">01/01/01</a></td>
-                                <td><a href="#">01/01/01</a></td>
-                                <td><a href="#">Delete</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">User 4</a></td>
-                                <td>user1@gmail.com</td>
-                                <td>User 4</td>
-                                <td>0912345789</td>
-                                <td>01/01/01</td>
-                                <td>user4 address</td>
-                                <td><a href="#">01/01/01</a></td>
-                                <td><a href="#">01/01/01</a></td>
-                                <td><a href="#">Delete</a></td>
-                            </tr>
+                            @foreach($userDetailList as $user)
+                                <tr>
+                                    <td><a href="#">{{$user->name}}</a></td>
+                                    <td>{{$user->email}}</td>
+                                    <td>Type</td>
+                                    <td>Phone</td>
+                                    <td>DOB</td>
+                                    <td>Created User</td>
+                                    <td>Updated User</td>
+                                    <td><button type="button" class="btn btn-danger btn-sm btn-block">Delete</button></td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
-                <!-- Pagination -->
-                <div class="card-footer d-flex justify-content-center font-weight-bold">"This gonna be pagination"</div>
+               <!-- pagination -->
+               <div class="d-flex justify-content-center">
+                    {!! $userDetailList->links() !!}
+                </div>
             </div>
         </div>
     </div>

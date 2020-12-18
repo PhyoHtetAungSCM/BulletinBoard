@@ -63,9 +63,12 @@ class PostController extends Controller
     }
 
     public function updatePost(Request $request, $id) {
-        $postList = $this->postInterface->updatePost($request);
-        return view('post/post-list', [
-            'postList' => $postList
-        ]);
+        $postList = $this->postInterface->updatePost($request, $id);
+        return redirect()->route('post.index');
+    }
+
+    public function deletePost(Request $request) {
+        $postList = $this->postInterface->deletePost($request);
+        return redirect()->route('post.index');
     }
 }

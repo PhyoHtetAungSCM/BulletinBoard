@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-// use App\Contracts\Services\Post\UserServiceInterface;
+use App\Contracts\Services\User\UserServiceInterface;
 use App\Http\Controllers\Controller;
 use App\User;
 
@@ -18,26 +18,26 @@ class UserController extends Controller
     * @return void
     */
 
-    // public function __construct(UserServiceInterface $userInterface)
-    // {
-    //     $this->middleware('auth');
-    //     $this->userInterface = $userInterface;
-    // }
-
-    public function index() {
-        return view('user/user-list');
+    public function __construct(UserServiceInterface $userInterface)
+    {
+        // $this->middleware('auth');
+        $this->userInterface = $userInterface;
     }
 
-    public function userDetail() {
-        return view('user/user-detail');
+    public function index() {
+        $userDetailList = $this->userInterface->getUserDetailList();
+        return view('user/user-detail', [
+            'userDetailList' => $userDetailList
+        ]);
     }
 
     public function getCreateUser() {
         return view('user/create-user');
     }
 
-    public function getUpdateUser() {
-        return view('user/update-user');
+    public function createUser(Request $request) {
+        $this->userInterface->createUser($request);
+        return redirect()->route('user.index');
     }
 
     public function getUserProfile() {
