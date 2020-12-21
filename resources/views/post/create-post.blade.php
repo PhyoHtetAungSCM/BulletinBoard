@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createPostModal" onclick="confirmFormData()">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createPostModal" onclick="confirmCreatePost()">
                                     Confirm
                                 </button>
                                 <button type="button" class="btn btn-secondary px-3">
@@ -36,7 +36,7 @@
                             </div>
                         </div>
 
-                        <!-- Modal -->
+                        <!-- Create Post Modal -->
                         <div class="modal fade" id="createPostModal" tabindex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -76,5 +76,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/confirm-form-data.js') }}" defer></script>
+    <script src="{{ asset('js/post/create-post.js') }}" defer></script>
 @endsection

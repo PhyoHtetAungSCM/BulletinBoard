@@ -3,84 +3,174 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12 user-detail-wrap">
             <div class="card">
-                <div class="card-header font-weight-bold">{{ __('User List') }}</div>
+                <div class="card-header font-weight-bold">
+                    <a href="{{ route('user.index') }}">User List</a> 
+                </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <!-- User List Options Form -->
+                    <form method="POST" action="{{ route('user.searchUser') }}">
                         @csrf
-                        <!-- User Input Form -->
                         <div class="form-group row">
-                            <div class="col-lg-4 col-md-12 col-sm-12 p-1 my-col">
-                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search...">
+                            <div class="col-lg-2 col-md-3 col-sm-6 p-1">
+                                <input type="text" class="form-control" name="name" placeholder="Name">
                             </div>
-                            <div class="col-lg-2 col-md-6 col-sm-12 p-1 my-col">
+                            <div class="col-lg-2 col-md-3 col-sm-6 p-1">
+                                <input type="email" class="form-control" name="email" placeholder="Email">
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-sm-6 p-1">
+                                <input type="text" class="form-control" placeholder="Created From">
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-sm-6 p-1">
+                                <input type="text" class="form-control" placeholder="Created To">
+                            </div>
+                            <div class="col-lg-2 col-md-6 col-sm-6 p-1">
                                 <input type="submit" class="btn btn-primary btn-block" value="Search">
                             </div>
-                            <div class="col-lg-2 col-md-6 col-sm-12 p-1 my-col">
-                                <input type="submit" class="btn btn-primary btn-block" value="Add">
-                            </div>
-                            <div class="col-lg-2 col-md-6 col-sm-12 p-1 my-col">
-                                <input type="submit" class="btn btn-primary btn-block" value="Upload">
-                            </div>
-                            <div class="col-lg-2 col-md-6 col-sm-12 p-1 my-col">
-                                <button type="submit" class="btn btn-primary btn-block">Download</button>
+                            <div class="col-lg-2 col-md-6 col-sm-6 p-1">
+                                <a href="{{ route('user.getCreateUser') }}" type="button" class="btn btn-primary btn-block">Add</a>
                             </div>
                         </div>
                     </form>
-                    <!-- User List -->
-                    <table class="table">
+                    <!-- User Detail -->
+                    <table class="table user-detail-table">
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Phone Number</th>
-                                <th scope="col">Address</th>
-                                <th scope="col"></th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Date Of Birth</th>
+                                <th scope="col">Created User</th>
+                                <th scope="col">Updated User</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Name 1</td>
-                                <td>Email 1</td>
-                                <td>Phone Number1</td>
-                                <td>Address 1</td>
-                                <td><a href="#">Edit</a></td>
-                                <td><a href="#">Delete</a></td>
-                            </tr>
-                            <tr>
-                                <td>Name 2</td>
-                                <td>Email 2</td>
-                                <td>Phone Number2</td>
-                                <td>Address 2</td>
-                                <td><a href="#">Edit</a></td>
-                                <td><a href="#">Delete</a></td>
-                            </tr>
-                            <tr>
-                                <td>Name 3</td>
-                                <td>Email 3</td>
-                                <td>Phone Number3</td>
-                                <td>Address 3</td>
-                                <td><a href="#">Edit</a></td>
-                                <td><a href="#">Delete</a></td>
-                            </tr>
-                            <tr>
-                                <td>Name 4</td>
-                                <td>Email 4</td>
-                                <td>Phone Number4</td>
-                                <td>Address 4</td>
-                                <td><a href="#">Edit</a></td>
-                                <td><a href="#">Delete</a></td>
-                            </tr>
+                            @foreach($userList as $user)
+                                <tr>
+                                    <td>
+                                        <a 
+                                            href="#"
+                                            class="userDetail"
+                                            data-name = "{{$user->name}}" 
+                                            data-email = "{{$user->email}}"
+                                            data-type = "{{$user->type}}"
+                                            data-phone = "{{$user->phone}}"
+                                            data-dob = "{{$user->dob}}"
+                                            data-profile = "{{$user->profile}}"
+                                        >
+                                            {{$user->name}}
+                                        </a>
+                                    </td>
+                                    <td>{{$user->email}}</td>
+                                    <td>
+                                    @if($user->type === 1)
+                                        User
+                                    @elseif($user->type === 0)
+                                        Admin
+                                    @endif
+                                    </td>
+                                    <td>{{$user->phone}}</td>
+                                    <td>{{$user->dob}}</td>
+                                    <td>{{$user->create_user_id}}</td>
+                                    <td>{{$user->updated_user_id}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm btn-block deleteUser" data-deleteUserId = "{{$user->id}}">Delete</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
+
+                    <!-- User Detail Modal -->
+                    <div class="modal fade" id="userDetailModal" tabindex="-1" role="dialog" aria-labelledby="userDetailModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title font-weight-bold" id="userDetailModalLabel">User Detail</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label font-weight-bold">
+                                            Name
+                                        </label>
+                                        <label class="col-form-label" id="detailName"></label>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label font-weight-bold">
+                                            Email
+                                        </label>
+                                        <label class="col-form-label" id="detailEmail"></label>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label font-weight-bold">
+                                            Type
+                                        </label>
+                                        <label class="col-form-label" id="detailType"></label>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label font-weight-bold">
+                                            Phone
+                                        </label>
+                                        <label class="col-form-label" id="detailPhone"></label>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label font-weight-bold">
+                                            Date of Birth
+                                        </label>
+                                        <label class="col-form-label" id="detailDob"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delete Confirm Modal -->
+                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <form method="POST" action="{{ route('user.deleteUser') }}">
+                                {{ method_field('delete') }}
+                                {{ csrf_field() }}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title font-weight-bold" id="deleteModalLabel">Delete Post Confirmation</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label class="col-md-12 col-form-label">
+                                                Are you sure that you want to delete?
+                                            </label>
+                                        </div>
+                                        <input type="hidden" name="deleteUserId" id="deleteUserId">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <!-- Pagination -->
-                <div class="card-footer d-flex justify-content-center font-weight-bold">"This gonna be pagination"</div>
+               <!-- Pagination -->
+               <div class="d-flex justify-content-center">
+                    {!! $userList->links() !!}
+                </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/user/user-list.js') }}" defer></script>
 @endsection

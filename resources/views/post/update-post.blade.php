@@ -29,26 +29,27 @@
                             <div class="col-md-4 col-form-label text-md-right">Status</div>
                             <div class="col-md-6">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" checked>
+                                    <input class="form-check-input" type="checkbox" name="status" id="status" checked>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="confirmFormData()">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updatePostModal" onclick="confirmUpdatePost()">
                                     Confirm
                                 </button>
-                                <button type="button" class="btn btn-secondary">
+                                <button type="button" class="btn btn-secondary" onclick="clearUpdatePost()">
                                     Clear
                                 </button>
                             </div>
                         </div>
+
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="updatePostModal" tabindex="-1" role="dialog" aria-labelledby="updatePostModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Update Post Confirmation</h5>
+                                        <h5 class="modal-title font-weight-bold" id="updatePostModalLabel">Update Post Confirmation</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
@@ -66,10 +67,16 @@
                                             </label>
                                             <label class="col-form-label" id="confirmDescription"></label>
                                         </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-4 col-form-label font-weight-bold">
+                                                Status
+                                            </label>
+                                            <label class="col-form-label" id="confirmStatus"></label>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary">Create</button>
-                                        <button type="button" class="btn btn-secondary">Cancel</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     </div>
                                 </div>
                             </div>
@@ -83,5 +90,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/confirm-form-data.js') }}" defer></script>
+    <script src="{{ asset('js/post/update-post.js') }}" defer></script>
 @endsection

@@ -19,13 +19,33 @@ class UserService implements UserServiceInterface
     $this->userDao = $userDao;
   }
 
-  public function getUserDetailList()
+  public function getUserList()
   {
-    return $this->userDao->getUserDetailList();
+    return $this->userDao->getUserList();
+  }
+
+  public function userProfile()
+  {
+    return $this->userDao->userProfile();
+  }
+
+  public function getUpdateUser($id)
+  {
+    return $this->userDao->getUpdateUser($id);
   }
 
   public function createUser($request)
   {
     return $this->userDao->createUser($request);
+  }
+
+  public function searchUser($keyword)
+  {
+    return $this->userDao->searchUser($keyword);
+  }
+
+  public function deleteUser($request)
+  {
+    return $this->userDao->deleteUser($request);
   }
 }

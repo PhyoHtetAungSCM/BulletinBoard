@@ -42,13 +42,12 @@ class PostDao implements PostDaoInterface
 
   public function searchPost($keyword)
   {
-    $postList = Post::where('status', 1)
-                    ->join('users','users.id','=','posts.create_user_id')
-                    ->where(function ($query) use ($keyword) {
-                      $query->where('title', 'like', "%{$keyword->search}%");
-                      $query->orWhere('description', 'like', "%{$keyword->search}%");
-                      $query->orWhere('name', 'like', "%{$keyword->search}%");
-                  })->paginate(5);
+    $postList = Post::where('posts.status', 1)
+                    ->whereHas('user', function ($query) use ($keyword) {
+                        $query->where('title', 'like', "%{$keyword->search}%");
+                        $query->orWhere('description', 'like', "%{$keyword->search}%");
+                        $query->orWhere('name', 'like', "%{$keyword->search}%");
+                    })->paginate(5);
     return $postList;
   }
 
@@ -57,6 +56,7 @@ class PostDao implements PostDaoInterface
     $updatePost = Post::find($id);
     $updatePost->title = $request->title;
     $updatePost->description = $request->description;
+    $updatePost->status = $request->status;
     return $updatePost->save();
   }
 

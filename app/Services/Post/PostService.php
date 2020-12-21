@@ -41,6 +41,9 @@ class PostService implements PostServiceInterface
 
   public function updatePost($request, $id)
   {
+    if(!$request->status) {
+      $request->status = 0;
+    }
     return $this->postDao->updatePost($request, $id);
   }
 

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('post')->group(function () {
     Route::get('/post-list', ['uses' => 'PostController@index', 'as' => 'post.index']);
 
-    Route::get('/post-detail', ['uses' => 'PostController@postDetail', 'as' => 'post.detail']);
+    // Route::get('/post-detail', ['uses' => 'PostController@postDetail', 'as' => 'post.detail']);
     
     Route::get('/create-post', ['uses' => 'PostController@getCreatePost', 'as' => 'post.getCreatePost']);
     
@@ -36,21 +36,21 @@ Route::prefix('post')->group(function () {
 });
 
 Route::prefix('user')->group(function () {
-    Route::get('/user-detail', ['uses' => 'UserController@index', 'as' => 'user.index']);
+    Route::get('/user-list', ['uses' => 'UserController@index', 'as' => 'user.index']);
 
-    Route::get('/create-user', ['uses' => 'UserController@getCreateUser', 'as' => 'post.getCreateUser']);
+    Route::get('/create-user', ['uses' => 'UserController@getCreateUser', 'as' => 'user.getCreateUser']);
     
-    Route::get('/update-user', [
-        'uses' => 'UserController@getUpdateUser',
-        'as' => 'user.getUpdateUser'
-    ]);
-    
-    Route::get('/user-profile', [
-        'uses' => 'UserController@getUserProfile',
-        'as' => 'user.getUserProfile'
-    ]);
+    Route::get('/user-profile', ['uses' => 'UserController@getUserProfile', 'as' => 'user.getUserProfile']);
+
+    Route::get('/update-user/{id}', ['uses' => 'UserController@getUpdateUser', 'as' => 'user.getUpdateUser']);
+
+    Route::get('/change-password', ['uses' => 'UserController@getChangePassword', 'as' => 'user.getChangePassword']);
 
     Route::post('/user', ['uses' => 'UserController@createUser', 'as' => 'user.createUser']);
+
+    Route::post('/user-list', ['uses' => 'UserController@searchUser', 'as' => 'user.searchUser']);
+
+    Route::delete('/user-list', ['uses' => 'UserController@deleteUser', 'as' => 'user.deleteUser']);
 });
 
 // Auth::routes();

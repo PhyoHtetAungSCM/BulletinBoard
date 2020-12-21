@@ -9,7 +9,6 @@
                     <a href="{{ route('post.index') }}">Post List</a> 
                 </div>
                 <div class="card-body">
-                    <!-- post list options form -->
                     <form method="POST" action="{{ route('post.searchPost') }}">
                         @csrf
                         <div class="form-group row">
@@ -33,7 +32,7 @@
                         </div>
                     </form>
                     
-                    <!-- post list table -->
+                    <!-- Post List Table -->
                     <table class="table">
                         <thead>
                             <tr>
@@ -72,39 +71,35 @@
                         </tbody>
                     </table>
 
-                    <!-- post detail modal -->
+                    <!-- Post Detail Modal -->
                     <div class="modal fade" id="postDetailModal" tabindex="-1" role="dialog" aria-labelledby="postDetailModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                            <form method="POST" action="{{ route('post.deletePost') }}">
-                                {{ method_field('delete') }}
-                                {{ csrf_field() }}
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title font-weight-bold" id="postDetailModalLabel">Post Detail</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title font-weight-bold" id="postDetailModalLabel">Post Detail</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label font-weight-bold">
+                                            Title
+                                        </label>
+                                        <label class="col-form-label" id="detailTitle"></label>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="form-group row">
-                                            <label class="col-md-4 col-form-label font-weight-bold">
-                                                Title
-                                            </label>
-                                            <label class="col-form-label" id="detailTitle"></label>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-4 col-form-label font-weight-bold">
-                                                Description
-                                            </label>
-                                            <label class="col-form-label" id="detailDescription"></label>
-                                        </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 col-form-label font-weight-bold">
+                                            Description
+                                        </label>
+                                        <label class="col-form-label" id="detailDescription"></label>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- delete confirm modal -->
+                    <!-- Delete Confirm Modal -->
                     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <form method="POST" action="{{ route('post.deletePost') }}">
@@ -135,7 +130,7 @@
                     </div>
                 </div>
 
-                <!-- pagination -->
+                <!-- Pagination -->
                 <div class="d-flex justify-content-center">
                     {!! $postList->links() !!}
                 </div>
@@ -146,5 +141,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/confirm-form-data.js') }}" defer></script>
+    <script src="{{ asset('js/post/post-list.js') }}" defer></script>
 @endsection

@@ -7,10 +7,10 @@
             <div class="card">
                 <div class="card-header font-weight-bold">Create User</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('user.createUser') }}">
+                    <form method="POST" action="{{ route('user.createUser') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
-                            <label for="title" class="col-md-4 col-form-label text-md-right">
+                            <label for="title" class="col-md-4 col-form-label text-md-right font-weight-bold">
                                 Name<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
@@ -18,7 +18,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">
+                            <label for="email" class="col-md-4 col-form-label text-md-right font-weight-bold">
                                 Email Address<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">
+                            <label for="password" class="col-md-4 col-form-label text-md-right font-weight-bold">
                                 Password<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
@@ -34,27 +34,27 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="confirmPassword" class="col-md-4 col-form-label text-md-right">
+                            <label for="confirmPassword" class="col-md-4 col-form-label text-md-right font-weight-bold">
                                 Confirm Password<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="confirmPassword">
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
                             </div>
                         </div>
                         <div class="form-group row dropdown">
-                            <label for="type" class="col-md-4 col-form-label text-md-right">
+                            <label for="type" class="col-md-4 col-form-label text-md-right font-weight-bold">
                                 Type<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
                                 <select class="form-control" id="type" name="type">
                                     <option></option>
-                                    <option  value="0">Admin</option>
-                                    <option  value="1">User</option>
+                                    <option value="0">Admin</option>
+                                    <option value="1">User</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">
+                            <label for="phone" class="col-md-4 col-form-label text-md-right font-weight-bold">
                                 Phone
                             </label>
                             <div class="col-md-6">
@@ -62,13 +62,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="dateOfBirth" class="col-md-4 col-form-label text-md-right">Date of Birth</label>
+                            <label for="dateOfBirth" class="col-md-4 col-form-label text-md-right font-weight-bold">Date of Birth</label>
                             <div class="col-md-6">
-                                <input class="form-control" type="date" value="2000-12-31" id="dob" name="dob">
+                                <input class="form-control" type="date" id="dob" name="dob">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="profile" class="col-md-4 col-form-label text-md-right">
+                            <label for="profile" class="col-md-4 col-form-label text-md-right font-weight-bold">
                                 Profile
                             </label>
                             <div class="col-md-6">
@@ -83,7 +83,7 @@
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal" onclick="confirmCreateUser()">
                                     Confirm
                                 </button>
-                                <button type="button" class="btn btn-secondary px-3">
+                                <button type="button" class="btn btn-secondary px-3" onclick="clearCreateUser()">
                                     Clear
                                 </button>
                             </div>
@@ -103,7 +103,7 @@
                                     <div class="form-group row mb-4">
                                         <div class="col-md-12 d-flex justify-content-center">
                                             <div class="user-profile-container">
-                                                <img class="user-profile-image" src="{{asset('images/ace.jpg')}}"/>
+                                                <img class="user-profile-image" id="confirmProfile"/>
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@
                                         <label class="col-md-4 col-form-label font-weight-bold">
                                             Email Address
                                         </label>
-                                        <label class="col-md-8 col-form-label" id="confirmAddress"></label>
+                                        <label class="col-md-8 col-form-label" id="confirmEmail"></label>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-4 col-form-label font-weight-bold">
@@ -154,14 +154,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/confirm-create-user.js') }}" defer></script>
-    <script>
-        var loadFile = function(event) {
-            var createUserProfile = document.getElementById('createUserProfile');
-            createUserProfile.src = URL.createObjectURL(event.target.files[0]);
-            createUserProfile.onload = function() {
-            URL.revokeObjectURL(createUserProfile.src) // free memory
-            }
-        };
-    </script>
+    <script src="{{ asset('js/user/create-user.js') }}" defer></script>
 @endsection

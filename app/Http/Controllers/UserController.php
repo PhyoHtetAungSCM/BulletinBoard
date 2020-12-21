@@ -25,10 +25,28 @@ class UserController extends Controller
     }
 
     public function index() {
-        $userDetailList = $this->userInterface->getUserDetailList();
-        return view('user/user-detail', [
-            'userDetailList' => $userDetailList
+        $userList = $this->userInterface->getUserList();
+        return view('user/user-list', [
+            'userList' => $userList
         ]);
+    }
+
+    public function getUserProfile() {
+        $userProfile = $this->userInterface->userProfile();
+        return view('user/user-profile', [
+            'userProfile' => $userProfile
+        ]);
+    }
+
+    public function getUpdateUser($id) {
+        $user = $this->userInterface->getUpdateUser($id);
+        return view('user/update-user', [
+            'user' => $user
+        ]);
+    }
+
+    public function getChangePassword() {
+        return view('user/change-password');
     }
 
     public function getCreateUser() {
@@ -40,7 +58,15 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
-    public function getUserProfile() {
-        return view('user/user-profile');
+    public function searchUser(Request $keyword) {
+        $userList = $this->userInterface->searchUser($keyword);
+        return view('user/user-list', [
+            'userList' => $userList
+        ]);
+    }
+
+    public function deleteUser(Request $request) {
+        $this->userInterface->deleteUser($request);
+        return redirect()->route('user.index');
     }
 }

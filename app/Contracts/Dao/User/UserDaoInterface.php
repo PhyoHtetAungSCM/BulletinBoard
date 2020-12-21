@@ -4,5 +4,5 @@ namespace App\Contracts\Dao\User;
 
 interface UserDaoInterface
 {
-    public function getUserDetailList();
+    public function getUserList();
 }
