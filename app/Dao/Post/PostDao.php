@@ -3,6 +3,7 @@
 namespace App\Dao\Post;
 
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use App\Contracts\Dao\Post\PostDaoInterface;
 use App\Post;
@@ -36,7 +37,8 @@ class PostDao implements PostDaoInterface
     $post->description = $request->description;
     $post->create_user_id = $authId;
     $post->updated_user_id = $authId;
-    $post->deleted_user_id = $authId;
+    $post->created_at = Carbon::now();
+    $post->updated_at = Carbon::now();
     return $post->save();
   }
 

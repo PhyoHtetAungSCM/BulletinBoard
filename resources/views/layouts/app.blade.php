@@ -11,8 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,8 +19,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/create-user-style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/update-user-style.css') }}" rel="stylesheet">
+    <!-- User Styles -->
+    <link href="{{ asset('css/user/create-user-style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/user/update-user-style.css') }}" rel="stylesheet">
+    <!-- Post Styles -->
+    <link href="{{ asset('css/post/post-list-style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/post/create-post-style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -37,15 +40,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.index') }}">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.getUserProfile') }}">User</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('post.index') }}">Post</a>
-                        </li>
+                        @if(Auth::check())
+                            @if(Auth::user()->type === 0)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.index') }}">Users</a>
+                            </li>
+                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.getUserProfile') }}">User</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('post.index') }}">Posts</a>
+                            </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -53,13 +60,8 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('getLogin') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

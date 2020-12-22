@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header font-weight-bold">
                     <a href="{{ route('post.index') }}">Post List</a> 
@@ -18,17 +18,19 @@
                             <div class="col-lg-2 col-md-6 col-sm-12 p-1">
                                 <button type="submit" class="btn btn-primary btn-block" value="search">Search</button>
                             </div>
-                            <div class="col-lg-2 col-md-6 col-sm-12 p-1">
-                                <a href="{{ route('post.getCreatePost') }}" type="button" class="btn btn-primary btn-block">Add</a>
-                            </div>
-                            <div class="col-lg-2 col-md-6 col-sm-12 p-1">
-                                <a href="{{ route('post.getUploadPost') }}" type="button" class="btn btn-primary btn-block">Upload</a>
-                            </div>
-                            <div class="col-lg-2 col-md-6 col-sm-12 p-1">
-                                <button type="button" class="btn btn-primary btn-block">
-                                    <img src="{{asset('images/download-icon.png')}}"/>
-                                </button>
-                            </div>
+                            @if(Auth::check())
+                                <div class="col-lg-2 col-md-6 col-sm-12 p-1">
+                                    <a href="{{ route('post.getCreatePost') }}" type="button" class="btn btn-primary btn-block">Add</a>
+                                </div>
+                                <div class="col-lg-2 col-md-6 col-sm-12 p-1">
+                                    <a href="{{ route('post.getUploadPost') }}" type="button" class="btn btn-primary btn-block">Upload</a>
+                                </div>
+                                <div class="col-lg-2 col-md-6 col-sm-12 p-1">
+                                    <button type="button" class="btn btn-primary btn-block">
+                                        <img src="{{asset('images/download-icon.png')}}"/>
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                     </form>
                     
@@ -40,6 +42,7 @@
                                 <th scope="col">Post Description</th>
                                 <th scope="col">Posted User</th>
                                 <th scope="col">Posted Date</th>
+                                <th scope="col">Updated Date</th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
@@ -59,12 +62,17 @@
                                     </td>
                                     <td>{{$post->description}}</td>
                                     <td>{{$post->user->name}}</td>
-                                    <td>{{$post->created_at}}</td>
-                                    <td>
-                                        <a type="button" class="btn btn-primary btn-sm btn-block" href="{{ route('post.getUpdatePost', ['id' => $post->id]) }}">Edit</a>
+                                    <td>{{$post->created_at->format('d/m/Y')}}</td>
+                                    <td>{{$post->updated_at->format('d/m/Y')}}</td>
+                                    <td class="px-1">
+                                        @if(Auth::user()->id === $post->create_user_id)
+                                            <a type="button" style="width: 60px;" class="btn btn-primary btn-sm" href="{{ route('post.getUpdatePost', ['id' => $post->id]) }}">Edit</a>
+                                        @endif
                                     </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger btn-sm btn-block deletePost" data-deletePostId = "{{$post->id}}">Delete</button>
+                                    <td class="px-1">
+                                        @if(Auth::user()->id === $post->create_user_id)
+                                            <button type="button" style="width: 60px;" class="btn btn-danger btn-sm deletePost" data-deletePostId = "{{$post->id}}">Delete</button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

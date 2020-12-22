@@ -39,6 +39,7 @@ function clearCreateUser() {
     document.getElementById("createUserProfile").removeAttribute('src');
 }
 
+
 let loadFile = function (event) {
     let createUserProfile = document.getElementById('createUserProfile');
     createUserProfile.src = URL.createObjectURL(event.target.files[0]);
@@ -46,3 +47,5 @@ let loadFile = function (event) {
         URL.revokeObjectURL(createUserProfile.src) // free memory
     }
 };
+
+

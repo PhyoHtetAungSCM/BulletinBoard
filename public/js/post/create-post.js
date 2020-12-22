@@ -1,8 +1,18 @@
 function confirmCreatePost() {
     let title = document.getElementById('title').value;
     let description = document.getElementById('description').value;
-    document.getElementById('confirmTitle').innerHTML = title;
-    document.getElementById('confirmDescription').innerHTML = description;
+    if(title) {
+        document.getElementById('confirmTitle').innerHTML = title;
+    } else {
+        document.getElementById('confirmTitle').classList.add("error");
+        document.getElementById('confirmTitle').innerHTML = "This title  field is required";
+    }
+    if(description) {
+        document.getElementById('confirmDescription').innerHTML = description;
+    } else {
+        document.getElementById('confirmDescription').classList.add("error");
+        document.getElementById('confirmDescription').innerHTML = "This description field is required";
+    }
 }
 
 function clearCreatePost() {

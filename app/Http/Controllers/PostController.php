@@ -51,8 +51,15 @@ class PostController extends Controller
     }
 
     public function createPost(Request $request) {
+        $rules = [
+            'title' => 'required|string',
+            'description'   => 'required|string'
+        ];
+        $this->validate($request, $rules);
+
         $this->postInterface->createPost($request);
-        return redirect()->route('post.index');
+
+        return redirect()->back()->withSuccess('Create Post Successfully');
     }
 
     public function searchPost(Request $keyword) {
@@ -63,7 +70,14 @@ class PostController extends Controller
     }
 
     public function updatePost(Request $request, $id) {
+        $rules = [
+            'title' => 'required|string',
+            'description'   => 'required|string'
+        ];
+        $this->validate($request, $rules);
+
         $postList = $this->postInterface->updatePost($request, $id);
+        
         return redirect()->route('post.index');
     }
 

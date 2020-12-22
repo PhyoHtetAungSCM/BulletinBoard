@@ -14,7 +14,7 @@
                                 Name<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="name" name="name" autofocus>
+                                <input type="text" class="form-control" id="name" name="name">
                             </div>
                         </div>
                         <div class="form-group row">

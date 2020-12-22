@@ -9,6 +9,16 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('post.createPost') }}">
                         @csrf
+                        @if(session('success'))
+                            <div class="success-box">
+                                <span class="success">{{session('success')}}</span>
+                            </div>
+                        @endif
+                        @error('title')
+                            <div class="error-box">
+                                <span class="error">Form is not submitted because of missing fields.</span>
+                            </div>
+                        @enderror
                         <div class="form-group row">
                             <label for="title" class="col-md-4 col-form-label text-md-right">
                                 Title<span class="text-danger">*</span>

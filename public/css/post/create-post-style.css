@@ -1,0 +1,19 @@
+.success-box {
+    background-color: #DFF2BF;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.success {
+    color: #4F8A10;
+}
+  
+.error-box {
+    background-color: #FFD2D2;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.error {
+    color: #D8000C;
+}

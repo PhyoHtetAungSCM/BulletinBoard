@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Contracts\Dao\User\UserDaoInterface;
 use App\Post;
 use App\User;
+use DB;
 
 class UserDao implements UserDaoInterface
 {
@@ -49,6 +50,7 @@ class UserDao implements UserDaoInterface
     $user->email = $request->email;
     $user->password = Hash::make($request->password);
 
+    // http://www.expertphp.in/article/how-to-upload-save-and-display-file-from-database-in-laravel-52
     if($file = $request->hasFile('profile')) {
       $file = $request->file('profile') ;
       $fileName = $file->getClientOriginalName() ;
