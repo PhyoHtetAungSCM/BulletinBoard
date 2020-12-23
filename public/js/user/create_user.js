@@ -44,7 +44,7 @@ let loadFile = function (event) {
     let createUserProfile = document.getElementById('createUserProfile');
     createUserProfile.src = URL.createObjectURL(event.target.files[0]);
     createUserProfile.onload = function () {
-        URL.revokeObjectURL(createUserProfile.src) // free memory
+        URL.revokeObjectURL(createUserProfile.src);
     }
 };
 

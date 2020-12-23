@@ -26,28 +26,24 @@ class PostController extends Controller
 
     public function index() {
         $postList = $this->postInterface->getPostList();
-        return view('post/post-list', [
+        return view('post/post_list', [
             'postList' => $postList
         ]);
     }
 
-    public function postDetail() {
-        return view('post/post-detail');
-    }
-
     public function getCreatePost() {
-        return view('post/create-post');
+        return view('post/create_post');
     }
 
     public function getUpdatePost($id) {
         $post = $this->postInterface->getUpdatePost($id);
-        return view('post/update-post', [
+        return view('post/update_post', [
             'post' => $post
         ]);
     }
 
     public function getUploadPost() {
-        return view('post/upload-post');
+        return view('post/upload_post');
     }
 
     public function createPost(Request $request) {
@@ -64,7 +60,7 @@ class PostController extends Controller
 
     public function searchPost(Request $keyword) {
         $postList = $this->postInterface->searchPost($keyword);
-        return view('post/post-list', [
+        return view('post/post_list', [
             'postList' => $postList
         ]);
     }

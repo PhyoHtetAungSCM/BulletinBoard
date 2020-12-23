@@ -20,11 +20,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- User Styles -->
-    <link href="{{ asset('css/user/create-user-style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/user/update-user-style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/user/create_user_style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/user/update_user_style.css') }}" rel="stylesheet">
     <!-- Post Styles -->
-    <link href="{{ asset('css/post/post-list-style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/post/create-post-style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/post/post_list_style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/post/create_post_style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">

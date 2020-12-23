@@ -5,11 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header font-weight-bold">Update Post</div>
+                <div class="card-header font-weight-bold">Create Post</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('post.updatePost', ['id' => $post->id]) }}">
+                    <form method="POST" action="{{ route('post.createPost') }}">
                         @csrf
-                        @if($errors->any())
+                        @if(session('success'))
+                            <div class="success-box">
+                                <span class="success">{{session('success')}}</span>
+                            </div>
+                        @endif
+                        @error('title')
                             <div class="error-box">
                                 <span class="error">Form is not submitted because of missing fields.</span>
                             </div>
@@ -19,7 +24,7 @@
                                 Title<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control" name="title" value="{{$post->title}}">
+                                <input id="title" type="text" class="form-control" name="title" autofocus>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -27,36 +32,28 @@
                                 Description<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <textarea id="description" class="form-control" name="description" rows="3">{{$post->description}}</textarea>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-4 col-form-label text-md-right">Status</div>
-                            <div class="col-md-6">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="status" id="status" checked>
-                                </div>
+                                <textarea class="form-control" rows="3" id="description" name="description"></textarea>
                             </div>
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updatePostModal" onclick="confirmUpdatePost()">
-                                    Confirm
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createPostModal" onclick="confirmCreatePost()">
+                                    Create
                                 </button>
-                                <button type="button" class="btn btn-secondary" onclick="clearUpdatePost()">
+                                <button type="button" class="btn btn-secondary px-3">
                                     Clear
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="updatePostModal" tabindex="-1" role="dialog" aria-labelledby="updatePostModalLabel" aria-hidden="true">
+                        <!-- Create Post Modal -->
+                        <div class="modal fade" id="createPostModal" tabindex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title font-weight-bold" id="updatePostModalLabel">Update Post Confirmation</h5>
+                                        <h5 class="modal-title font-weight-bold" id="createPostModalLabel">Create Post Confirmation</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
@@ -71,12 +68,6 @@
                                                 Description
                                             </label>
                                             <label class="col-form-label" id="confirmDescription"></label>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-4 col-form-label font-weight-bold">
-                                                Status
-                                            </label>
-                                            <label class="col-form-label" id="confirmStatus"></label>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -95,5 +86,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/post/update-post.js') }}" defer></script>
+    <script src="{{ asset('js/post/create_post.js') }}" defer></script>
 @endsection

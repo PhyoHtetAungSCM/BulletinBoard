@@ -75,7 +75,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                    Confirm
+                                    Update
                                 </button>
                                 <button type="button" class="btn btn-secondary px-3">
                                     Clear
@@ -166,13 +166,5 @@
 @endsection
 
 @section('scripts')
-<script>
-    var loadFile = function(event) {
-        var updateUserProfile = document.getElementById('updateUserProfile');
-        updateUserProfile.src = URL.createObjectURL(event.target.files[0]);
-        updateUserProfile.onload = function() {
-        URL.revokeObjectURL(updateUserProfile.src) // free memory
-        }
-    };
-</script>
+<script src="{{ asset('js/user/update_user.js') }}" defer></script>
 @endsection

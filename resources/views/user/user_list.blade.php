@@ -75,8 +75,8 @@
                                     </td>
                                     <td>{{$user->phone}}</td>
                                     <td>{{$user->dob}}</td>
-                                    <td>{{$user->create_user_id}}</td>
-                                    <td>{{$user->updated_user_id}}</td>
+                                    <td>{{$user->getUserName->name}}</td>
+                                    <td>{{$user->getUserName->name}}</td>
                                     <td>
                                         <button type="button" class="btn btn-danger btn-sm btn-block deleteUser" data-deleteUserId = "{{$user->id}}">Delete</button>
                                     </td>
@@ -172,5 +172,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/user/user-list.js') }}" defer></script>
+    <script src="{{ asset('js/user/user_list.js') }}" defer></script>
 @endsection

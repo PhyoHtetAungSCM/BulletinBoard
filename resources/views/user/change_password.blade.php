@@ -36,24 +36,18 @@
                         
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal" onclick="confirmCreateUser()">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePasswordModal" onclick="confirmCreateUser()">
                                     Change
                                 </button>
-                                <button type="button" class="btn btn-secondary px-3" onclick="clearCreateUser()">
+                                <button type="button" class="btn btn-secondary px-3" onclick="clearChangePassword()">
                                     Clear
                                 </button>
                             </div>
                         </div>
-
-                        
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
-
-@section('scripts')
-    <script src="{{ asset('js/user/create-user.js') }}" defer></script>
 @endsection

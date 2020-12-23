@@ -22,38 +22,38 @@ use Illuminate\Support\Facades\Route;
 
 // For Post Screens...
 Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {
-    Route::get('/post-list', ['uses' => 'PostController@index', 'as' => 'post.index']);
+    Route::get('/post_list', ['uses' => 'PostController@index', 'as' => 'post.index']);
     
-    Route::get('/create-post', ['uses' => 'PostController@getCreatePost', 'as' => 'post.getCreatePost']);
+    Route::get('/create_post', ['uses' => 'PostController@getCreatePost', 'as' => 'post.getCreatePost']);
     
-    Route::get('/update-post/{id}', ['uses' => 'PostController@getUpdatePost', 'as' => 'post.getUpdatePost']);
+    Route::get('/update_post/{id}', ['uses' => 'PostController@getUpdatePost', 'as' => 'post.getUpdatePost']);
     
-    Route::get('/upload-post', ['uses' => 'PostController@getUploadPost', 'as' => 'post.getUploadPost']);
+    Route::get('/upload_post', ['uses' => 'PostController@getUploadPost', 'as' => 'post.getUploadPost']);
     
-    Route::post('/create-post', ['uses' => 'PostController@createPost', 'as' => 'post.createPost']);
+    Route::post('/create_post', ['uses' => 'PostController@createPost', 'as' => 'post.createPost']);
     
-    Route::post('/post-list', ['uses' => 'PostController@searchPost', 'as' => 'post.searchPost']);
+    Route::post('/post_list', ['uses' => 'PostController@searchPost', 'as' => 'post.searchPost']);
 
-    Route::post('/update-post/{id}', ['uses' => 'PostController@updatePost', 'as' => 'post.updatePost']);
+    Route::post('/update_post/{id}', ['uses' => 'PostController@updatePost', 'as' => 'post.updatePost']);
 
-    Route::delete('/post-list', ['uses' => 'PostController@deletePost', 'as' => 'post.deletePost']);
+    Route::delete('/post_list', ['uses' => 'PostController@deletePost', 'as' => 'post.deletePost']);
 });
 
 // For User Screens...
 Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function() {
-    Route::get('/user-list', ['uses' => 'UserController@index', 'as' => 'user.index']);
+    Route::get('/user_list', ['uses' => 'UserController@index', 'as' => 'user.index']);
 
-    Route::get('/user-profile', ['uses' => 'UserController@getUserProfile', 'as' => 'user.getUserProfile']);
+    Route::get('/user_profile', ['uses' => 'UserController@getUserProfile', 'as' => 'user.getUserProfile']);
 
-    Route::get('/create-user', ['uses' => 'UserController@getCreateUser', 'as' => 'user.getCreateUser']);
+    Route::get('/create_user', ['uses' => 'UserController@getCreateUser', 'as' => 'user.getCreateUser']);
     
-    Route::get('/update-user/{id}', ['uses' => 'UserController@getUpdateUser', 'as' => 'user.getUpdateUser']);
+    Route::get('/update_user/{id}', ['uses' => 'UserController@getUpdateUser', 'as' => 'user.getUpdateUser']);
 
-    Route::get('/change-password', ['uses' => 'UserController@getChangePassword', 'as' => 'user.getChangePassword']);
+    Route::get('/change_password', ['uses' => 'UserController@getChangePassword', 'as' => 'user.getChangePassword']);
 
-    Route::post('/create-user', ['uses' => 'UserController@createUser', 'as' => 'user.createUser']);
+    Route::post('/create_user', ['uses' => 'UserController@createUser', 'as' => 'user.createUser']);
 
-    Route::post('/user-list', ['uses' => 'UserController@searchUser', 'as' => 'user.searchUser']);
+    Route::post('/user_list', ['uses' => 'UserController@searchUser', 'as' => 'user.searchUser']);
 
-    Route::delete('/user-list', ['uses' => 'UserController@deleteUser', 'as' => 'user.deleteUser']);
+    Route::delete('/user_list', ['uses' => 'UserController@deleteUser', 'as' => 'user.deleteUser']);
 });

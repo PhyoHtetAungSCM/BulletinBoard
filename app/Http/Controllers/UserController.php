@@ -20,37 +20,36 @@ class UserController extends Controller
 
     public function __construct(UserServiceInterface $userInterface)
     {
-        // $this->middleware('auth');
         $this->userInterface = $userInterface;
     }
 
     public function index() {
         $userList = $this->userInterface->getUserList();
-        return view('user/user-list', [
+        return view('user/user_list', [
             'userList' => $userList
         ]);
     }
 
     public function getUserProfile() {
         $userProfile = $this->userInterface->userProfile();
-        return view('user/user-profile', [
+        return view('user/user_profile', [
             'userProfile' => $userProfile
         ]);
     }
 
     public function getUpdateUser($id) {
         $user = $this->userInterface->getUpdateUser($id);
-        return view('user/update-user', [
+        return view('user/update_user', [
             'user' => $user
         ]);
     }
 
     public function getChangePassword() {
-        return view('user/change-password');
+        return view('user/change_password');
     }
 
     public function getCreateUser() {
-        return view('user/create-user');
+        return view('user/create_user');
     }
 
     public function createUser(Request $request) {
@@ -60,7 +59,7 @@ class UserController extends Controller
 
     public function searchUser(Request $keyword) {
         $userList = $this->userInterface->searchUser($keyword);
-        return view('user/user-list', [
+        return view('user/user_list', [
             'userList' => $userList
         ]);
     }

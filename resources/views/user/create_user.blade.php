@@ -81,7 +81,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal" onclick="confirmCreateUser()">
-                                    Confirm
+                                    Create
                                 </button>
                                 <button type="button" class="btn btn-secondary px-3" onclick="clearCreateUser()">
                                     Clear
@@ -154,5 +154,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/user/create-user.js') }}" defer></script>
+    <script src="{{ asset('js/user/create_user.js') }}" defer></script>
 @endsection

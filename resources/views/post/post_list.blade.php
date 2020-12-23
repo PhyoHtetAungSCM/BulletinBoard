@@ -65,13 +65,17 @@
                                     <td>{{$post->created_at->format('d/m/Y')}}</td>
                                     <td>{{$post->updated_at->format('d/m/Y')}}</td>
                                     <td class="px-1">
-                                        @if(Auth::user()->id === $post->create_user_id)
-                                            <a type="button" style="width: 60px;" class="btn btn-primary btn-sm" href="{{ route('post.getUpdatePost', ['id' => $post->id]) }}">Edit</a>
+                                        @if(Auth::check())
+                                            @if(Auth::user()->id === $post->create_user_id)
+                                                <a type="button" style="width: 60px;" class="btn btn-primary btn-sm" href="{{ route('post.getUpdatePost', ['id' => $post->id]) }}">Edit</a>
+                                            @endif
                                         @endif
                                     </td>
                                     <td class="px-1">
-                                        @if(Auth::user()->id === $post->create_user_id)
-                                            <button type="button" style="width: 60px;" class="btn btn-danger btn-sm deletePost" data-deletePostId = "{{$post->id}}">Delete</button>
+                                        @if(Auth::check())
+                                            @if(Auth::user()->id === $post->create_user_id)
+                                                <button type="button" style="width: 60px;" class="btn btn-danger btn-sm deletePost" data-deletePostId = "{{$post->id}}">Delete</button>
+                                            @endif
                                         @endif
                                     </td>
                                 </tr>
@@ -149,5 +153,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/post/post-list.js') }}" defer></script>
+    <script src="{{ asset('js/post/post_list.js') }}" defer></script>
 @endsection
