@@ -1,19 +1,20 @@
-.success-box {
+.success-post-box {
     background-color: #DFF2BF;
     margin-bottom: 20px;
     padding: 10px;
 }
 
-.success {
+.success-post {
     color: #4F8A10;
 }
   
-.error-box {
+.error-post-box {
     background-color: #FFD2D2;
     margin-bottom: 20px;
     padding: 10px;
 }
 
-.error {
+.error-post {
+    font-size: 1em;
     color: #D8000C;
 }

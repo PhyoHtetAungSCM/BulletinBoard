@@ -9,6 +9,13 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('user.createUser') }}" enctype="multipart/form-data">
                         @csrf
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <div class="error-user-box">
+                                    <span class="error-user">{{$error}}</span>
+                                </div>
+                            @endforeach
+                        @endif
                         <div class="form-group row">
                             <label for="title" class="col-md-4 col-form-label text-md-right font-weight-bold">
                                 Name<span class="text-danger">*</span>
@@ -22,7 +29,7 @@
                                 Email Address<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input type="email" class="form-control" id="email" name="email">
+                                <input type="text" class="form-control" id="email" name="email">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -38,7 +45,7 @@
                                 Confirm Password<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+                                <input type="password" class="form-control" id="confirmPassword" name="password_confirmation">
                             </div>
                         </div>
                         <div class="form-group row dropdown">

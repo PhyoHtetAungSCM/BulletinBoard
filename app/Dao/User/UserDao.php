@@ -33,12 +33,18 @@ class UserDao implements UserDaoInterface
   {
     $authId = Auth::id();
     $userProfile = User::find($authId);
+    if($userProfile->profile) {
+      $userProfile->profile = decrypt($userProfile->profile);
+    }
     return $userProfile;
   }
 
   public function getUpdateUser($id)
   {
     $user = User::find($id);
+    if($user->profile) {
+      $user->profile = decrypt($user->profile);
+    }
     return $user;
   }
 
@@ -56,7 +62,7 @@ class UserDao implements UserDaoInterface
       $fileName = $file->getClientOriginalName() ;
       $destinationPath = public_path().'/images/' ;
       $file->move($destinationPath, $fileName);
-      $user->profile = $fileName ;
+      $user->profile = encrypt($fileName);
     }
 
     $user->type = $request->type;

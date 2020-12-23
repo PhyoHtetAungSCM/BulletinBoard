@@ -1,4 +1,8 @@
 function confirmCreateUser() {
+    let confirmName = document.getElementById('confirmName');
+    let confirmEmail = document.getElementById('confirmEmail');
+    let confirmType = document.getElementById('confirmType');
+    let confirmProfile = document.getElementById("confirmProfile");
 
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
@@ -7,22 +11,36 @@ function confirmCreateUser() {
     let dob = document.getElementById('dob').value;
     let profile = document.getElementById("profile");
 
-    document.getElementById('confirmName').innerHTML = name;
-    document.getElementById('confirmEmail').innerHTML = email;
-
-    if (type === "0") {
-        document.getElementById('confirmType').innerHTML = "Admin";
+    if(name) {
+        confirmName.innerHTML = name;
     } else {
-        document.getElementById('confirmType').innerHTML = "User";
+        confirmName.classList.add("error-user");
+        confirmName.innerHTML = "This name field is required";
     }
 
-    document.getElementById('confirmPhone').innerHTML = phone;
-    document.getElementById('confirmDob').innerHTML = dob;
+    if(email) {
+        confirmEmail.innerHTML = email;
+    } else {
+        confirmEmail.classList.add("error-user");
+        confirmEmail.innerHTML = "This email field is required";
+    }
+
+    if(!type) {
+        confirmType.classList.add("error-user");
+        confirmType.innerHTML = "This type field is required";
+    } else if (type === "0") {
+        confirmType.innerHTML = "Admin";
+    } else {
+        confirmType.innerHTML = "User";
+    }
+
+    confirmPhone.innerHTML = phone;
+
+    confirmDob.innerHTML = dob;
 
     let fReader = new FileReader();
     fReader.readAsDataURL(profile.files[0]);
     fReader.onloadend = function (event) {
-        let confirmProfile = document.getElementById("confirmProfile");
         confirmProfile.src = event.target.result;
     }
 }

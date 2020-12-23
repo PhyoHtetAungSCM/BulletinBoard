@@ -10,7 +10,7 @@
                     <form method="POST" action="{{ route('post.updatePost', ['id' => $post->id]) }}">
                         @csrf
                         @if($errors->any())
-                            <div class="error-box">
+                            <div class="error-post-box">
                                 <span class="error">Form is not submitted because of missing fields.</span>
                             </div>
                         @enderror

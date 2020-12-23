@@ -53,6 +53,15 @@ class UserController extends Controller
     }
 
     public function createUser(Request $request) {
+        
+        $rules = [
+            'name' => 'required|string',
+            'email'   => 'required|email',
+            'password' => 'required|confirmed|min:6',
+            'image' => 'mimes:jpeg,jpg,bmp,png'
+        ];
+        $this->validate($request, $rules);
+
         $this->userInterface->createUser($request);
         return redirect()->route('user.index');
     }

@@ -10,13 +10,13 @@
                     <form method="POST" action="{{ route('post.createPost') }}">
                         @csrf
                         @if(session('success'))
-                            <div class="success-box">
-                                <span class="success">{{session('success')}}</span>
+                            <div class="success-post-box">
+                                <span class="success-post">{{session('success')}}</span>
                             </div>
                         @endif
                         @error('title')
-                            <div class="error-box">
-                                <span class="error">Form is not submitted because of missing fields.</span>
+                            <div class="error-post-box">
+                                <span class="error-post">Form is not submitted because of missing fields.</span>
                             </div>
                         @enderror
                         <div class="form-group row">

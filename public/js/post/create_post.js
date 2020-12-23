@@ -4,13 +4,13 @@ function confirmCreatePost() {
     if(title) {
         document.getElementById('confirmTitle').innerHTML = title;
     } else {
-        document.getElementById('confirmTitle').classList.add("error");
+        document.getElementById('confirmTitle').classList.add("error-post");
         document.getElementById('confirmTitle').innerHTML = "This title  field is required";
     }
     if(description) {
         document.getElementById('confirmDescription').innerHTML = description;
     } else {
-        document.getElementById('confirmDescription').classList.add("error");
+        document.getElementById('confirmDescription').classList.add("error-post");
         document.getElementById('confirmDescription').innerHTML = "This description field is required";
     }
 }
