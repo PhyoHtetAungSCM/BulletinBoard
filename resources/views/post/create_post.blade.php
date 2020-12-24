@@ -14,11 +14,13 @@
                                 <span class="success-post">{{session('success')}}</span>
                             </div>
                         @endif
-                        @error('title')
-                            <div class="error-post-box">
-                                <span class="error-post">Form is not submitted because of missing fields.</span>
-                            </div>
-                        @enderror
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <div class="error-post-box">
+                                    <span class="error-post">{{$error}}</span>
+                                </div>
+                            @endforeach
+                        @endif
                         <div class="form-group row">
                             <label for="title" class="col-md-4 col-form-label text-md-right">
                                 Title<span class="text-danger">*</span>
@@ -58,16 +60,16 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group row">
-                                            <label class="col-md-4 col-form-label font-weight-bold">
+                                            <label class="col-md-4 col-sm-3 col-form-label font-weight-bold">
                                                 Title
                                             </label>
-                                            <label class="col-form-label" id="confirmTitle"></label>
+                                            <label class="col-md-8 col-sm-9 col-form-label" id="confirmTitle"></label>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-md-4 col-form-label font-weight-bold">
+                                            <label class="col-md-4 col-sm-3 col-form-label font-weight-bold">
                                                 Description
                                             </label>
-                                            <label class="col-form-label" id="confirmDescription"></label>
+                                            <label class="col-md-8 col-sm-9 col-form-label" id="confirmDescription"></label>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

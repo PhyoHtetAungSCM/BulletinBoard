@@ -37,12 +37,16 @@ function confirmCreateUser() {
     confirmPhone.innerHTML = phone;
 
     confirmDob.innerHTML = dob;
-
-    let fReader = new FileReader();
-    fReader.readAsDataURL(profile.files[0]);
-    fReader.onloadend = function (event) {
-        confirmProfile.src = event.target.result;
+    if(profile.value) {
+        confirmProfile.src = `/images/${profile.files[0]['name']}`;
     }
+
+    // <----- The next level play ----->
+    // let fReader = new FileReader();
+    // fReader.readAsDataURL(profile.files[0]);
+    // fReader.onloadend = function (event) {
+    //     confirmProfile.src = event.target.result;
+    // }
 }
 
 function clearCreateUser() {
@@ -57,7 +61,6 @@ function clearCreateUser() {
     document.getElementById("createUserProfile").removeAttribute('src');
 }
 
-
 let loadFile = function (event) {
     let createUserProfile = document.getElementById('createUserProfile');
     createUserProfile.src = URL.createObjectURL(event.target.files[0]);
@@ -66,4 +69,15 @@ let loadFile = function (event) {
     }
 };
 
-
+$(document).on('click', '.createUser', function () {
+    $('#form').validate({
+        rules: {
+            name: {
+                required: true
+            },
+            email: {
+                required: true
+            }
+        }
+    });
+});

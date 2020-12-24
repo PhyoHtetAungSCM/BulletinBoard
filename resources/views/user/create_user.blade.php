@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header font-weight-bold">Create User</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('user.createUser') }}" enctype="multipart/form-data">
+                    <form id="form" method="POST" action="{{ route('user.createUser') }}" enctype="multipart/form-data">
                         @csrf
                         @if ($errors->any())
                             @foreach ($errors->all() as $error)
@@ -87,7 +87,7 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal" onclick="confirmCreateUser()">
+                                <button type="button" class="btn btn-primary createUser">
                                     Create
                                 </button>
                                 <button type="button" class="btn btn-secondary px-3" onclick="clearCreateUser()">

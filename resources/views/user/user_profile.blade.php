@@ -11,7 +11,9 @@
                     <div class="form-group row mb-4">
                         <div class="col-md-12 d-flex justify-content-center">
                             <div class="user-profile-container">
-                                <img class="user-profile-image" src="/images/{{$userProfile->profile}}"/>
+                                @if($userProfile->profile)
+                                    <img class="user-profile-image" src="/images/{{$userProfile->profile}}"/>
+                                @endif
                             </div>
                         </div>
                     </div>

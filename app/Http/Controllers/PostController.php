@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Services\Post\PostServiceInterface;
 use App\Http\Controllers\Controller;
+use App\Exports\CsvExport;
+use App\Imports\CsvImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use App\Post;
 
 use Illuminate\Http\Request;
@@ -48,7 +52,7 @@ class PostController extends Controller
 
     public function createPost(Request $request) {
         $rules = [
-            'title' => 'required|string',
+            'title' => 'required|string|max:255|unique:posts',
             'description'   => 'required|string'
         ];
         $this->validate($request, $rules);
@@ -67,8 +71,9 @@ class PostController extends Controller
 
     public function updatePost(Request $request, $id) {
         $rules = [
-            'title' => 'required|string',
-            'description'   => 'required|string'
+            'title' => 'required|string|max:255|unique:posts',
+            'description'   => 'required|string',
+            'status' => 'required|string'
         ];
         $this->validate($request, $rules);
 
@@ -80,5 +85,14 @@ class PostController extends Controller
     public function deletePost(Request $request) {
         $postList = $this->postInterface->deletePost($request);
         return redirect()->route('post.index');
+    }
+
+    public function csvExport() {
+        return Excel::download(new CsvExport, 'SCMBulletinBoard.csv');
+    }
+
+    public function csvImport(Request $request) {
+        Excel::import(new CsvImport, $request->file('file'));
+        return back();
     }
 }

@@ -9,11 +9,13 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('post.updatePost', ['id' => $post->id]) }}">
                         @csrf
-                        @if($errors->any())
-                            <div class="error-post-box">
-                                <span class="error">Form is not submitted because of missing fields.</span>
-                            </div>
-                        @enderror
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <div class="error-post-box">
+                                    <span class="error">{{$error}}</span>
+                                </div>
+                            @endforeach
+                        @endif
                         <div class="form-group row">
                             <label for="title" class="col-md-4 col-form-label text-md-right">
                                 Title<span class="text-danger">*</span>
@@ -31,10 +33,12 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-4 col-form-label text-md-right">Status</div>
-                            <div class="col-md-6">
+                            <label for="status" class="col-md-4 col-sm-2 col-form-label text-md-right">
+                                Status
+                            </label>
+                            <div class="col-md-6 col-sm-8 form-check">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="status" id="status" checked>
+                                    <input class="form-check-input" type="checkbox" name="status" id="status" value="1" checked>
                                 </div>
                             </div>
                         </div>
@@ -61,22 +65,22 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group row">
-                                            <label class="col-md-4 col-form-label font-weight-bold">
+                                            <label class="col-md-4 col-sm-3 col-form-label font-weight-bold">
                                                 Title
                                             </label>
-                                            <label class="col-form-label" id="confirmTitle"></label>
+                                            <label class="col-md-8 col-sm-9 col-form-label" id="confirmTitle"></label>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-md-4 col-form-label font-weight-bold">
+                                            <label class="col-md-4 col-sm-3 col-form-label font-weight-bold">
                                                 Description
                                             </label>
-                                            <label class="col-form-label" id="confirmDescription"></label>
+                                            <label class="col-md-8 col-sm-9 col-form-label" id="confirmDescription"></label>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-md-4 col-form-label font-weight-bold">
+                                            <label class="col-md-4 col-sm-3 col-form-label font-weight-bold">
                                                 Status
                                             </label>
-                                            <label class="col-form-label" id="confirmStatus"></label>
+                                            <label class="col-md-8 col-sm-9 col-form-label" id="confirmStatus"></label>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

@@ -58,7 +58,11 @@ class PostDao implements PostDaoInterface
     $updatePost = Post::find($id);
     $updatePost->title = $request->title;
     $updatePost->description = $request->description;
-    $updatePost->status = $request->status;
+    if($request->status === "1") {
+        $updatePost->status = 1;
+    } else {
+        $updatePost->status = 0;
+    }
     return $updatePost->save();
   }
 
@@ -66,6 +70,8 @@ class PostDao implements PostDaoInterface
   {
     $deletePost = Post::find($request->input('deletePostId'));
     $deletePost->status = 0;
+    $deletePost->deleted_user_id = Auth::id();
+    $deletePost->deleted_at = Carbon::now();
     return $deletePost->save();
   }
 }

@@ -6,9 +6,13 @@ interface PostDaoInterface
 {
   public function getPostList();
 
-  public function searchPost($keyword);
-
   public function getUpdatePost($id);
 
   public function createPost($request);
+
+  public function searchPost($keyword);
+
+  public function updatePost($request, $id);
+
+  public function deletePost($request);
 }

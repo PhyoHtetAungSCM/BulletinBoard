@@ -29,6 +29,8 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {
     Route::get('/update_post/{id}', ['uses' => 'PostController@getUpdatePost', 'as' => 'post.getUpdatePost']);
     
     Route::get('/upload_post', ['uses' => 'PostController@getUploadPost', 'as' => 'post.getUploadPost']);
+
+    Route::get('/post_list/export', ['uses' => 'PostController@csvExport', 'as' => 'post.export']);
     
     Route::post('/create_post', ['uses' => 'PostController@createPost', 'as' => 'post.createPost']);
     
@@ -37,6 +39,8 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {
     Route::post('/update_post/{id}', ['uses' => 'PostController@updatePost', 'as' => 'post.updatePost']);
 
     Route::delete('/post_list', ['uses' => 'PostController@deletePost', 'as' => 'post.deletePost']);
+
+    Route::post('/upload_post/import', ['uses' => 'PostController@csvImport', 'as' => 'post.import']);
 });
 
 // For User Screens...
@@ -49,7 +53,7 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function() {
     
     Route::get('/update_user/{id}', ['uses' => 'UserController@getUpdateUser', 'as' => 'user.getUpdateUser']);
 
-    Route::get('/change_password', ['uses' => 'UserController@getChangePassword', 'as' => 'user.getChangePassword']);
+    Route::get('/update_user/change_password', ['uses' => 'UserController@getChangePassword', 'as' => 'user.getChangePassword']);
 
     Route::post('/create_user', ['uses' => 'UserController@createUser', 'as' => 'user.createUser']);
 

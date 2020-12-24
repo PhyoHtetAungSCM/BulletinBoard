@@ -26,9 +26,9 @@
                                     <a href="{{ route('post.getUploadPost') }}" type="button" class="btn btn-primary btn-block">Upload</a>
                                 </div>
                                 <div class="col-lg-2 col-md-6 col-sm-12 p-1">
-                                    <button type="button" class="btn btn-primary btn-block">
-                                        <img src="{{asset('images/download-icon.png')}}"/>
-                                    </button>
+                                    <a type="button" class="btn btn-primary btn-block" href="{{ route('post.export') }}">
+                                        Download
+                                    </a>
                                 </div>
                             @endif
                         </div>
@@ -66,14 +66,14 @@
                                     <td>{{$post->updated_at->format('d/m/Y')}}</td>
                                     <td class="px-1">
                                         @if(Auth::check())
-                                            @if(Auth::user()->id === $post->create_user_id)
+                                            @if(Auth::user()->type === 0 || Auth::user()->id === $post->create_user_id)
                                                 <a type="button" style="width: 60px;" class="btn btn-primary btn-sm" href="{{ route('post.getUpdatePost', ['id' => $post->id]) }}">Edit</a>
                                             @endif
                                         @endif
                                     </td>
                                     <td class="px-1">
                                         @if(Auth::check())
-                                            @if(Auth::user()->id === $post->create_user_id)
+                                            @if(Auth::user()->type === 0 || Auth::user()->id === $post->create_user_id)
                                                 <button type="button" style="width: 60px;" class="btn btn-danger btn-sm deletePost" data-deletePostId = "{{$post->id}}">Delete</button>
                                             @endif
                                         @endif

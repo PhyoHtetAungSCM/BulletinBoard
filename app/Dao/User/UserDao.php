@@ -77,17 +77,17 @@ class UserDao implements UserDaoInterface
 
   public function searchUser($keyword)
   {
-    $userList = User::all();
-
-    if($keyword->name) {
-      $userList = User::where('name', 'like', "%{$keyword->name}%");
-    }
-
-    if($keyword->email) {
-      $userList = User::where('email', 'like', "%{$keyword->email}%");
-    }
-
-    return $userList->paginate(5);
+    $userList = User::where('name', 'like', "%{$keyword->name}%")
+                        ->when($keyword->email, function($query) use($keyword) {
+                            $query->where('email', 'like', "%{$keyword->email}%");
+                          })
+                        ->when($keyword->created_at, function($query) use($keyword) {
+                            $query->where('created_at', 'like', "%{$keyword->createdFrom}%");
+                          })
+                        ->when($keyword->created_at, function($query) {
+                            $query->where('title', 'like', "%{$keyword->createdTo}%");;
+                        })->paginate(5);
+    return $userList;
   }
 
   public function deleteUser($request)

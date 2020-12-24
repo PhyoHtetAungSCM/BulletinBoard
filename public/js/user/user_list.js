@@ -17,7 +17,11 @@ $(document).on('click', '.userDetail', function () {
 
     $('#detailPhone').text(phone);
     $('#detailDob').text(dob);
-    $('#detailProfile').text(profile);
+    
+    if(profile) {
+        $("#detailProfile").attr('src', `/images/${profile}`);
+    }
+    
     $('#userDetailModal').modal('show');
 });
 

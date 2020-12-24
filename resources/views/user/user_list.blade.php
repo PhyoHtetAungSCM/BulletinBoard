@@ -18,13 +18,13 @@
                                 <input type="text" class="form-control" name="name" placeholder="Name">
                             </div>
                             <div class="col-lg-2 col-md-3 col-sm-6 p-1">
-                                <input type="email" class="form-control" name="email" placeholder="Email">
+                                <input type="text" class="form-control" name="email" placeholder="Email">
                             </div>
                             <div class="col-lg-2 col-md-3 col-sm-6 p-1">
-                                <input type="text" class="form-control" placeholder="Created From">
+                                <input type="text" class="form-control" name="createdFrom" placeholder="Created From">
                             </div>
                             <div class="col-lg-2 col-md-3 col-sm-6 p-1">
-                                <input type="text" class="form-control" placeholder="Created To">
+                                <input type="text" class="form-control" name="createdTo" placeholder="Created To">
                             </div>
                             <div class="col-lg-2 col-md-6 col-sm-6 p-1">
                                 <input type="submit" class="btn btn-primary btn-block" value="Search">
@@ -94,6 +94,13 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        <div class="user-profile-container">
+                                            <img class="user-profile-image" id="detailProfile"/>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group row">

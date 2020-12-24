@@ -12,7 +12,9 @@
                         <div class="form-group row mb-4">
                             <div class="col-md-12 d-flex justify-content-center">
                                 <div class="user-profile-container">
-                                    <img class="user-profile-image" src="/images/{{$user->profile}}"/>
+                                    @if($user->profile)
+                                        <img class="user-profile-image" src="/images/{{$user->profile}}"/>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -29,7 +31,7 @@
                                 Email Address<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{$user->email}}">
+                                <input type="text" class="form-control" name="email" value="{{$user->email}}">
                             </div>
                         </div>
                         <div class="form-group row dropdown">
