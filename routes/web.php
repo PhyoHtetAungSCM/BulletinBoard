@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Authentication Routes...
+/** Authentication Routes */
     Route::get('/', ['uses' => 'PostController@index', 'as' => 'post.index']);
 
     Route::get('/login', ['uses' => 'Auth\LoginController@showLoginForm', 'as' => 'login']);
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('logout', ['uses' => 'Auth\LoginController@logout', 'as' => 'logout']);
 
-// For Post Screens...
+/** For Post Screens */
 Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {
     Route::get('/post_list', ['uses' => 'PostController@index', 'as' => 'post.index']);
     
@@ -24,8 +24,6 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {
     Route::get('/post_list/export', ['uses' => 'PostController@csvExport', 'as' => 'post.export']);
     
     Route::post('/create_post', ['uses' => 'PostController@createPost', 'as' => 'post.createPost']);
-    
-    Route::post('/post_list', ['uses' => 'PostController@searchPost', 'as' => 'post.searchPost']);
 
     Route::post('/update_post/{id}', ['uses' => 'PostController@updatePost', 'as' => 'post.updatePost']);
 
@@ -33,8 +31,9 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {
 
     Route::post('/upload_post/import', ['uses' => 'PostController@csvImport', 'as' => 'post.import']);
 });
+Route::post('/post_list', ['uses' => 'PostController@searchPost', 'as' => 'post.searchPost']);
 
-// For User Screens...
+/** For User Screens */
 Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function() {
     Route::get('/user_list', ['uses' => 'UserController@index', 'as' => 'user.index']);
 
