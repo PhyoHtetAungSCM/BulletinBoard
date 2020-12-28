@@ -45,15 +45,22 @@ class PostDao implements PostDaoInterface
    */
   public function createPost($request)
   {
-    $authId = Auth::id();
+    /** Retrieve data from session */
+    $title = session()->get('post')['title'];
+    $description = session()->get('post')['description'];
+
+    /** Save data into database */
     $post = new Post();
-    $post->title = $request->title;
-    $post->description = $request->description;
-    $post->create_user_id = $authId;
-    $post->updated_user_id = $authId;
+    $post->title = $title;
+    $post->description = $description;
+    $post->create_user_id = Auth::id();
+    $post->updated_user_id = Auth::id();
     $post->created_at = Carbon::now();
     $post->updated_at = Carbon::now();
-    return $post->save();
+    $post->save();
+
+    /** Remove Session */
+    session()->forget('post');
   }
 
   /**
@@ -82,17 +89,27 @@ class PostDao implements PostDaoInterface
    */
   public function updatePost($request, $id)
   {
+    $update = session()->get('update-post');
+    /** Retrieve data from session */
+    $title = $update['title'];
+    $description = $update['description'];
+    $status = $update['status'];
+
+    /** Save data into database */
     $updatePost = Post::find($id);
-    $updatePost->title = $request->title;
-    $updatePost->description = $request->description;
-    if($request->status) {
+    $updatePost->title = $title;
+    $updatePost->description = $description;
+    if($status) {
         $updatePost->status = 1;
     } else {
         $updatePost->status = 0;
     }
     $updatePost->updated_user_id = Auth::id();
     $updatePost->updated_at = Carbon::now();
-    return $updatePost->save();
+    $updatePost->save();
+
+    /** Remove Session */
+    session()->forget('post');
   }
 
   /**

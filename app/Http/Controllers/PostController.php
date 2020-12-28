@@ -85,12 +85,27 @@ class PostController extends Controller
      */
     public function createPost(Request $request) 
     {
+        $post = $this->postInterface->createPost($request);
+        return redirect()->route('post.index');
+    }
+
+    /**
+     * Create Post Confirm
+     * 
+     * @param Request $request
+     * @return IlluminateHttpResponse with post
+     */
+    public function createPostConfirm(Request $request) 
+    {
         $request->validate([
-            'title' => 'required|string|max:255|unique:posts',
+            'title' => 'required|string|max:255|unique:posts,title',
             'description'   => 'required|string'
         ]);
-        $this->postInterface->createPost($request);
-        return redirect()->back()->withSuccess('Create Post Successful');
+        $request->flash();
+        session()->put('post', ['title' => $request->title, 'description' => $request->description]);
+        return view('post/create_post_confirm', [
+            'post' => $request
+        ]);
     }
 
     /**
@@ -116,12 +131,33 @@ class PostController extends Controller
      */
     public function updatePost(Request $request, $id) 
     {
+        $post = $this->postInterface->updatePost($request, $id);
+        return redirect()->route('post.index');
+    }
+
+    /**
+     * Update Post Confirm
+     * 
+     * @param Request $request
+     * @return IlluminateHttpResponse with post
+     */
+    public function updatePostConfirm(Request $request, $id) 
+    {
         $request->validate([
             'title' => 'required|string|max:255|unique:posts,title,'.$id,
             'description'   => 'required|string'
         ]);
-        $this->postInterface->updatePost($request, $id);
-        return redirect()->route('post.index');
+        $request->flash();
+        session()->put('update-post', [
+            'id' => $id, 
+            'title' => $request->title, 
+            'description' => $request->description,
+            'status' => $request->status
+        ]);
+        return view('post/update_post_confirm', [
+            'id' => $id,
+            'post' => $request
+        ]);
     }   
 
     /**

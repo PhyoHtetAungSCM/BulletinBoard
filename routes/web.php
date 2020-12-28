@@ -25,7 +25,11 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {
     
     Route::post('/create_post', ['uses' => 'PostController@createPost', 'as' => 'post.createPost']);
 
+    Route::post('/create_post_confirm', ['uses' => 'PostController@createPostConfirm', 'as' => 'post.createPostConfirm']);
+
     Route::post('/update_post/{id}', ['uses' => 'PostController@updatePost', 'as' => 'post.updatePost']);
+
+    Route::post('/update_post_confirm/{id}', ['uses' => 'PostController@updatePostConfirm', 'as' => 'post.updatePostConfirm']);
 
     Route::delete('/post_list', ['uses' => 'PostController@deletePost', 'as' => 'post.deletePost']);
 
