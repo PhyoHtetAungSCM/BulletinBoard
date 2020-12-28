@@ -63,7 +63,7 @@
 							Date of Birth:
 						</label>
 						<label class="col-md-6 col-form-label">
-							{{$userProfile->dob}}
+							{{ $userProfile->dob }}
 						</label> 
 					</div>
 				</div>

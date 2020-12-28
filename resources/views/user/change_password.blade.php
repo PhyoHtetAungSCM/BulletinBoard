@@ -7,14 +7,21 @@
 			<div class="card">
 				<div class="card-header font-weight-bold">Change Password</div>
 				<div class="card-body">
-					<form method="POST" action="#" enctype="multipart/form-data">
+					<form method="POST" action="{{ route('user.changePassword') }}" enctype="multipart/form-data">
 						@csrf
+						@if($errors->any())
+							<div class="user-error-box">
+								@foreach($errors->all() as $error)
+									<span class="user-error-message">{{ $error }}</span>
+								@endforeach
+							</div>
+						@endif
 						<div class="form-group row">
-							<label for="oldPpassword" class="col-md-4 col-form-label text-md-right font-weight-bold">
+							<label for="oldPassword" class="col-md-4 col-form-label text-md-right font-weight-bold">
 								Old Password<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" id="oldPassword" name="oldPassword">
+								<input type="password" class="form-control" id="password" name="password">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -22,7 +29,7 @@
 								Confirm Password<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+								<input type="password" class="form-control" id="confirmPassword" name="password_confirmation">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -30,16 +37,16 @@
 								New Password<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" id="newPassword" name="newPassword">
+								<input type="password" class="form-control" id="newPassword" name="new_password">
 							</div>
 						</div>
 						
 						<div class="form-group row mb-0">
 							<div class="col-md-8 offset-md-4">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePasswordModal" onclick="confirmCreateUser()">
+								<button type="submit" class="btn btn-primary">
 									Change
 								</button>
-								<button type="button" class="btn btn-secondary px-3" onclick="clearChangePassword()">
+								<button type="button" class="btn btn-secondary px-3" onclick="changePasswordClearance()">
 									Clear
 								</button>
 							</div>

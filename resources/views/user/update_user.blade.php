@@ -83,7 +83,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <a href="{{route('user.getChangePassword')}}" class="col-md-4 text-md-right">Change Password</a>
+              <a href="{{ route('user.getChangePassword') }}" class="col-md-4 text-md-right">Change Password</a>
             </div>
             <div class="form-group row mb-0">
               <div class="col-md-8 offset-md-4">

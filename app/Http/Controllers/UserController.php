@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 use App\Contracts\Services\User\UserServiceInterface;
 use App\Http\Controllers\Controller;
@@ -141,5 +143,21 @@ class UserController extends Controller
     public function deleteUser(Request $request) {
         $this->userInterface->deleteUser($request);
         return redirect()->route('user.index');
+    }
+
+    public function changePassword(Request $request) 
+    {
+        $request->validate([
+            'password' => [
+                'required',  function($attribute, $value, $fail) {
+                    if(!Hash::check($value, Auth::user()->password)) {
+                        $fail('The old password is not correct.');
+                    }
+                }, 'confirmed', 'min:6'
+            ],
+            'new_password'   => 'required|min:6'
+        ]);
+        $this->userInterface->changePassword($request);
+        return redirect()->route('post.index');
     }
 }

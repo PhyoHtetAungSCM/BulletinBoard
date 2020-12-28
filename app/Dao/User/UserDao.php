@@ -36,7 +36,7 @@ class UserDao implements UserDaoInterface
   {
     $user = User::find($id);
     if($user->profile) {
-      $user->profile = decrypt($user->profile);
+        $user->profile = decrypt($user->profile);
     }
     return $user;
   }
@@ -51,7 +51,7 @@ class UserDao implements UserDaoInterface
     $authId = Auth::id();
     $userProfile = User::find($authId);
     if($userProfile->profile) {
-      $userProfile->profile = decrypt($userProfile->profile);
+        $userProfile->profile = decrypt($userProfile->profile);
     }
     return $userProfile;
   }
@@ -74,16 +74,15 @@ class UserDao implements UserDaoInterface
 
     // http://www.expertphp.in/article/how-to-upload-save-and-display-file-from-database-in-laravel-52
     if($file = $request->hasFile('profile')) {
-      $file = $request->file('profile') ;
-      $fileName = $file->getClientOriginalName() ;
-      $destinationPath = public_path().'/images/' ;
-      $file->move($destinationPath, $fileName);
-      $user->profile = encrypt($fileName);
+        $file = $request->file('profile') ;
+        $fileName = $file->getClientOriginalName() ;
+        $destinationPath = public_path().'/images/' ;
+        $file->move($destinationPath, $fileName);
+        $user->profile = encrypt($fileName);
     }
 
     $user->create_user_id = Auth::id();
     $user->updated_user_id = Auth::id();
-    
     return $user->save();
   }
 
@@ -96,15 +95,15 @@ class UserDao implements UserDaoInterface
   public function searchUser($keyword)
   {
     $userList = User::where('name', 'like', "%{$keyword->name}%")
-                        ->when($keyword->email, function($query) use($keyword) {
-                            $query->where('email', 'like', "%{$keyword->email}%");
-                          })
-                        ->when($keyword->created_at, function($query) use($keyword) {
-                            $query->where('created_at', 'like', "%{$keyword->createdFrom}%");
-                          })
-                        ->when($keyword->created_at, function($query) use($keyword) {
-                            $query->where('title', 'like', "%{$keyword->createdTo}%");;
-                        })->paginate(5);
+                    ->when($keyword->email, function($query) use($keyword) {
+                        $query->where('email', 'like', "%{$keyword->email}%");
+                    })
+                    ->when($keyword->created_at, function($query) use($keyword) {
+                        $query->where('created_at', 'like', "%{$keyword->createdFrom}%");
+                    })
+                    ->when($keyword->created_at, function($query) use($keyword) {
+                        $query->where('title', 'like', "%{$keyword->createdTo}%");;
+                    })->paginate(5);
     return $userList;
   }
 
@@ -126,11 +125,11 @@ class UserDao implements UserDaoInterface
 
     // http://www.expertphp.in/article/how-to-upload-save-and-display-file-from-database-in-laravel-52
     if($file = $request->hasFile('profile')) {
-      $file = $request->file('profile') ;
-      $fileName = $file->getClientOriginalName() ;
-      $destinationPath = public_path().'/images/' ;
-      $file->move($destinationPath, $fileName);
-      $updateUser->profile = encrypt($fileName);
+        $file = $request->file('profile') ;
+        $fileName = $file->getClientOriginalName() ;
+        $destinationPath = public_path().'/images/' ;
+        $file->move($destinationPath, $fileName);
+        $updateUser->profile = encrypt($fileName);
     }
     
     $updateUser->updated_user_id = Auth::id();
@@ -149,5 +148,20 @@ class UserDao implements UserDaoInterface
     $deleteUser = User::find($request->input('deleteUserId'));
     $deleteUser->status = 0;
     return $deleteUser->save();
+  }
+
+  /**
+   * Change Password
+   * 
+   * @param $request
+   * @return changed password response
+   */
+  public function changePassword($request)
+  {
+    $user = User::find(Auth::id());
+    $user->password = Hash::make($request->new_password);
+    $user->updated_user_id = Auth::id();
+    $user->updated_at = Auth::id();
+    return $user->save();
   }
 }

@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function() {
     
     Route::get('/update_user/{id}', ['uses' => 'UserController@getUpdateUser', 'as' => 'user.getUpdateUser']);
 
-    Route::get('/update_user/change_password', ['uses' => 'UserController@getChangePassword', 'as' => 'user.getChangePassword']);
+    Route::get('/change_password', ['uses' => 'UserController@getChangePassword', 'as' => 'user.getChangePassword']);
 
     Route::get('/user_profile', ['uses' => 'UserController@getUserProfile', 'as' => 'user.getUserProfile']);
 
@@ -52,4 +52,6 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function() {
     Route::post('/user_list', ['uses' => 'UserController@searchUser', 'as' => 'user.searchUser']);
 
     Route::delete('/user_list', ['uses' => 'UserController@deleteUser', 'as' => 'user.deleteUser']);
+
+    Route::post('/change_password', ['uses' => 'UserController@changePassword', 'as' => 'user.changePassword']);
 });

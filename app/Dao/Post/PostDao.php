@@ -86,11 +86,9 @@ class PostDao implements PostDaoInterface
     $updatePost->title = $request->title;
     $updatePost->description = $request->description;
     if($request->status) {
-      $updatePost->status = 1;
+        $updatePost->status = 1;
     } else {
-      $updatePost->status = 0;
-      $updatePost->deleted_user_id = Auth::id();
-      $updatePost->deleted_at = Carbon::now();
+        $updatePost->status = 0;
     }
     $updatePost->updated_user_id = Auth::id();
     $updatePost->updated_at = Carbon::now();
