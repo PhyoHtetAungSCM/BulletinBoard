@@ -24,6 +24,8 @@
     <!-- Post Styles -->
     <link href="{{ asset('css/post/post_list_style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/post/create_post_style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/post/update_post_style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/post/upload_post_style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">

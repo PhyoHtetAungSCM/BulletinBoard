@@ -2,10 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
-
 // Authentication Routes...
     Route::get('/', ['uses' => 'PostController@index', 'as' => 'post.index']);
 
@@ -14,11 +10,6 @@ use Illuminate\Support\Facades\Route;
     Route::post('login', ['uses' => 'Auth\LoginController@login', 'as' => 'login']);
 
     Route::post('logout', ['uses' => 'Auth\LoginController@logout', 'as' => 'logout']);
-
-// Registration Routes...
-// Route::get('/register', ['uses' => 'Auth\RegisterController@showRegistrationForm', 'as' => 'register']);
-
-// Route::post('register', 'Auth\RegisterController@register');
 
 // For Post Screens...
 Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {
@@ -47,15 +38,17 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {
 Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function() {
     Route::get('/user_list', ['uses' => 'UserController@index', 'as' => 'user.index']);
 
-    Route::get('/user_profile', ['uses' => 'UserController@getUserProfile', 'as' => 'user.getUserProfile']);
-
     Route::get('/create_user', ['uses' => 'UserController@getCreateUser', 'as' => 'user.getCreateUser']);
     
     Route::get('/update_user/{id}', ['uses' => 'UserController@getUpdateUser', 'as' => 'user.getUpdateUser']);
 
     Route::get('/update_user/change_password', ['uses' => 'UserController@getChangePassword', 'as' => 'user.getChangePassword']);
 
+    Route::get('/user_profile', ['uses' => 'UserController@getUserProfile', 'as' => 'user.getUserProfile']);
+
     Route::post('/create_user', ['uses' => 'UserController@createUser', 'as' => 'user.createUser']);
+
+    Route::post('/update_user/{id}', ['uses' => 'UserController@updateUser', 'as' => 'user.updateUser']);
 
     Route::post('/user_list', ['uses' => 'UserController@searchUser', 'as' => 'user.searchUser']);
 

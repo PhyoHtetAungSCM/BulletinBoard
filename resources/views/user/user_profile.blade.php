@@ -12,7 +12,7 @@
                         <div class="col-md-12 d-flex justify-content-center">
                             <div class="user-profile-container">
                                 @if($userProfile->profile)
-                                    <img class="user-profile-image" src="/images/{{$userProfile->profile}}"/>
+                                    <img class="user-profile-image" src="/images/{{ $userProfile->profile }}"/>
                                 @endif
                             </div>
                         </div>

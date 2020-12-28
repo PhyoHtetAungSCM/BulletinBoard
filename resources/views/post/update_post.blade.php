@@ -9,51 +9,51 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('post.updatePost', ['id' => $post->id]) }}">
                         @csrf
-                        @if ($errors->any())
-                            @foreach ($errors->all() as $error)
-                                <div class="error-post-box">
-                                    <span class="error">{{$error}}</span>
-                                </div>
-                            @endforeach
+                        @if($errors->any())
+                            <div class="post-error-box">
+                                @foreach($errors->all() as $error)
+                                    <span class="post-error-message">{{ $error }}</span>
+                                @endforeach
+                            </div>
                         @endif
                         <div class="form-group row">
-                            <label for="title" class="col-md-4 col-form-label text-md-right">
+                            <label for="title" class="col-md-4 col-form-label text-md-right font-weight-bold">
                                 Title<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control" name="title" value="{{$post->title}}">
+                                <input type="text" class="form-control" id="title" name="title" value="{{ $post->title }}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="description" class="col-md-4 col-form-label text-md-right">
+                            <label for="description" class="col-md-4 col-form-label text-md-right font-weight-bold">
                                 Description<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <textarea id="description" class="form-control" name="description" rows="3">{{$post->description}}</textarea>
+                                <textarea rows="3" class="form-control" id="description" name="description">{{ $post->description }}</textarea>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="status" class="col-md-4 col-sm-2 col-form-label text-md-right">
+                            <label for="status" class="col-md-4 col-sm-2 col-form-label text-md-right font-weight-bold">
                                 Status
                             </label>
                             <div class="col-md-6 col-sm-8 form-check">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="status" id="status" value="1" checked>
+                                    <input type="checkbox" class="form-check-input" id="status" name="status" checked>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updatePostModal" onclick="confirmUpdatePost()">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updatePostModal" onclick="updatePostConfirmation()">
                                     Update
                                 </button>
-                                <button type="button" class="btn btn-secondary" onclick="clearUpdatePost()">
+                                <button type="button" class="btn btn-secondary" onclick="updatePostClearance()">
                                     Clear
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Modal -->
+                        <!-- Update Post Modal -->
                         <div class="modal fade" id="updatePostModal" tabindex="-1" role="dialog" aria-labelledby="updatePostModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">

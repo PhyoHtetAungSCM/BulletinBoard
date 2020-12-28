@@ -6,7 +6,7 @@
         <div class="col-md-12 user-detail-wrap">
             <div class="card">
                 <div class="card-header font-weight-bold">
-                    <a href="{{ route('user.index') }}">User List</a> 
+                    User List
                 </div>
 
                 <div class="card-body">

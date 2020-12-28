@@ -9,12 +9,17 @@
                 <div class="card-body">
                     <form id="form" method="POST" action="{{ route('user.createUser') }}" enctype="multipart/form-data">
                         @csrf
-                        @if ($errors->any())
-                            @foreach ($errors->all() as $error)
-                                <div class="error-user-box">
-                                    <span class="error-user">{{$error}}</span>
-                                </div>
-                            @endforeach
+                        @if(session('success'))
+                            <div class="user-success-box">
+                                <span class="user-success-message">{{ session('success') }}</span>
+                            </div>
+                        @endif
+                        @if($errors->any())
+                            <div class="user-error-box">
+                                @foreach($errors->all() as $error)
+                                    <span class="user-error-message">{{ $error }}</span>
+                                @endforeach
+                            </div>
                         @endif
                         <div class="form-group row">
                             <label for="title" class="col-md-4 col-form-label text-md-right font-weight-bold">
@@ -69,9 +74,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="dateOfBirth" class="col-md-4 col-form-label text-md-right font-weight-bold">Date of Birth</label>
+                            <label for="dob" class="col-md-4 col-form-label text-md-right font-weight-bold">Date of Birth</label>
                             <div class="col-md-6">
-                                <input class="form-control" type="date" id="dob" name="dob">
+                                <input type="date" class="form-control"  id="dob" name="dob">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -87,16 +92,16 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="button" class="btn btn-primary createUser">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal" onclick="createUserConfirmation()">
                                     Create
                                 </button>
-                                <button type="button" class="btn btn-secondary px-3" onclick="clearCreateUser()">
+                                <button type="button" class="btn btn-secondary px-3" onclick="createUserClearance()">
                                     Clear
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Confirmation Modal -->
+                        <!-- Create User Modal -->
                         <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">

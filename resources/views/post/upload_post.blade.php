@@ -9,6 +9,28 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('post.import') }}" enctype="multipart/form-data">
                         @csrf
+                        @if(session()->has('failures'))
+                            <table class="table table-danger">
+                                <tr>
+                                    <th>Row</th>
+                                    <th>Attribute</th>
+                                    <th>Errors</th>
+                                    <th>Value</th>
+                                </tr>
+                                @foreach(session()->get('failures') as $failure)
+                                    <tr>
+                                        <td>{{ $failure->row() }}</td>
+                                        <td>{{ $failure->attribute() }}</td>
+                                        <td>
+                                            @foreach($failure->errors() as $error)
+                                                {{ $error }}
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $failure->values()[$failure->attribute()] }}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        @endif
                         <div class="form-group row">
                             <label for="profile" class="col-md-4 col-form-label text-md-right">
                                 Import File From

@@ -10,39 +10,39 @@
                     <form method="POST" action="{{ route('post.createPost') }}">
                         @csrf
                         @if(session('success'))
-                            <div class="success-post-box">
-                                <span class="success-post">{{session('success')}}</span>
+                            <div class="post-success-box">
+                                <span class="post-success-message">{{ session('success') }}</span>
                             </div>
                         @endif
-                        @if ($errors->any())
-                            @foreach ($errors->all() as $error)
-                                <div class="error-post-box">
-                                    <span class="error-post">{{$error}}</span>
-                                </div>
-                            @endforeach
+                        @if($errors->any())
+                            <div class="post-error-box">
+                                @foreach($errors->all() as $error)
+                                    <span class="post-error-message">{{ $error }}</span>
+                                @endforeach
+                            </div>
                         @endif
                         <div class="form-group row">
-                            <label for="title" class="col-md-4 col-form-label text-md-right">
+                            <label for="title" class="col-md-4 col-form-label text-md-right font-weight-bold">
                                 Title<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control" name="title" autofocus>
+                                <input type="text" class="form-control" id="title" name="title" >
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="description" class="col-md-4 col-form-label text-md-right">
+                            <label for="description" class="col-md-4 col-form-label text-md-right font-weight-bold">
                                 Description<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <textarea class="form-control" rows="3" id="description" name="description"></textarea>
+                                <textarea rows="3" class="form-control" id="description" name="description"></textarea>
                             </div>
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createPostModal" onclick="confirmCreatePost()">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createPostModal" onclick="createPostConfirmation()">
                                     Create
                                 </button>
-                                <button type="button" class="btn btn-secondary px-3">
+                                <button type="button" class="btn btn-secondary px-3" onclick="createPostClearance()">
                                     Clear
                                 </button>
                             </div>

@@ -1,9 +1,4 @@
-function confirmCreateUser() {
-    let confirmName = document.getElementById('confirmName');
-    let confirmEmail = document.getElementById('confirmEmail');
-    let confirmType = document.getElementById('confirmType');
-    let confirmProfile = document.getElementById("confirmProfile");
-
+function createUserConfirmation() {
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
     let type = document.getElementById('type').value;
@@ -11,45 +6,28 @@ function confirmCreateUser() {
     let dob = document.getElementById('dob').value;
     let profile = document.getElementById("profile");
 
-    if(name) {
-        confirmName.innerHTML = name;
+    document.getElementById('confirmName').innerHTML = name;
+    document.getElementById('confirmEmail').innerHTML = email;
+
+    if (type === "0") {
+        document.getElementById('confirmType').innerHTML = "Admin";
     } else {
-        confirmName.classList.add("error-user");
-        confirmName.innerHTML = "This name field is required";
+        document.getElementById('confirmType').innerHTML = "User";
     }
 
-    if(email) {
-        confirmEmail.innerHTML = email;
-    } else {
-        confirmEmail.classList.add("error-user");
-        confirmEmail.innerHTML = "This email field is required";
+    document.getElementById('confirmPhone').innerHTML = phone;
+    document.getElementById('confirmDob').innerHTML = dob;
+
+    if(profile.files[0] !== undefined) {
+        let fReader = new FileReader();
+        fReader.readAsDataURL(profile.files[0]);
+        fReader.onloadend = function (event) {
+            document.getElementById("confirmProfile").src = event.target.result;
+        }
     }
-
-    if(!type) {
-        confirmType.classList.add("error-user");
-        confirmType.innerHTML = "This type field is required";
-    } else if (type === "0") {
-        confirmType.innerHTML = "Admin";
-    } else {
-        confirmType.innerHTML = "User";
-    }
-
-    confirmPhone.innerHTML = phone;
-
-    confirmDob.innerHTML = dob;
-    if(profile.value) {
-        confirmProfile.src = `/images/${profile.files[0]['name']}`;
-    }
-
-    // <----- The next level play ----->
-    // let fReader = new FileReader();
-    // fReader.readAsDataURL(profile.files[0]);
-    // fReader.onloadend = function (event) {
-    //     confirmProfile.src = event.target.result;
-    // }
 }
 
-function clearCreateUser() {
+function createUserClearance() {
     document.getElementById('name').value = "";
     document.getElementById('email').value = "";
     document.getElementById('password').value = "";
@@ -68,16 +46,3 @@ let loadFile = function (event) {
         URL.revokeObjectURL(createUserProfile.src);
     }
 };
-
-$(document).on('click', '.createUser', function () {
-    $('#form').validate({
-        rules: {
-            name: {
-                required: true
-            },
-            email: {
-                required: true
-            }
-        }
-    });
-});

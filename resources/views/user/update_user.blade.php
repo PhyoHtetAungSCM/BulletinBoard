@@ -7,13 +7,13 @@
             <div class="card">
                 <div class="card-header font-weight-bold">Update User</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('user.updateUser', ['id' => $user->id]) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row mb-4">
                             <div class="col-md-12 d-flex justify-content-center">
                                 <div class="user-profile-container">
                                     @if($user->profile)
-                                        <img class="user-profile-image" src="/images/{{$user->profile}}"/>
+                                        <img class="user-profile-image" id="uploadedProfile" src="/images/{{ $user->profile }}"/>
                                     @endif
                                 </div>
                             </div>
@@ -23,7 +23,7 @@
                                 Name<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{$user->name}}">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -31,7 +31,7 @@
                                 Email Address<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="email" value="{{$user->email}}">
+                                <input type="text" class="form-control" id="email" name="email" value="{{ $user->email }}">
                             </div>
                         </div>
                         <div class="form-group row dropdown">
@@ -39,10 +39,14 @@
                                 Type<span class="text-danger">*</span>
                             </label>
                             <div class="col-md-6">
-                                <select class="form-control">
-                                    <option></option>
-                                    <option value="0">Admin</option>
-                                    <option value="1">User</option>
+                                <select class="form-control" id="type" name="type">
+                                    @if($user->type === 0)
+                                        <option value="0">Admin</option>
+                                        <option value="1">User</option>
+                                    @else
+                                        <option value="1">User</option>
+                                        <option value="0">Admin</option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -51,13 +55,13 @@
                                 Phone
                             </label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="phone" value="{{$user->phone}}">
+                                <input type="text" class="form-control" id="phone" name="phone" value="{{ $user->phone }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="dateOfBirth" class="col-md-4 col-form-label text-md-right font-weight-bold">Date of Birth</label>
                             <div class="col-md-6">
-                                <input class="form-control" type="date" value="{{$user->dob}}">
+                                <input type="date" class="form-control" id="dob" name="dob" value="{{ $user->dob }}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -65,7 +69,7 @@
                                 Profile
                             </label>
                             <div class="col-md-6">
-                                <input type="file" accept="image/*" onchange="loadFile(event)">
+                                <input type="file" accept="image/*" onchange="loadFile(event)" id="profile" name="profile">
                                 <div class="update-profile-container">
                                     <img id="updateUserProfile" class="update-profile-image"/>
                                 </div>
@@ -76,21 +80,21 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateUserModal" onclick="updateUserConfirmation()">
                                     Update
                                 </button>
-                                <button type="button" class="btn btn-secondary px-3">
+                                <button type="button" class="btn btn-secondary px-3" onclick="updateUserClearance()">
                                     Clear
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Confirmation Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- Update User Modal -->
+                        <div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Update User Confirmation</h5>
+                                    <h5 class="modal-title font-weight-bold" id="updateUserModalLabel">Update User Confirmation</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
@@ -99,7 +103,7 @@
                                     <div class="form-group row mb-4">
                                         <div class="col-md-12 d-flex justify-content-center">
                                             <div class="user-profile-container">
-                                                <img class="user-profile-image" src="{{asset('images/ace.jpg')}}"/>
+                                                <img class="user-profile-image" id="confirmProfile"/>
                                             </div>
                                         </div>
                                     </div>
@@ -107,54 +111,36 @@
                                         <label class="col-md-4 col-form-label font-weight-bold">
                                             Name
                                         </label>
-                                        <label class="col-md-8 col-form-label">
-                                            Name 1
-                                        </label>
+                                        <label class="col-md-8 col-form-label" id="confirmName"></label>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-4 col-form-label font-weight-bold">
                                             Email Address
                                         </label>
-                                        <label class="col-md-8 col-form-label">
-                                            name1@gmail.com
-                                        </label>
+                                        <label class="col-md-8 col-form-label" id="confirmEmail"></label>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-4 col-form-label font-weight-bold">
                                             Type
                                         </label>
-                                        <label class="col-md-8 col-form-label">
-                                            User
-                                        </label>
+                                        <label class="col-md-8 col-form-label" id="confirmType"></label>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-4 col-form-label font-weight-bold">
                                             Phone
                                         </label>
-                                        <label class="col-md-8 col-form-label">
-                                            09123456789
-                                        </label>
+                                        <label class="col-md-8 col-form-label" id="confirmPhone"></label>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-4 col-form-label font-weight-bold">
-                                            Address
+                                            Date of Birth
                                         </label>
-                                        <p class="col-md-8 col-form-label">
-                                            This is description for post
-                                        </label>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-4 col-form-label font-weight-bold">
-                                            Description
-                                        </label>
-                                        <label class="col-md-8 col-form-label">
-                                            This is description for post 1
-                                        </label>
+                                        <label class="col-md-8 col-form-label" id="confirmDob"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
-                                    <button type="button" class="btn btn-secondary">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 </div>
                                 </div>
                             </div>

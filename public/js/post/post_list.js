@@ -1,5 +1,5 @@
-// Post Detail Pop Up
-$(document).on('click', '.postDetail', function () {
+/** Post Detail Pop Up */
+$(document).on('click', '.post-detail', function () {
     let title = $(this).attr('data-title');
     let description = $(this).attr('data-description');
     $('#detailTitle').text(title);
@@ -7,9 +7,9 @@ $(document).on('click', '.postDetail', function () {
     $('#postDetailModal').modal('show');
 });
 
-// Confirm Delete Form Data
-$(document).on('click', '.deletePost', function () {
+/** Confirm Delete Form Data */
+$(document).on('click', '.post-delete', function () {
     let postId = $(this).attr('data-deletePostId');
     $('#deletePostId').val(postId);
-    $('#deleteModal').modal('show');
+    $('#deletePostModal').modal('show');
 });

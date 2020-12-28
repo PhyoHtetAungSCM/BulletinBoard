@@ -6,7 +6,7 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header font-weight-bold">
-                    <a href="{{ route('post.index') }}">Post List</a> 
+                    Post List
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('post.searchPost') }}">
@@ -34,7 +34,6 @@
                         </div>
                     </form>
                     
-                    <!-- Post List Table -->
                     <table class="table">
                         <thead>
                             <tr>
@@ -53,28 +52,28 @@
                                     <td>
                                         <a 
                                             href="#"
-                                            class="postDetail"
-                                            data-title = "{{$post->title}}" 
-                                            data-description = "{{$post->description}}"
+                                            class="post-detail"
+                                            data-title = "{{ $post->title }}" 
+                                            data-description = "{{ $post->description }}"
                                         >
-                                            {{$post->title}}
+                                            {{ $post->title }}
                                         </a>
                                     </td>
-                                    <td>{{$post->description}}</td>
-                                    <td>{{$post->user->name}}</td>
-                                    <td>{{$post->created_at->format('d/m/Y')}}</td>
-                                    <td>{{$post->updated_at->format('d/m/Y')}}</td>
+                                    <td>{{ $post->description }}</td>
+                                    <td>{{ $post->user->name }}</td>
+                                    <td>{{ $post->created_at->format('Y/m/d') }}</td>
+                                    <td>{{ $post->updated_at->format('Y/m/d') }}</td>
                                     <td class="px-1">
                                         @if(Auth::check())
                                             @if(Auth::user()->type === 0 || Auth::user()->id === $post->create_user_id)
-                                                <a type="button" style="width: 60px;" class="btn btn-primary btn-sm" href="{{ route('post.getUpdatePost', ['id' => $post->id]) }}">Edit</a>
+                                                <a type="button" class="btn btn-primary btn-sm post-edit" href="{{ route('post.getUpdatePost', ['id' => $post->id]) }}">Edit</a>
                                             @endif
                                         @endif
                                     </td>
                                     <td class="px-1">
                                         @if(Auth::check())
                                             @if(Auth::user()->type === 0 || Auth::user()->id === $post->create_user_id)
-                                                <button type="button" style="width: 60px;" class="btn btn-danger btn-sm deletePost" data-deletePostId = "{{$post->id}}">Delete</button>
+                                                <button type="button" class="btn btn-danger btn-sm post-delete" data-deletePostId = "{{ $post->id }}">Delete</button>
                                             @endif
                                         @endif
                                     </td>
@@ -111,15 +110,15 @@
                         </div>
                     </div>
                     
-                    <!-- Delete Confirm Modal -->
-                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <!-- Delete Post Modal -->
+                    <div class="modal fade" id="deletePostModal" tabindex="-1" role="dialog" aria-labelledby="deletePostModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <form method="POST" action="{{ route('post.deletePost') }}">
                                 {{ method_field('delete') }}
                                 {{ csrf_field() }}
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title font-weight-bold" id="deleteModalLabel">Delete Post Confirmation</h5>
+                                        <h5 class="modal-title font-weight-bold" id="deletePostModalLabel">Delete Post Confirmation</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>

@@ -22,15 +22,15 @@ class CreateUsersTable extends Migration
             $table->integer('type')->default('1');
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->date('dob')->format('d/m/Y')->nullable();
+            $table->date('dob')->format('Y/m/d')->nullable();
             $table->integer('status')->default('1');
 
             $table->integer('create_user_id');
             $table->integer('updated_user_id');
             $table->integer('deleted_user_id')->nullable();
-            $table->date('created_at')->format('d/m/Y');
-            $table->date('updated_at')->format('d/m/Y');
-            $table->date('deleted_at')->format('d/m/Y')->nullable();
+            $table->date('created_at')->format('Y/m/d');
+            $table->date('updated_at')->format('Y/m/d');
+            $table->date('deleted_at')->format('Y/m/d')->nullable();
             
             // $table->timestamp('email_verified_at')->nullable();
             // $table->rememberToken();

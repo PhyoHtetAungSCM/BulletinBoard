@@ -1,3 +1,4 @@
-.edit-btn, .delete-btn {
+.post-edit,
+.post-delete {
     width: 60px;
 }

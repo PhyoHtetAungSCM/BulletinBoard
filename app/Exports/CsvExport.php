@@ -17,6 +17,10 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 use App\Post;
 
+/**
+ * System Name: Bulletinboard
+ * Module Name: Download Excel File
+ */
 class CsvExport implements FromCollection, WithHeadings, WithColumnFormatting, WithMapping, ShouldAutoSize
 {
     /**
@@ -24,12 +28,15 @@ class CsvExport implements FromCollection, WithHeadings, WithColumnFormatting, W
     */
     public function collection()
     {
-        return Post::whereNull('deleted_user_id')->get();
+        return Post::where('status', 1)->get();
     }
 
-    // https://docs.laravel-excel.com/3.1/exports/column-formatting.html
-
-    public function headings(): array
+    /**
+     * Add headings to downloaded file
+     * 
+     * @return heading array
+     */
+    public function headings(): array // https://docs.laravel-excel.com/3.1/exports/column-formatting.html
     {
         return [
             'Title',
@@ -44,6 +51,12 @@ class CsvExport implements FromCollection, WithHeadings, WithColumnFormatting, W
         ];
     }
 
+    /**
+     * Map the downloaded data array
+     * 
+     * @param $post
+     * @return mapped data array
+     */
     public function map($post): array
     {
         return [
@@ -59,6 +72,11 @@ class CsvExport implements FromCollection, WithHeadings, WithColumnFormatting, W
         ];
     }
     
+    /**
+     * Column Formatting
+     * 
+     * @return format array
+     */
     public function columnFormats(): array
     {
         return [

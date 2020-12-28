@@ -2,97 +2,169 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
+use Maatwebsite\Excel\Facades\Excel;
+
 use App\Contracts\Services\Post\PostServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Exports\CsvExport;
 use App\Imports\CsvImport;
-use Maatwebsite\Excel\Facades\Excel;
 
-use App\Post;
-
-use Illuminate\Http\Request;
-
+/**
+ * System Name: Bulletinboard
+ * Module Name: Post Screen
+ */
 class PostController extends Controller
 {
+    /** Post Interface */
     private $postInterface;
 
     /**
-    * Create a new controller instance.
+    * Create A New Controller Instance.
     *
     * @return void
     */
-
     public function __construct(PostServiceInterface $postInterface)
     {
-        // $this->middleware('auth');
         $this->postInterface = $postInterface;
     }
 
-    public function index() {
+    /**
+     * Get Post List
+     * 
+     * @return IlluminateHttpResponse with postList
+     */
+    public function index() 
+    {
         $postList = $this->postInterface->getPostList();
         return view('post/post_list', [
             'postList' => $postList
         ]);
     }
 
-    public function getCreatePost() {
+    /**
+     * Get Create Post Screen
+     * 
+     * @return IlluminateHttpResponse
+     */
+    public function getCreatePost() 
+    {
         return view('post/create_post');
     }
 
-    public function getUpdatePost($id) {
+    /**
+     * Get Update Post Screen
+     * 
+     * @return IlluminateHttpResponse with post
+     */
+    public function getUpdatePost($id) 
+    {
         $post = $this->postInterface->getUpdatePost($id);
         return view('post/update_post', [
             'post' => $post
         ]);
     }
 
-    public function getUploadPost() {
+    /**
+     * Get Upload Post Screen
+     * 
+     * @return IlluminateHttpResponse
+     */
+    public function getUploadPost() 
+    {
         return view('post/upload_post');
     }
 
-    public function createPost(Request $request) {
-        $rules = [
+    /**
+     * Create Post
+     * 
+     * @param Request $request
+     * @return IlluminateHttpResponse with success message
+     */
+    public function createPost(Request $request) 
+    {
+        $request->validate([
             'title' => 'required|string|max:255|unique:posts',
             'description'   => 'required|string'
-        ];
-        $this->validate($request, $rules);
-
+        ]);
         $this->postInterface->createPost($request);
-
-        return redirect()->back()->withSuccess('Create Post Successfully');
+        return redirect()->back()->withSuccess('Create Post Successful');
     }
 
-    public function searchPost(Request $keyword) {
+    /**
+     * Search Post
+     * 
+     * @param Request $keyword
+     * @return IlluminateHttpResponse with postList
+     */
+    public function searchPost(Request $keyword) 
+    {
         $postList = $this->postInterface->searchPost($keyword);
         return view('post/post_list', [
             'postList' => $postList
         ]);
     }
 
-    public function updatePost(Request $request, $id) {
-        $rules = [
-            'title' => 'required|string|max:255|unique:posts',
-            'description'   => 'required|string',
-            'status' => 'required|string'
-        ];
-        $this->validate($request, $rules);
-
-        $postList = $this->postInterface->updatePost($request, $id);
-        
+    /**
+     * Update Post
+     * 
+     * @param Request $request
+     * @param $id
+     * @return IlluminateHttpResponse
+     */
+    public function updatePost(Request $request, $id) 
+    {
+        $request->validate([
+            'title' => 'required|string|max:255|unique:posts,title,'.$id,
+            'description'   => 'required|string'
+        ]);
+        $this->postInterface->updatePost($request, $id);
         return redirect()->route('post.index');
-    }
+    }   
 
-    public function deletePost(Request $request) {
+    /**
+     * Delete Post
+     * 
+     * @param Request $request
+     * @return IlluminateHttpResponse
+     */
+    public function deletePost(Request $request) 
+    {
         $postList = $this->postInterface->deletePost($request);
         return redirect()->route('post.index');
     }
 
-    public function csvExport() {
+    /**
+     * CSV Export
+     * 
+     * @return SCMBulletinBoard.csv
+     */
+    public function csvExport() 
+    {
         return Excel::download(new CsvExport, 'SCMBulletinBoard.csv');
     }
 
-    public function csvImport(Request $request) {
-        Excel::import(new CsvImport, $request->file('file'));
-        return back();
+    /**
+     * CSV Import
+     * 
+     * @return IlluminateHttpResponse
+     */
+    public function csvImport(Request $request) 
+    {
+        $request->session()->forget('failures');
+        $authId = Auth::id();
+        $fileName = $request->file->getClientOriginalName();
+        $file = $request->file('file')->store($authId.'/csv/'.$fileName);
+
+        $import = new CsvImport;
+        $import->import($file);
+        
+        if($import->failures()->isNotEmpty()) {
+            return back()->withFailures($import->failures());
+        } else {
+            return redirect()->route('post.index');
+        }   
     }
 }

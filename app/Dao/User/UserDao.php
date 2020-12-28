@@ -5,30 +5,47 @@ namespace App\Dao\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-// Collection Paginate
-// use Illuminate\Pagination\Paginator;
-// use Illuminate\Support\Collection;
-// use Illuminate\Pagination\LengthAwarePaginator;
-
 use App\Contracts\Dao\User\UserDaoInterface;
-use App\Post;
 use App\User;
-use DB;
+use Carbon\Carbon;
 
+/**
+ * System Name: Bulletinboard
+ * Module Name: User Dao
+ */
 class UserDao implements UserDaoInterface
 {
   /**
-   * Get Operator List
-   * @param Object
-   * @return $operatorList
+   * Get User List
+   * 
+   * @return user List ($userList)
    */
-
   public function getUserList()
   {
     $userList = User::where('status', 1)->paginate(5);
     return $userList;
   }
 
+  /**
+   * Get Updated User
+   * 
+   * @param $id
+   * @return updated user ($user)
+   */
+  public function getUpdateUser($id)
+  {
+    $user = User::find($id);
+    if($user->profile) {
+      $user->profile = decrypt($user->profile);
+    }
+    return $user;
+  }
+
+  /**
+   * Get User Profile
+   * 
+   * @return user detail ($userProfile)
+   */
   public function userProfile()
   {
     $authId = Auth::id();
@@ -39,22 +56,21 @@ class UserDao implements UserDaoInterface
     return $userProfile;
   }
 
-  public function getUpdateUser($id)
-  {
-    $user = User::find($id);
-    if($user->profile) {
-      $user->profile = decrypt($user->profile);
-    }
-    return $user;
-  }
-
+  /**
+   * Create User
+   * 
+   * @param $request
+   * @return saved user response
+   */
   public function createUser($request)
   {
-    $authId = Auth::id();
     $user = new User();
     $user->name = $request->name;
     $user->email = $request->email;
     $user->password = Hash::make($request->password);
+    $user->type = $request->type;
+    $user->phone = $request->phone;
+    $user->dob = $request->dob;
 
     // http://www.expertphp.in/article/how-to-upload-save-and-display-file-from-database-in-laravel-52
     if($file = $request->hasFile('profile')) {
@@ -65,16 +81,18 @@ class UserDao implements UserDaoInterface
       $user->profile = encrypt($fileName);
     }
 
-    $user->type = $request->type;
-    $user->phone = $request->phone;
-    $user->dob = $request->dob;
-    $user->create_user_id = $authId;
-    $user->updated_user_id = $authId;
-    $user->deleted_user_id = $authId;
+    $user->create_user_id = Auth::id();
+    $user->updated_user_id = Auth::id();
     
     return $user->save();
   }
 
+  /**
+   * Search User
+   * 
+   * @param $keyword
+   * @return search result ($userList)
+   */
   public function searchUser($keyword)
   {
     $userList = User::where('name', 'like', "%{$keyword->name}%")
@@ -84,24 +102,52 @@ class UserDao implements UserDaoInterface
                         ->when($keyword->created_at, function($query) use($keyword) {
                             $query->where('created_at', 'like', "%{$keyword->createdFrom}%");
                           })
-                        ->when($keyword->created_at, function($query) {
+                        ->when($keyword->created_at, function($query) use($keyword) {
                             $query->where('title', 'like', "%{$keyword->createdTo}%");;
                         })->paginate(5);
     return $userList;
   }
 
+  /**
+   * Update User
+   * 
+   * @param $request
+   * @param $id
+   * @return updated user response
+   */
+  public function updateUser($request, $id)
+  {
+    $updateUser = User::find($id);
+    $updateUser->name = $request->name;
+    $updateUser->email = $request->email;
+    $updateUser->type = $request->type;
+    $updateUser->phone = $request->phone;
+    $updateUser->dob = $request->dob;
+
+    // http://www.expertphp.in/article/how-to-upload-save-and-display-file-from-database-in-laravel-52
+    if($file = $request->hasFile('profile')) {
+      $file = $request->file('profile') ;
+      $fileName = $file->getClientOriginalName() ;
+      $destinationPath = public_path().'/images/' ;
+      $file->move($destinationPath, $fileName);
+      $updateUser->profile = encrypt($fileName);
+    }
+    
+    $updateUser->updated_user_id = Auth::id();
+    $updateUser->updated_at = Carbon::now();
+    return $updateUser->save();
+  }
+
+  /**
+   * Delete User
+   * 
+   * @param $request
+   * @return deleted user response
+   */
   public function deleteUser($request)
   {
     $deleteUser = User::find($request->input('deleteUserId'));
     $deleteUser->status = 0;
     return $deleteUser->save();
   }
-
-  // Collection Paginate
-  // public function paginate($items, $perPage = 5, $page = null, $options = [])
-  // {
-  //     $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-  //     $items = $items instanceof Collection ? $items : Collection::make($items);
-  //     return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
-  // }
 }
