@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-/** Authentication Routes */
+/** Authentication routes */
     Route::get('/', ['uses' => 'PostController@index', 'as' => 'post.index']);
 
     Route::get('/login', ['uses' => 'Auth\LoginController@showLoginForm', 'as' => 'login']);
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('logout', ['uses' => 'Auth\LoginController@logout', 'as' => 'logout']);
 
-/** For Post Screens */
+/** For post screens */
 Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {
     Route::get('/post_list', ['uses' => 'PostController@index', 'as' => 'post.index']);
     
@@ -35,9 +35,10 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {
 
     Route::post('/upload_post/import', ['uses' => 'PostController@csvImport', 'as' => 'post.import']);
 });
+/** Out of middleware due to guest access */
 Route::post('/post_list', ['uses' => 'PostController@searchPost', 'as' => 'post.searchPost']);
 
-/** For User Screens */
+/** For user screens */
 Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function() {
     Route::get('/user_list', ['uses' => 'UserController@index', 'as' => 'user.index']);
 

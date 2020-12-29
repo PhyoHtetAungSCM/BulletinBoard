@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+	<link href="{{ asset('css/user/change_password_style.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container">
 	<div class="row justify-content-center">

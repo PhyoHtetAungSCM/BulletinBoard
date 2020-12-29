@@ -19,11 +19,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('css')
-    <!-- User Styles -->
-    <link href="{{ asset('css/user/create_user_style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/user/update_user_style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/user/user_profile_style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/user/change_password_style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
