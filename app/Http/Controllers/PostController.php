@@ -85,7 +85,7 @@ class PostController extends Controller
      */
     public function createPost(Request $request) 
     {
-        $post = $this->postInterface->createPost($request);
+        $result = $this->postInterface->createPost($request);
         return redirect()->route('post.index');
     }
 
@@ -101,8 +101,10 @@ class PostController extends Controller
             'title' => 'required|string|max:255|unique:posts,title',
             'description'   => 'required|string'
         ]);
+
         $request->flash();
         session()->put('post', ['title' => $request->title, 'description' => $request->description]);
+
         return view('post/create_post_confirm', [
             'post' => $request
         ]);
@@ -131,7 +133,7 @@ class PostController extends Controller
      */
     public function updatePost(Request $request, $id) 
     {
-        $post = $this->postInterface->updatePost($request, $id);
+        $result = $this->postInterface->updatePost($request, $id);
         return redirect()->route('post.index');
     }
 
@@ -147,6 +149,7 @@ class PostController extends Controller
             'title' => 'required|string|max:255|unique:posts,title,'.$id,
             'description'   => 'required|string'
         ]);
+
         $request->flash();
         session()->put('update-post', [
             'id' => $id, 
@@ -154,6 +157,7 @@ class PostController extends Controller
             'description' => $request->description,
             'status' => $request->status
         ]);
+
         return view('post/update_post_confirm', [
             'id' => $id,
             'post' => $request
@@ -168,7 +172,7 @@ class PostController extends Controller
      */
     public function deletePost(Request $request) 
     {
-        $postList = $this->postInterface->deletePost($request);
+        $result = $this->postInterface->deletePost($request);
         return redirect()->route('post.index');
     }
 

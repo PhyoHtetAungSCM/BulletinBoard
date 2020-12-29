@@ -6,6 +6,7 @@ $(document).on('click', '.userDetail', function () {
 	let phone = $(this).attr('data-phone');
 	let dob = $(this).attr('data-dob');
 	let profile = $(this).attr('data-profile');
+
 	$('#detailName').text(name);
 	$('#detailEmail').text(email);
 

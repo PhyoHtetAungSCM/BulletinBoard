@@ -115,34 +115,34 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-md-4 col-sm-3 col-form-label font-weight-bold">
+                      <label class="col-md-4 col-sm-3 font-weight-bold">
                         Name
                       </label>
-                      <label class="col-md-8 col-sm-9 col-form-label" id="confirmName"></label>
+                      <label class="col-md-8 col-sm-9" id="confirmName"></label>
                     </div>
                     <div class="form-group row">
-                      <label class="col-md-4 col-sm-3 col-form-label font-weight-bold">
+                      <label class="col-md-4 col-sm-3 font-weight-bold">
                         Email Address
                       </label>
-                      <label class="col-md-8 col-sm-9 col-form-label" id="confirmEmail"></label>
+                      <label class="col-md-8 col-sm-9" id="confirmEmail"></label>
                     </div>
                     <div class="form-group row">
-                      <label class="col-md-4 col-sm-3 col-form-label font-weight-bold">
+                      <label class="col-md-4 col-sm-3 font-weight-bold">
                         Type
                       </label>
-                      <label class="col-md-8 col-sm-9 col-form-label" id="confirmType"></label>
+                      <label class="col-md-8 col-sm-9" id="confirmType"></label>
                     </div>
                     <div class="form-group row">
-                      <label class="col-md-4 col-sm-3 col-form-label font-weight-bold">
+                      <label class="col-md-4 col-sm-3 font-weight-bold">
                         Phone
                       </label>
-                      <label class="col-md-8 col-sm-9 col-form-label" id="confirmPhone"></label>
+                      <label class="col-md-8 col-sm-9" id="confirmPhone"></label>
                     </div>
                     <div class="form-group row">
-                      <label class="col-md-4 col-sm-3 col-form-label font-weight-bold">
+                      <label class="col-md-4 col-sm-3 font-weight-bold">
                         Date of Birth
                       </label>
-                      <label class="col-md-8 col-sm-9 col-form-label" id="confirmDob"></label>
+                      <label class="col-md-8 col-sm-9" id="confirmDob"></label>
                     </div>
                   </div>
                   <div class="modal-footer">

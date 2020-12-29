@@ -21,7 +21,7 @@
 								Old Password<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" id="password" name="password">
+								<input type="password" class="form-control" id="password" name="old_password">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -29,7 +29,7 @@
 								Confirm Password<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" id="confirmPassword" name="password_confirmation">
+								<input type="password" class="form-control" id="confirmPassword" name="old_password_confirmation">
 							</div>
 						</div>
 						<div class="form-group row">

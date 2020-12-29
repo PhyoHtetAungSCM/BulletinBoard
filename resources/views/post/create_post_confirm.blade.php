@@ -17,7 +17,6 @@
                   <span>{{ $post->title }}</span>
                 </div>
               </div>
-              
 							<div class="form-group row">
 								<label for="description" class="col-md-4 col-form-label text-md-right font-weight-bold">
 									Description<span class="text-danger">*</span>
@@ -26,7 +25,6 @@
                   <p>{{ $post->description }}</p>
 								</div>
               </div>
-              
 							<div class="form-group row mb-0">
 								<div class="col-md-8 offset-md-4">
 									<button type="submit" class="btn btn-primary">

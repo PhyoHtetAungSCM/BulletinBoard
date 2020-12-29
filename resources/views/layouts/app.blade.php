@@ -18,14 +18,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('css')
     <!-- User Styles -->
     <link href="{{ asset('css/user/create_user_style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/user/update_user_style.css') }}" rel="stylesheet">
-    <!-- Post Styles -->
-    <link href="{{ asset('css/post/post_list_style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/post/create_post_style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/post/update_post_style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/post/upload_post_style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/user/user_profile_style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/user/change_password_style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">

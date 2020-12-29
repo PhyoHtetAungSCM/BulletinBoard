@@ -23,6 +23,11 @@ class UserDao implements UserDaoInterface
   public function getUserList()
   {
     $userList = User::where('status', 1)->paginate(5);
+    foreach($userList as $user) {
+        if($user->profile) {
+            $user->profile = decrypt($user->profile);
+        }
+    }
     return $userList;
   }
 
@@ -98,11 +103,11 @@ class UserDao implements UserDaoInterface
                     ->when($keyword->email, function($query) use($keyword) {
                         $query->where('email', 'like', "%{$keyword->email}%");
                     })
-                    ->when($keyword->created_at, function($query) use($keyword) {
-                        $query->where('created_at', 'like', "%{$keyword->createdFrom}%");
+                    ->when($keyword->created_from, function($query) use($keyword) {
+                        $query->where('created_at', '=' , $keyword->created_from);
                     })
-                    ->when($keyword->created_at, function($query) use($keyword) {
-                        $query->where('title', 'like', "%{$keyword->createdTo}%");;
+                    ->when($keyword->created_to, function($query) use($keyword) {
+                        $query->where('updated_at',  '=' , $keyword->created_to);
                     })->paginate(5);
     return $userList;
   }

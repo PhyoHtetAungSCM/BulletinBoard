@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+<link href="{{ asset('css/post/create_post_style.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container">
 	<div class="row justify-content-center">
@@ -9,11 +13,6 @@
 					<div class="card-body">
 						<form method="POST" action="{{ route('post.createPostConfirm') }}">
 							@csrf
-							@if(session('success'))
-								<div class="post-success-box">
-									<span class="post-success-message">{{ session('success') }}</span>
-								</div>
-							@endif
 							@if($errors->any())
 								<div class="post-error-box">
 									@foreach($errors->all() as $error)
@@ -34,9 +33,9 @@
 									Description<span class="text-danger">*</span>
 								</label>
 								<div class="col-md-6">
-									<textarea rows="3" class="form-control" id="description" name="description">
-										{{ old('description') }}
-									</textarea>
+									<textarea rows="3" class="form-control" id="description" name="description">{{ 
+										old('description') 
+									}}</textarea>
 								</div>
 							</div>
 							<div class="form-group row mb-0">

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 	<div class="row justify-content-center">
-		<div class="col-md-6">
+		<div class="col-md-7">
 			<div class="card">
 				<div class="card-header font-weight-bold">Update Post Confirmation</div>
 					<div class="card-body">
@@ -28,19 +28,19 @@
               </div>
 
               <div class="form-group row">
-								<label for="status" class="col-md-4 col-form-label text-md-right font-weight-bold">
-									Status<span class="text-danger">*</span>
+								<label for="status" class="col-md-4 col-sm-2 col-form-label text-md-right font-weight-bold">
+									Status
 								</label>
-								<div class="col-md-6 col-form-label">
-                  <span>
-                    @if($post->status)
-                      Active
-                    @else
-                      Inactive
-                    @endif
-                  </span>
+								<div class="col-md-6 col-sm-8 form-check">
+									<div class="form-check">
+										@if($post->status)
+											<input type="checkbox" class="form-check-input" id="status" name="status" checked>
+										@else
+											<input type="checkbox" class="form-check-input" id="status" name="status">
+										@endif
+									</div>
 								</div>
-              </div>
+							</div>
               
 							<div class="form-group row mb-0">
 								<div class="col-md-8 offset-md-4">

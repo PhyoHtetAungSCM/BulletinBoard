@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 	<div class="row justify-content-center">
-		<div class="col-md-12 user-detail-wrap">
+		<div class="col-md-12">
 			<div class="card">
 				<div class="card-header font-weight-bold">
 					User List
@@ -21,10 +21,10 @@
 								<input type="text" class="form-control" name="email" placeholder="Email">
 							</div>
 							<div class="col-lg-2 col-md-3 col-sm-6 p-1">
-								<input type="text" class="form-control" name="createdFrom" placeholder="Created From">
+								<input type="text" class="form-control" name="created_from" placeholder="Created From">
 							</div>
 							<div class="col-lg-2 col-md-3 col-sm-6 p-1">
-								<input type="text" class="form-control" name="createdTo" placeholder="Created To">
+								<input type="text" class="form-control" name="created_to" placeholder="Created To">
 							</div>
 							<div class="col-lg-2 col-md-6 col-sm-6 p-1">
 								<input type="submit" class="btn btn-primary btn-block" value="Search">
@@ -35,7 +35,7 @@
 						</div>
 					</form>
 					<!-- User Detail -->
-					<table class="table user-detail-table">
+					<table class="table">
 						<thead>
 							<tr>
 								<th scope="col">Name</th>
@@ -104,34 +104,24 @@
 								</div>
 								<div class="modal-body">
 									<div class="form-group row">
-										<label class="col-md-4 col-form-label font-weight-bold">
-											Name
-										</label>
-										<label class="col-form-label" id="detailName"></label>
+										<label class="col-md-4 col-sm-3 font-weight-bold">Name</label>
+										<span class="col-md-8 col-sm-9" id="detailName"></span>
 									</div>
 									<div class="form-group row">
-										<label class="col-md-4 col-form-label font-weight-bold">
-											Email
-										</label>
-										<label class="col-form-label" id="detailEmail"></label>
+										<label class="col-md-4 col-sm-3 font-weight-bold">Email</label>
+										<span class="col-md-8 col-sm-9" id="detailEmail"></span>
 									</div>
 									<div class="form-group row">
-										<label class="col-md-4 col-form-label font-weight-bold">
-											Type
-										</label>
-										<label class="col-form-label" id="detailType"></label>
+										<label class="col-md-4 col-sm-3 font-weight-bold">Type</label>
+										<span class="col-md-8 col-sm-9" id="detailType"></span>
 									</div>
 									<div class="form-group row">
-										<label class="col-md-4 col-form-label font-weight-bold">
-											Phone
-										</label>
-										<label class="col-form-label" id="detailPhone"></label>
+										<label class="col-md-4 col-sm-3 font-weight-bold">Phone</label>
+										<span class="col-md-8 col-sm-9" id="detailPhone"></span>
 									</div>
 									<div class="form-group row">
-										<label class="col-md-4 col-form-label font-weight-bold">
-											Date of Birth
-										</label>
-										<label class="col-form-label" id="detailDob"></label>
+										<label class="col-md-4 col-sm-3 font-weight-bold">Date of Birth</label>
+										<span class="col-md-8 col-sm-9" id="detailDob"></span>
 									</div>
 								</div>
 							</div>

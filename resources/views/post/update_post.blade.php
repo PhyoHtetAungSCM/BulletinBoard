@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
+@section('css')
+	<link href="{{ asset('css/post/update_post_style.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container">
 	<div class="row justify-content-center">
-		<div class="col-md-8">
+		<div class="col-md-7">
 			<div class="card">
 				<div class="card-header font-weight-bold">Update Post</div>
 				<div class="card-body">
@@ -29,7 +33,7 @@
 								Description<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6">
-								<textarea rows="3" class="form-control" id="description" name="description">{{ old('description') ? old('title') : $post->description }}</textarea>
+								<textarea rows="3" class="form-control" id="description" name="description">{{ old('description') ? old('description') : $post->description }}</textarea>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -38,7 +42,11 @@
 							</label>
 							<div class="col-md-6 col-sm-8 form-check">
 								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="status" name="status" checked>
+									@if($post->status === 1)
+										<input type="checkbox" class="form-check-input" id="status" name="status" checked>
+									@else
+										<input type="checkbox" class="form-check-input" id="status" name="status">
+									@endif
 								</div>
 							</div>
 						</div>

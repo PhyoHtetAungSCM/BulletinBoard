@@ -95,10 +95,9 @@ class UserController extends Controller
             'email'   => 'required|email',
             'password' => 'required|confirmed|min:6',
             'phone' => 'nullable|regex:/(09)[0-9]{9}/',
-            'profile' => 'nullable|mimes:jpeg,jpg,bmp,png|max:2048'
-            
+            'profile' => 'nullable|mimes:jpeg,jpg,bmp,png|max:2048' 
         ]);
-        $this->userInterface->createUser($request);
+        $result = $this->userInterface->createUser($request);
         return redirect()->back()->withSuccess('Create User Successful');
     }
 
@@ -130,7 +129,7 @@ class UserController extends Controller
             'phone' => 'nullable|regex:/(09)[0-9]{9}/',
             'profile' => 'mimes:jpeg,jpg,bmp,png|max:2048',
         ]);
-        $this->userInterface->updateUser($request, $id);
+        $result = $this->userInterface->updateUser($request, $id);
         return redirect()->route('user.index');
     }
 
@@ -141,14 +140,14 @@ class UserController extends Controller
      * @return IlluminateHttpResponse
      */
     public function deleteUser(Request $request) {
-        $this->userInterface->deleteUser($request);
+        $result = $this->userInterface->deleteUser($request);
         return redirect()->route('user.index');
     }
 
     public function changePassword(Request $request) 
     {
         $request->validate([
-            'password' => [
+            'old_password' => [
                 'required',  function($attribute, $value, $fail) {
                     if(!Hash::check($value, Auth::user()->password)) {
                         $fail('The old password is not correct.');
@@ -157,7 +156,7 @@ class UserController extends Controller
             ],
             'new_password'   => 'required|min:6'
         ]);
-        $this->userInterface->changePassword($request);
+        $result = $this->userInterface->changePassword($request);
         return redirect()->route('post.index');
     }
 }

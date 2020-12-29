@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
+@section('css')
+	<link href="{{ asset('css/post/post_list_style.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container">
 	<div class="row justify-content-center">
-		<div class="col-md-10">
+		<div class="col-md-12">
 			<div class="card">
 				<div class="card-header font-weight-bold">
 					Post List
@@ -55,6 +59,9 @@
 												class="post-detail"
 												data-title = "{{ $post->title }}" 
 												data-description = "{{ $post->description }}"
+												data-posted-user = "{{ $post->user->name }}"
+												data-posted-date = "{{ $post->created_at->format('Y/m/d') }}"
+												data-updated-date = "{{ $post->updated_at->format('Y/m/d') }}"
 										>
 												{{ $post->title }}
 										</a>
@@ -94,16 +101,24 @@
 								</div>
 								<div class="modal-body">
 									<div class="form-group row">
-										<label class="col-md-4 col-form-label font-weight-bold">
-											Title
-										</label>
-										<label class="col-form-label" id="detailTitle"></label>
+										<label class="col-md-4 col-sm-3 font-weight-bold">Title</label>
+										<span class="col-md-8 col-sm-9" id="detailTitle"></span>
 									</div>
 									<div class="form-group row">
-										<label class="col-md-4 col-form-label font-weight-bold">
-											Description
-										</label>
-										<label class="col-form-label" id="detailDescription"></label>
+										<label class="col-md-4 col-sm-3 font-weight-bold">Description</label>
+										<span class="col-md-8 col-sm-9" id="detailDescription"></span>
+									</div>
+									<div class="form-group row">
+										<label class="col-md-4 col-sm-3 font-weight-bold">Posted User</label>
+										<span class="col-md-8 col-sm-9" id="detailPostedUser"></span>
+									</div>
+									<div class="form-group row">
+										<label class="col-md-4 col-sm-3 font-weight-bold">Posted Date</label>
+										<span class="col-md-8 col-sm-9" id="detailPostedDate"></span>
+									</div>
+									<div class="form-group row">
+										<label class="col-md-4 col-sm-3 font-weight-bold">Updated Date</label>
+										<span class="col-md-8 col-sm-9" id="detailUpdatedDate"></span>
 									</div>
 								</div>
 							</div>
@@ -125,8 +140,8 @@
 									</div>
 									<div class="modal-body">
 										<div class="form-group">
-											<label class="col-md-12 col-form-label">
-												Are you sure that you want to delete?
+											<label class="col-md-12">
+												<span>Are you sure that you want to delete?</span>
 											</label>
 										</div>
 										<input type="hidden" name="deletePostId" id="deletePostId">

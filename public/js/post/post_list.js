@@ -2,8 +2,15 @@
 $(document).on('click', '.post-detail', function () {
   let title = $(this).attr('data-title');
   let description = $(this).attr('data-description');
+  let postedUser = $(this).attr('data-posted-user');
+  let postedDate = $(this).attr('data-posted-date');
+  let updatedDate = $(this).attr('data-updated-date');
+
   $('#detailTitle').text(title);
   $('#detailDescription').text(description);
+  $('#detailPostedUser').text(postedUser);
+  $('#detailPostedDate').text(postedDate);
+  $('#detailUpdatedDate').text(updatedDate);
   $('#postDetailModal').modal('show');
 });
 
