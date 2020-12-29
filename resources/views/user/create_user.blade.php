@@ -50,11 +50,11 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="confirmPassword" class="col-md-4 col-form-label text-md-right font-weight-bold">
+							<label for="passwordConfirmation" class="col-md-4 col-form-label text-md-right font-weight-bold">
 								Confirm Password<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" id="confirmPassword" name="password_confirmation">
+								<input type="password" class="form-control" id="passwordConfirmation" name="password_confirmation">
 							</div>
 						</div>
 						<div class="form-group row dropdown">
@@ -89,8 +89,8 @@
 							</label>
 							<div class="col-md-6">
 								<input type="file" accept="image/*" onchange="loadFile(event)" id="profile" name="profile">
-								<div class="create-profile-container">
-									<img id="createUserProfile" class="create-profile-image"/>
+								<div class="profile-container">
+									<img id="createUserProfile" class="profile-image"/>
 								</div>
 							</div>
 						</div>
@@ -118,8 +118,8 @@
 									<div class="modal-body">
 										<div class="form-group row mb-4">
 											<div class="col-md-12 d-flex justify-content-center">
-												<div class="user-profile-container">
-													<img class="user-profile-image" id="confirmProfile"/>
+												<div class="profile-container circle">
+													<img class="profile-image circle" id="confirmProfile"/>
 												</div>
 											</div>
 										</div>
@@ -134,6 +134,12 @@
 												Email Address
 											</label>
 											<label class="col-md-8 col-form-label" id="confirmEmail"></label>
+										</div>
+										<div class="form-group row">
+											<label class="col-md-4 col-form-label font-weight-bold">
+												Password
+											</label>
+											<label class="col-md-8 col-form-label" id="confirmPassword" style="-webkit-text-security: disc;"></label>
 										</div>
 										<div class="form-group row">
 											<label class="col-md-4 col-form-label font-weight-bold">

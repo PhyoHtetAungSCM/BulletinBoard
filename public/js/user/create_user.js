@@ -2,6 +2,7 @@
 function createUserConfirmation() {
 	let name = document.getElementById('name').value;
 	let email = document.getElementById('email').value;
+	let password = document.getElementById('password').value;
 	let type = document.getElementById('type').value;
 	let phone = document.getElementById('phone').value;
 	let dob = document.getElementById('dob').value;
@@ -9,6 +10,7 @@ function createUserConfirmation() {
 
 	document.getElementById('confirmName').innerHTML = name;
 	document.getElementById('confirmEmail').innerHTML = email;
+	document.getElementById('confirmPassword').innerHTML = password;
 
 	if (type === "0") {
 		document.getElementById('confirmType').innerHTML = "Admin";
@@ -33,7 +35,7 @@ function createUserClearance() {
 	document.getElementById('name').value = "";
 	document.getElementById('email').value = "";
 	document.getElementById('password').value = "";
-	document.getElementById('confirmPassword').value = "";
+	document.getElementById('passwordConfirmation').value = "";
 	document.getElementById('type').value = "";
 	document.getElementById('phone').value = "";
 	document.getElementById('dob').value = "";

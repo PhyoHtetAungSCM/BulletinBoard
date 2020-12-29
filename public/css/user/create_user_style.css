@@ -1,14 +1,18 @@
-.create-profile-container {
+.profile-container {
   width: 150px;
   height: 150px;
   border: 1px solid #ccc;
   margin-top: 15px;
 }
 
-.create-profile-image {
+.profile-image {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+.circle {
+  border-radius: 50%;
 }
 
 .user-success-box {

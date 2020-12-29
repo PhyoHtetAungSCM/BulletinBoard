@@ -8,9 +8,8 @@
 				<div class="card-header font-weight-bold">
 					User List
 				</div>
-
 				<div class="card-body">
-					<!-- User List Options Form -->
+					
 					<form method="POST" action="{{ route('user.searchUser') }}">
 						@csrf
 						<div class="form-group row">
@@ -34,7 +33,7 @@
 							</div>
 						</div>
 					</form>
-					<!-- User Detail -->
+
 					<table class="table">
 						<thead>
 							<tr>
@@ -158,6 +157,7 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- Pagination -->
 				<div class="d-flex justify-content-center">
 					{!! $userList->links() !!}

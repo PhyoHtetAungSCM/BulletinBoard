@@ -60,7 +60,7 @@
 						</label>
 						<label class="col-md-6 col-form-label">
 							{{ $userProfile->phone }}
-						</label> 
+						</label>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-6 col-form-label font-weight-bold text-md-right">

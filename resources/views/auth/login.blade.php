@@ -48,6 +48,9 @@
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
+                                <div class="mt-2">
+                                    <a href="{{ route('password.forget') }}">Forgot Password?</a>
+                                </div>
                             </div>
                         </div>
 

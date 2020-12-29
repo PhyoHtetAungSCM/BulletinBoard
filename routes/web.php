@@ -7,9 +7,13 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/login', ['uses' => 'Auth\LoginController@showLoginForm', 'as' => 'login']);
 
+    Route::get('password/reset', ['uses' => 'Auth\ForgotPasswordController@showLinkRequestForm', 'as' => 'password.forget']);
+
     Route::post('login', ['uses' => 'Auth\LoginController@login', 'as' => 'login']);
 
     Route::post('logout', ['uses' => 'Auth\LoginController@logout', 'as' => 'logout']);
+
+    Route::post('password/email', ['uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail', 'as' => 'password.email']);
 
 /** For post screens */
 Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {

@@ -154,8 +154,7 @@ class PostController extends Controller
         session()->put('update-post', [
             'id' => $id, 
             'title' => $request->title, 
-            'description' => $request->description,
-            'status' => $request->status
+            'description' => $request->description
         ]);
 
         return view('post/update_post_confirm', [

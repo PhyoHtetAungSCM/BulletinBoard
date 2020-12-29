@@ -13,6 +13,7 @@
 					Post List
 				</div>
 				<div class="card-body">
+					
 					<form method="POST" action="{{ route('post.searchPost') }}">
 						@csrf
 						<div class="form-group row">

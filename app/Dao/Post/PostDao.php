@@ -93,13 +93,12 @@ class PostDao implements PostDaoInterface
         /** Retrieve data from session */
         $title = $update['title'];
         $description = $update['description'];
-        $status = $update['status'];
 
         /** Save data into database */
         $updatePost = Post::find($id);
         $updatePost->title = $title;
         $updatePost->description = $description;
-        if($status) {
+        if($request->status) {
             $updatePost->status = 1;
         } else {
             $updatePost->status = 0;
