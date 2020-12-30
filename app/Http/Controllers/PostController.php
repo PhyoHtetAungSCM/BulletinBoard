@@ -11,6 +11,7 @@ use App\Contracts\Services\Post\PostServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Exports\CsvExport;
 use App\Imports\CsvImport;
+use App\Post;
 
 /**
  * System Name: Bulletinboard
@@ -36,9 +37,9 @@ class PostController extends Controller
      *
      * @return IlluminateHttpResponse with postList
      */
-    public function index()
+    public function index(Request $request)
     {
-        $postList = $this->postInterface->getPostList();
+        $postList = $post = $this->postInterface->getPostList($request);
         return view('post/post_list', [
             'postList' => $postList
         ]);
@@ -116,13 +117,13 @@ class PostController extends Controller
      * @param Request $keyword
      * @return IlluminateHttpResponse with postList
      */
-    public function searchPost(Request $keyword)
-    {
-        $postList = $this->postInterface->searchPost($keyword);
-        return view('post/post_list', [
-            'postList' => $postList
-        ]);
-    }
+    // public function searchPost(Request $keyword)
+    // {
+    //     $postList = $this->postInterface->searchPost($keyword);
+    //     return view('post/post_list', [
+    //         'postList' => $postList
+    //     ]);
+    // }
 
     /**
      * Update Post
@@ -195,7 +196,7 @@ class PostController extends Controller
         $request->validate([
             'file' => 'required|mimes:csv,txt',
         ]);
-        
+
         $request->session()->forget('failures');
         $authId = Auth::id();
         $fileName = $request->file->getClientOriginalName();
@@ -203,7 +204,7 @@ class PostController extends Controller
 
         $import = new CsvImport;
         $import->import($file);
-        
+
         if ($import->failures()->isNotEmpty()) {
             return back()->withFailures($import->failures());
         } else {

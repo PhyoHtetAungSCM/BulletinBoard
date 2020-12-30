@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
     Route::post('password/email', ['uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail', 'as' => 'password.email']);
 
 /** For post screens */
-Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {
+Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function () {
     Route::get('/post_list', ['uses' => 'PostController@index', 'as' => 'post.index']);
     
     Route::get('/create_post', ['uses' => 'PostController@getCreatePost', 'as' => 'post.getCreatePost']);
@@ -40,10 +40,10 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function() {
     Route::post('/upload_post/import', ['uses' => 'PostController@csvImport', 'as' => 'post.import']);
 });
 /** Out of middleware due to guest access */
-Route::post('/post_list', ['uses' => 'PostController@searchPost', 'as' => 'post.searchPost']);
+// Route::post('/post_list', ['uses' => 'PostController@searchPost', 'as' => 'post.searchPost']);
 
 /** For user screens */
-Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function() {
+Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function () {
     Route::get('/user_list', ['uses' => 'UserController@index', 'as' => 'user.index']);
 
     Route::get('/create_user', ['uses' => 'UserController@getCreateUser', 'as' => 'user.getCreateUser']);

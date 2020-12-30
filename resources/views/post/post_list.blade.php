@@ -7,14 +7,13 @@
 @section('content')
 <div class="container">
 	<div class="row justify-content-center">
-		<div class="col-md-12">
+		<div class="{{ Auth::check() ? 'col-md-12' : 'col-md-10'}}">
 			<div class="card">
 				<div class="card-header font-weight-bold">
 					Post List
 				</div>
 				<div class="card-body">
-
-					<form method="POST" action="{{ route('post.searchPost') }}">
+					<form method="GET">
 						@csrf
 						<div class="form-group row">
 							<div class="col-lg-4 col-md-12 col-sm-12 p-1">

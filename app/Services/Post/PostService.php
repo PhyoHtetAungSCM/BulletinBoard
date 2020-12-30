@@ -11,82 +11,82 @@ use App\Contracts\Services\Post\PostServiceInterface;
  */
 class PostService implements PostServiceInterface
 {
-  private $postDao;
+    private $postDao;
 
-  /**
-   * Class Constructor
-   * 
-   * @param OperatorPostDaoInterface
-   * @return
-   */
-  public function __construct(PostDaoInterface $postDao)
-  {
-    $this->postDao = $postDao;
-  }
+    /**
+     * Class Constructor
+     *
+     * @param OperatorPostDaoInterface
+     * @return
+     */
+    public function __construct(PostDaoInterface $postDao)
+    {
+        $this->postDao = $postDao;
+    }
 
-  /**
-   * Get Post List
-   * 
-   * @return post list
-   */
-  public function getPostList()
-  {
-    return $this->postDao->getPostList();
-  }
+    /**
+     * Get Post List
+     *
+     * @return post list
+     */
+    public function getPostList($request)
+    {
+        return $this->postDao->getPostList($request);
+    }
 
-  /**
-   * Get Update Post
-   * 
-   * @param $id
-   * @return updated post model
-   */
-  public function getUpdatePost($id)
-  {
-    return $this->postDao->getUpdatePost($id);
-  }
+    /**
+     * Get Update Post
+     *
+     * @param $id
+     * @return updated post model
+     */
+    public function getUpdatePost($id)
+    {
+        return $this->postDao->getUpdatePost($id);
+    }
 
-  /**
-   * Create Post
-   * 
-   * @param $request
-   * @return boolean
-   */
-  public function createPost($request)
-  {
-    return $this->postDao->createPost($request);
-  }
+    /**
+     * Create Post
+     *
+     * @param $request
+     * @return boolean
+     */
+    public function createPost($request)
+    {
+        return $this->postDao->createPost($request);
+    }
 
-  /**
-   * Search Post
-   * 
-   * @param $keyword
-   * @return searched result
-   */
-  public function searchPost($keyword)
-  {
-    return $this->postDao->searchPost($keyword);
-  }
+    /**
+     * Search Post
+     *
+     * @param $keyword
+     * @return searched result
+     */
+    // public function searchPost($keyword)
+    // {
+    //     return $this->postDao->searchPost($keyword);
+    // }
 
-  /**
-   * Update Post
-   * 
-   * @param $request
-   * @param $id
-   * @return boolean
-   */
-  public function updatePost($request, $id)
-  {
-    return $this->postDao->updatePost($request, $id);
-  }
+    /**
+     * Update Post
+     *
+     * @param $request
+     * @param $id
+     * @return boolean
+     */
+    public function updatePost($request, $id)
+    {
+        return $this->postDao->updatePost($request, $id);
+    }
 
-  /**
-   * Delete Post
-   * 
-   * @param $request
-   * @return boolean
-   */
-  public function deletePost($request)
-  {
-    return $this->postDao->deletePost($request);
-  }
+    /**
+     * Delete Post
+     *
+     * @param $request
+     * @return boolean
+     */
+    public function deletePost($request)
+    {
+        return $this->postDao->deletePost($request);
+    }
 }
