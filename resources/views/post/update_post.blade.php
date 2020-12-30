@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-	<link href="{{ asset('css/post/update_post_style.css') }}" rel="stylesheet">
+<link href="{{ asset('css/post/update_post_style.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -14,18 +14,19 @@
 					<form method="POST" action="{{ route('post.updatePostConfirm', ['id' => $post->id]) }}">
 						@csrf
 						@if($errors->any())
-							<div class="post-error-box">
-								@foreach($errors->all() as $error)
-									<span class="post-error-message">{{ $error }}</span>
-								@endforeach
-							</div>
+						<div class="post-error-box">
+							@foreach($errors->all() as $error)
+							<span class="post-error-message">{{ $error }}</span>
+							@endforeach
+						</div>
 						@endif
 						<div class="form-group row">
 							<label for="title" class="col-md-4 col-form-label text-md-right font-weight-bold">
 								Title<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" id="title" name="title" value="{{ old('title') ? old('title') : $post->title }}">
+								<input type="text" class="form-control" id="title" name="title"
+									value="{{ old('title') ? old('title') : $post->title }}">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -33,7 +34,8 @@
 								Description<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6">
-								<textarea rows="3" class="form-control" id="description" name="description">{{ old('description') ? old('description') : $post->description }}</textarea>
+								<textarea rows="3" class="form-control" id="description"
+									name="description">{{ old('description') ? old('description') : $post->description }}</textarea>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -43,9 +45,9 @@
 							<div class="col-md-6 col-sm-8 form-check">
 								<div class="form-check">
 									@if($post->status === 1)
-										<input type="checkbox" class="form-check-input" id="status" name="status" checked>
+									<input type="checkbox" class="form-check-input" id="status" name="status" checked>
 									@else
-										<input type="checkbox" class="form-check-input" id="status" name="status">
+									<input type="checkbox" class="form-check-input" id="status" name="status">
 									@endif
 								</div>
 							</div>
@@ -69,5 +71,5 @@
 @endsection
 
 @section('scripts')
-	<script src="{{ asset('js/post/update_post.js') }}" defer></script>
+<script src="{{ asset('js/post/update_post.js') }}" defer></script>
 @endsection

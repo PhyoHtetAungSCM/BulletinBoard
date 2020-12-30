@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-	<link href="{{ asset('css/user/change_password_style.css') }}" rel="stylesheet">
+<link href="{{ asset('css/user/change_password_style.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -14,11 +14,11 @@
 					<form method="POST" action="{{ route('user.changePassword') }}" enctype="multipart/form-data">
 						@csrf
 						@if($errors->any())
-							<div class="user-error-box">
-								@foreach($errors->all() as $error)
-									<span class="user-error-message">{{ $error }}</span>
-								@endforeach
-							</div>
+						<div class="user-error-box">
+							@foreach($errors->all() as $error)
+							<span class="user-error-message">{{ $error }}</span>
+							@endforeach
+						</div>
 						@endif
 						<div class="form-group row">
 							<label for="oldPassword" class="col-md-4 col-form-label text-md-right font-weight-bold">
@@ -33,7 +33,8 @@
 								Confirm Password<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" id="confirmPassword" name="old_password_confirmation">
+								<input type="password" class="form-control" id="confirmPassword"
+									name="old_password_confirmation">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -49,7 +50,8 @@
 								<button type="submit" class="btn btn-primary">
 									Change
 								</button>
-								<button type="button" class="btn btn-secondary px-3" onclick="changePasswordClearance()">
+								<button type="button" class="btn btn-secondary px-3"
+									onclick="changePasswordClearance()">
 									Clear
 								</button>
 							</div>

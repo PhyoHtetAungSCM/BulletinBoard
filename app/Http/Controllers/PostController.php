@@ -33,10 +33,10 @@ class PostController extends Controller
 
     /**
      * Get Post List
-     * 
+     *
      * @return IlluminateHttpResponse with postList
      */
-    public function index() 
+    public function index()
     {
         $postList = $this->postInterface->getPostList();
         return view('post/post_list', [
@@ -46,20 +46,20 @@ class PostController extends Controller
 
     /**
      * Get Create Post Screen
-     * 
+     *
      * @return IlluminateHttpResponse
      */
-    public function getCreatePost() 
+    public function getCreatePost()
     {
         return view('post/create_post');
     }
 
     /**
      * Get Update Post Screen
-     * 
+     *
      * @return IlluminateHttpResponse with post
      */
-    public function getUpdatePost($id) 
+    public function getUpdatePost($id)
     {
         $post = $this->postInterface->getUpdatePost($id);
         return view('post/update_post', [
@@ -69,21 +69,21 @@ class PostController extends Controller
 
     /**
      * Get Upload Post Screen
-     * 
+     *
      * @return IlluminateHttpResponse
      */
-    public function getUploadPost() 
+    public function getUploadPost()
     {
         return view('post/upload_post');
     }
 
     /**
      * Create Post
-     * 
+     *
      * @param Request $request
      * @return IlluminateHttpResponse with success message
      */
-    public function createPost(Request $request) 
+    public function createPost(Request $request)
     {
         $result = $this->postInterface->createPost($request);
         return redirect()->route('post.index');
@@ -91,11 +91,11 @@ class PostController extends Controller
 
     /**
      * Create Post Confirm
-     * 
+     *
      * @param Request $request
      * @return IlluminateHttpResponse with post
      */
-    public function createPostConfirm(Request $request) 
+    public function createPostConfirm(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255|unique:posts,title',
@@ -112,11 +112,11 @@ class PostController extends Controller
 
     /**
      * Search Post
-     * 
+     *
      * @param Request $keyword
      * @return IlluminateHttpResponse with postList
      */
-    public function searchPost(Request $keyword) 
+    public function searchPost(Request $keyword)
     {
         $postList = $this->postInterface->searchPost($keyword);
         return view('post/post_list', [
@@ -126,12 +126,12 @@ class PostController extends Controller
 
     /**
      * Update Post
-     * 
+     *
      * @param Request $request
      * @param $id
      * @return IlluminateHttpResponse
      */
-    public function updatePost(Request $request, $id) 
+    public function updatePost(Request $request, $id)
     {
         $result = $this->postInterface->updatePost($request, $id);
         return redirect()->route('post.index');
@@ -139,11 +139,11 @@ class PostController extends Controller
 
     /**
      * Update Post Confirm
-     * 
+     *
      * @param Request $request
      * @return IlluminateHttpResponse with post
      */
-    public function updatePostConfirm(Request $request, $id) 
+    public function updatePostConfirm(Request $request, $id)
     {
         $request->validate([
             'title' => 'required|string|max:255|unique:posts,title,'.$id,
@@ -152,8 +152,8 @@ class PostController extends Controller
 
         $request->flash();
         session()->put('update-post', [
-            'id' => $id, 
-            'title' => $request->title, 
+            'id' => $id,
+            'title' => $request->title,
             'description' => $request->description
         ]);
 
@@ -161,15 +161,15 @@ class PostController extends Controller
             'id' => $id,
             'post' => $request
         ]);
-    }   
+    }
 
     /**
      * Delete Post
-     * 
+     *
      * @param Request $request
      * @return IlluminateHttpResponse
      */
-    public function deletePost(Request $request) 
+    public function deletePost(Request $request)
     {
         $result = $this->postInterface->deletePost($request);
         return redirect()->route('post.index');
@@ -177,21 +177,25 @@ class PostController extends Controller
 
     /**
      * CSV Export
-     * 
+     *
      * @return SCMBulletinBoard.csv
      */
-    public function csvExport() 
+    public function csvExport()
     {
         return Excel::download(new CsvExport, 'SCMBulletinBoard.csv');
     }
 
     /**
      * CSV Import
-     * 
+     *
      * @return IlluminateHttpResponse
      */
-    public function csvImport(Request $request) 
+    public function csvImport(Request $request)
     {
+        $request->validate([
+            'file' => 'required|mimes:csv,txt',
+        ]);
+        
         $request->session()->forget('failures');
         $authId = Auth::id();
         $fileName = $request->file->getClientOriginalName();
@@ -200,10 +204,10 @@ class PostController extends Controller
         $import = new CsvImport;
         $import->import($file);
         
-        if($import->failures()->isNotEmpty()) {
+        if ($import->failures()->isNotEmpty()) {
             return back()->withFailures($import->failures());
         } else {
             return redirect()->route('post.index');
-        }   
+        }
     }
 }

@@ -3,6 +3,9 @@
 namespace App\Dao\Post;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 use App\Contracts\Dao\Post\PostDaoInterface;
 use App\Post;
@@ -16,18 +19,27 @@ class PostDao implements PostDaoInterface
 {
     /**
      * Get Post List
-     * 
+     *
      * @return post list ($postList)
      */
     public function getPostList()
     {
-        $postList = Post::where('status', 1)->paginate(5);
+        /** All active post */
+        $allPost = Post::orderBy('id', 'desc')->where('status', 1)->get();
+
+        /** Inactive but not deleted */
+        $inactivePost = Post::where('status', 0)
+                            ->where('create_user_id', Auth::id())
+                            ->where('deleted_user_id', null)->get();
+
+        $postList = $allPost->merge($inactivePost);
+        $postList =$this->paginate($postList);
         return $postList;
     }
 
     /**
      * Get Update Post
-     * 
+     *
      * @param $id
      * @return updated post ($post)
      */
@@ -39,7 +51,7 @@ class PostDao implements PostDaoInterface
 
     /**
      * Create Post
-     * 
+     *
      * @param $request
      * @return saved post response
      */
@@ -65,7 +77,7 @@ class PostDao implements PostDaoInterface
 
     /**
      * Search Post
-     * 
+     *
      * @param $keyword
      * @return search result ($postList)
      */
@@ -82,7 +94,7 @@ class PostDao implements PostDaoInterface
 
     /**
      * Update Post
-     * 
+     *
      * @param $request
      * @param $id
      * @return updated post response
@@ -98,7 +110,7 @@ class PostDao implements PostDaoInterface
         $updatePost = Post::find($id);
         $updatePost->title = $title;
         $updatePost->description = $description;
-        if($request->status) {
+        if ($request->status) {
             $updatePost->status = 1;
         } else {
             $updatePost->status = 0;
@@ -113,7 +125,7 @@ class PostDao implements PostDaoInterface
 
     /**
      * Delete Post
-     * 
+     *
      * @param $request
      * @return deleted post response
      */
@@ -124,5 +136,21 @@ class PostDao implements PostDaoInterface
         $deletePost->deleted_user_id = Auth::id();
         $deletePost->deleted_at = Carbon::now();
         return $deletePost->save();
+    }
+
+    /**
+     * Collection Pagination
+     *
+     * @param $items
+     * @param $perPage
+     * @param $page
+     * @param $options[]
+     * @return new LengthAwarePaginator object
+     */
+    public function paginate($items, $perPage = 5, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 }

@@ -23,11 +23,11 @@ class PostService implements PostServiceInterface
   {
     $this->postDao = $postDao;
   }
-  
+
   /**
    * Get Post List
    * 
-   * @return postDao's getPostList function
+   * @return post list
    */
   public function getPostList()
   {
@@ -38,7 +38,7 @@ class PostService implements PostServiceInterface
    * Get Update Post
    * 
    * @param $id
-   * @return postDao's getUpdatePost function
+   * @return updated post model
    */
   public function getUpdatePost($id)
   {
@@ -49,7 +49,7 @@ class PostService implements PostServiceInterface
    * Create Post
    * 
    * @param $request
-   * @return postDao's createPost function
+   * @return boolean
    */
   public function createPost($request)
   {
@@ -60,7 +60,7 @@ class PostService implements PostServiceInterface
    * Search Post
    * 
    * @param $keyword
-   * @return postDao's searchPost function
+   * @return searched result
    */
   public function searchPost($keyword)
   {
@@ -72,7 +72,7 @@ class PostService implements PostServiceInterface
    * 
    * @param $request
    * @param $id
-   * @return postDao's updatePost function
+   * @return boolean
    */
   public function updatePost($request, $id)
   {
@@ -83,7 +83,7 @@ class PostService implements PostServiceInterface
    * Delete Post
    * 
    * @param $request
-   * @return postDao's deletePost function
+   * @return boolean
    */
   public function deletePost($request)
   {

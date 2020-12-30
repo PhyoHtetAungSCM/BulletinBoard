@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('profile')->nullable();
+            $table->string('profile', 64)->nullable();
             $table->integer('type')->default('1');
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
@@ -33,7 +33,7 @@ class CreateUsersTable extends Migration
             $table->date('deleted_at')->format('Y/m/d')->nullable();
             
             // $table->timestamp('email_verified_at')->nullable();
-            // $table->rememberToken();
+            $table->rememberToken();
             // $table->timestamps();
         });
     }

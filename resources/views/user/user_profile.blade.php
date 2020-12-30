@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-	<link href="{{ asset('css/user/user_profile_style.css') }}" rel="stylesheet">
+<link href="{{ asset('css/user/user_profile_style.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -14,16 +14,17 @@
 					@csrf
 					<div class="form-group row mb-4">
 						<div class="col-md-12 d-flex justify-content-center">
-							<div class="user-profile-container">
+							<div class="profile-container">
 								@if($userProfile->profile)
-									<img class="user-profile-image" src="/images/{{ $userProfile->profile }}"/>
+								<img class="profile-image" src="/images/{{ $userProfile->profile }}" />
 								@endif
 							</div>
 						</div>
 					</div>
 					<div class="form-group row mb-0">
 						<div class="col-md-12 d-flex justify-content-center mb-3">
-							<a type="button" class="btn btn-secondary bn-sm" href="{{ route('user.getUpdateUser', ['id' => $userProfile->id]) }}">Edit</a>
+							<a type="button" class="btn btn-secondary bn-sm"
+								href="{{ route('user.getUpdateUser', ['id' => $userProfile->id]) }}">Edit</a>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -32,7 +33,7 @@
 						</label>
 						<label class="col-md-6 col-form-label">
 							{{ $userProfile->name }}
-						</label>                      
+						</label>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-6 col-form-label font-weight-bold text-md-right">
@@ -40,7 +41,7 @@
 						</label>
 						<label class="col-md-6 col-form-label">
 							{{ $userProfile->email }}
-						</label> 
+						</label>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-6 col-form-label font-weight-bold text-md-right">
@@ -48,11 +49,11 @@
 						</label>
 						<label class="col-md-6 col-form-label">
 							@if($userProfile->type === 0)
-								Admin
+							Admin
 							@elseif($userProfile->type === 1)
-								User
+							User
 							@endif
-						</label> 
+						</label>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-6 col-form-label font-weight-bold text-md-right">
@@ -68,7 +69,7 @@
 						</label>
 						<label class="col-md-6 col-form-label">
 							{{ $userProfile->dob }}
-						</label> 
+						</label>
 					</div>
 				</div>
 			</div>

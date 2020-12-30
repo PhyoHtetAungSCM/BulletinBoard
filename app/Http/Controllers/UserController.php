@@ -31,10 +31,11 @@ class UserController extends Controller
 
     /**
      * Get User List
-     * 
+     *
      * @return IlluminateHttpResponse with userList
      */
-    public function index() {
+    public function index()
+    {
         $userList = $this->userInterface->getUserList();
         return view('user/user_list', [
             'userList' => $userList
@@ -43,19 +44,21 @@ class UserController extends Controller
 
     /**
      * Get Create User Screen
-     * 
+     *
      * @return IlluminateHttpResponse
      */
-    public function getCreateUser() {
+    public function getCreateUser()
+    {
         return view('user/create_user');
     }
 
     /**
      * Get Update User Screen
-     * 
+     *
      * @return IlluminateHttpResponse with user
      */
-    public function getUpdateUser($id) {
+    public function getUpdateUser($id)
+    {
         $user = $this->userInterface->getUpdateUser($id);
         return view('user/update_user', [
             'user' => $user
@@ -64,10 +67,11 @@ class UserController extends Controller
 
     /**
      * Get User Profile Screen
-     * 
+     *
      * @return IlluminateHttpResponse with userProfile
      */
-    public function getUserProfile() {
+    public function getUserProfile()
+    {
         $userProfile = $this->userInterface->userProfile();
         return view('user/user_profile', [
             'userProfile' => $userProfile
@@ -76,26 +80,28 @@ class UserController extends Controller
 
     /**
      * Get Change Password
-     * 
+     *
      * @return IlluminateHttpResponse
      */
-    public function getChangePassword() {
+    public function getChangePassword()
+    {
         return view('user/change_password');
     }
 
     /**
      * Create User
-     * 
+     *
      * @param Request $request
      * @return IlluminateHttpResponse with success message
      */
-    public function createUser(Request $request) {
+    public function createUser(Request $request)
+    {
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|unique:users,name',
             'email'   => 'required|email',
             'password' => 'required|confirmed|min:6',
             'phone' => 'nullable|regex:/(09)[0-9]{9}/',
-            'profile' => 'nullable|mimes:jpeg,jpg,bmp,png|max:2048' 
+            'profile' => 'nullable|mimes:jpeg,jpg,bmp,png|max:2048'
         ]);
         $result = $this->userInterface->createUser($request);
         return redirect()->back()->withSuccess('Create User Successful');
@@ -103,11 +109,12 @@ class UserController extends Controller
 
     /**
      * Search User
-     * 
+     *
      * @param Request $keyword
      * @return IlluminateHttpResponse with userList
      */
-    public function searchUser(Request $keyword) {
+    public function searchUser(Request $keyword)
+    {
         $userList = $this->userInterface->searchUser($keyword);
         return view('user/user_list', [
             'userList' => $userList
@@ -116,15 +123,15 @@ class UserController extends Controller
 
     /**
      * Update User
-     * 
+     *
      * @param Request $request
      * @param $id
      * @return IlluminateHttpResponse
      */
-    public function updateUser(Request $request, $id) 
+    public function updateUser(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|unique:users,name,'.$id,
             'email'   => 'required|email',
             'phone' => 'nullable|regex:/(09)[0-9]{9}/',
             'profile' => 'mimes:jpeg,jpg,bmp,png|max:2048',
@@ -135,21 +142,22 @@ class UserController extends Controller
 
     /**
      * Delete User
-     * 
+     *
      * @param Request $request
      * @return IlluminateHttpResponse
      */
-    public function deleteUser(Request $request) {
+    public function deleteUser(Request $request)
+    {
         $result = $this->userInterface->deleteUser($request);
         return redirect()->route('user.index');
     }
 
-    public function changePassword(Request $request) 
+    public function changePassword(Request $request)
     {
         $request->validate([
             'old_password' => [
-                'required',  function($attribute, $value, $fail) {
-                    if(!Hash::check($value, Auth::user()->password)) {
+                'required',  function ($attribute, $value, $fail) {
+                    if (!Hash::check($value, Auth::user()->password)) {
                         $fail('The old password is not correct.');
                     }
                 }, 'confirmed', 'min:6'

@@ -23,11 +23,6 @@ class UserDao implements UserDaoInterface
   public function getUserList()
   {
     $userList = User::where('status', 1)->paginate(5);
-    foreach($userList as $user) {
-        if($user->profile) {
-            $user->profile = decrypt($user->profile);
-        }
-    }
     return $userList;
   }
 
@@ -40,9 +35,6 @@ class UserDao implements UserDaoInterface
   public function getUpdateUser($id)
   {
     $user = User::find($id);
-    if($user->profile) {
-        $user->profile = decrypt($user->profile);
-    }
     return $user;
   }
 
@@ -55,9 +47,6 @@ class UserDao implements UserDaoInterface
   {
     $authId = Auth::id();
     $userProfile = User::find($authId);
-    if($userProfile->profile) {
-        $userProfile->profile = decrypt($userProfile->profile);
-    }
     return $userProfile;
   }
 
@@ -80,10 +69,10 @@ class UserDao implements UserDaoInterface
     // http://www.expertphp.in/article/how-to-upload-save-and-display-file-from-database-in-laravel-52
     if($file = $request->hasFile('profile')) {
         $file = $request->file('profile') ;
-        $fileName = $file->getClientOriginalName() ;
+        $fileName = time() . '.' . $file->extension();
         $destinationPath = public_path().'/images/' ;
         $file->move($destinationPath, $fileName);
-        $user->profile = encrypt($fileName);
+        $user->profile = $fileName;
     }
 
     $user->create_user_id = Auth::id();
