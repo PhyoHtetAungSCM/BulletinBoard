@@ -22,7 +22,7 @@
 								Description<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6 col-form-label">
-								<p>{{ $post->description }}</p>
+								<span>{{ $post->description }}</span>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -44,9 +44,8 @@
 								<button type="submit" class="btn btn-primary">
 									Create
 								</button>
-								<a type="button" href="{{ url()->previous() }}" class="btn btn-secondary px-3">
-									Cancel
-								</a>
+								<a type="button" href="javascript:history.back();"
+									class="btn btn-secondary px-3 m-1">Cancel</a>
 							</div>
 						</div>
 					</form>

@@ -25,8 +25,7 @@
 								Title<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" id="title" name="title"
-									value="{{ old('title') }}">
+								<input type="text" class="form-control" id="title" name="title">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -34,9 +33,7 @@
 								Description<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6">
-								<textarea rows="3" class="form-control" id="description" name="description">{{ 
-										old('description') 
-									}}</textarea>
+								<textarea rows="3" class="form-control" id="description" name="description"></textarea>
 							</div>
 						</div>
 						<div class="form-group row mb-0">

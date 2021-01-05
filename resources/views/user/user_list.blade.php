@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+<link href="{{ asset('css/user/user_list_style.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container">
 	<div class="row justify-content-center">
@@ -40,11 +44,11 @@
 							<tr>
 								<th scope="col">Name</th>
 								<th scope="col">Email</th>
-								<th scope="col">Type</th>
+								<th scope="col">Create User</th>
 								<th scope="col">Phone</th>
 								<th scope="col">Date Of Birth</th>
-								<th scope="col">Created User</th>
-								<th scope="col">Updated User</th>
+								<th scope="col">Created Date</th>
+								<th scope="col">Updated Date</th>
 								<th scope="col"></th>
 							</tr>
 						</thead>
@@ -54,23 +58,17 @@
 								<td>
 									<a href="#" class="userDetail" data-name="{{ $user->name }}"
 										data-email="{{ $user->email }}" data-type="{{ $user->type }}"
-										data-phone="{{ $user->phone }}" data-dob="{{ $user->dob }}"
-										data-profile="{{ $user->profile }}">
+										data-phone="{{ $user->phone }}" data-address="{{ $user->address }}"
+										data-dob="{{ $user->dob }}" data-profile="{{ $user->profile }}">
 										{{ $user->name }}
 									</a>
 								</td>
 								<td>{{ $user->email }}</td>
-								<td>
-									@if($user->type === 1)
-									User
-									@elseif($user->type === 0)
-									Admin
-									@endif
-								</td>
+								<td>{{ $user->getUserName->name }}</td>
 								<td>{{ $user->phone }}</td>
 								<td>{{ $user->dob }}</td>
-								<td>{{ $user->getUserName->name }}</td>
-								<td>{{ $user->getUserName->name }}</td>
+								<td>{{ $user->created_at->format('Y/m/d') }}</td>
+								<td>{{ $user->updated_at->format('Y/m/d') }}</td>
 								<td>
 									<button type="button" class="btn btn-danger btn-sm btn-block deleteUser"
 										data-deleteUserId="{{$user->id}}">Delete</button>
@@ -93,32 +91,40 @@
 								</div>
 								<div class="form-group row mb-4">
 									<div class="col-md-12 d-flex justify-content-center">
-										<div class="user-profile-container">
-											<img class="user-profile-image" id="detailProfile" />
+										<div class="profile-container">
+											<img class="profile-image" id="detailProfile" />
 										</div>
 									</div>
 								</div>
 								<div class="modal-body">
-									<div class="form-group row">
-										<label class="col-md-4 col-sm-3 font-weight-bold">Name</label>
-										<span class="col-md-8 col-sm-9" id="detailName"></span>
-									</div>
-									<div class="form-group row">
-										<label class="col-md-4 col-sm-3 font-weight-bold">Email</label>
-										<span class="col-md-8 col-sm-9" id="detailEmail"></span>
-									</div>
-									<div class="form-group row">
-										<label class="col-md-4 col-sm-3 font-weight-bold">Type</label>
-										<span class="col-md-8 col-sm-9" id="detailType"></span>
-									</div>
-									<div class="form-group row">
-										<label class="col-md-4 col-sm-3 font-weight-bold">Phone</label>
-										<span class="col-md-8 col-sm-9" id="detailPhone"></span>
-									</div>
-									<div class="form-group row">
-										<label class="col-md-4 col-sm-3 font-weight-bold">Date of Birth</label>
-										<span class="col-md-8 col-sm-9" id="detailDob"></span>
-									</div>
+									<table class="table table-borderless">
+										<tbody>
+											<tr>
+												<td class="font-weight-bold" style="width: 30%">Name:</td>
+												<td id="detailName"></td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">Email Address:</td>
+												<td id="detailEmail"></td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">Type:</td>
+												<td id="detailType"></td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">Phone:</td>
+												<td id="detailPhone"></td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">Address:</td>
+												<td id="detailAddress"></td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">Date of Birth:</td>
+												<td id="detailDob"></td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>

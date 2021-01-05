@@ -101,26 +101,30 @@
 									</button>
 								</div>
 								<div class="modal-body">
-									<div class="form-group row">
-										<label class="col-md-4 col-sm-3 font-weight-bold">Title</label>
-										<span class="col-md-8 col-sm-9" id="detailTitle"></span>
-									</div>
-									<div class="form-group row">
-										<label class="col-md-4 col-sm-3 font-weight-bold">Description</label>
-										<span class="col-md-8 col-sm-9" id="detailDescription"></span>
-									</div>
-									<div class="form-group row">
-										<label class="col-md-4 col-sm-3 font-weight-bold">Posted User</label>
-										<span class="col-md-8 col-sm-9" id="detailPostedUser"></span>
-									</div>
-									<div class="form-group row">
-										<label class="col-md-4 col-sm-3 font-weight-bold">Posted Date</label>
-										<span class="col-md-8 col-sm-9" id="detailPostedDate"></span>
-									</div>
-									<div class="form-group row">
-										<label class="col-md-4 col-sm-3 font-weight-bold">Updated Date</label>
-										<span class="col-md-8 col-sm-9" id="detailUpdatedDate"></span>
-									</div>
+									<table class="table table-borderless">
+										<tbody>
+											<tr>
+												<td class="font-weight-bold" style="width: 30%">Title:</td>
+												<td id="detailTitle"></td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">Description:</td>
+												<td id="detailDescription"></td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">Posted User:</td>
+												<td id="detailPostedUser"></td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">Posted Date:</td>
+												<td id="detailPostedDate"></td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">Updated Date:</td>
+												<td id="detailUpdatedDate"></td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>

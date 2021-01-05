@@ -96,15 +96,51 @@ class UserController extends Controller
      */
     public function createUser(Request $request)
     {
+        $result = $this->userInterface->createUser($request);
+        return redirect()->route('user.index');
+    }
+
+    /**
+     * Create User Confirm
+     *
+     * @param Request $request
+     * @return IlluminateHttpResponse with post
+     */
+    public function createUserConfirm(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|unique:users,name',
             'email'   => 'required|email',
             'password' => 'required|confirmed|min:6',
+            'type' => 'required',
             'phone' => 'nullable|regex:/(09)[0-9]{9}/',
-            'profile' => 'nullable|mimes:jpeg,jpg,bmp,png|max:2048'
+            'profile' => 'required|mimes:jpeg,jpg,bmp,png|max:2048'
         ]);
-        $result = $this->userInterface->createUser($request);
-        return redirect()->back()->withSuccess('Create User Successful');
+
+        $fileName = '';
+
+        if ($file = $request->hasFile('profile')) {
+            $file = $request->file('profile') ;
+            $fileName = time() . '.' . $file->extension();
+            $destinationPath = public_path().'/images/';
+            $file->move($destinationPath, $fileName);
+        }
+
+        session()->put('create-user', [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'type' => $request->type,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'dob' => $request->dob,
+            'profile' => $fileName
+        ]);
+
+        return view('user/create_user_confirm', [
+            'user' => $request,
+            'profile' => $fileName
+        ]);
     }
 
     /**
@@ -130,14 +166,54 @@ class UserController extends Controller
      */
     public function updateUser(Request $request, $id)
     {
+        $result = $this->userInterface->updateUser($request, $id);
+        return redirect()->route('user.index');
+    }
+
+    /**
+     * Update User Confirm
+     *
+     * @param Request $request
+     * @return IlluminateHttpResponse with user and profile
+     */
+    public function updateUserConfirm(Request $request, $id)
+    {
         $request->validate([
             'name' => 'required|string|unique:users,name,'.$id,
-            'email'   => 'required|email',
+            'email' => 'required|email',
+            'type' => 'required',
             'phone' => 'nullable|regex:/(09)[0-9]{9}/',
             'profile' => 'mimes:jpeg,jpg,bmp,png|max:2048',
         ]);
-        $result = $this->userInterface->updateUser($request, $id);
-        return redirect()->route('user.index');
+
+        /** Get already uploaded profile */
+        $profileFromDB = $this->userInterface->updateUserConfirm($request, $id);
+
+        /** Get recently updated profile */
+        $fileName = '';
+
+        if ($file = $request->hasFile('profile')) {
+            $file = $request->file('profile') ;
+            $fileName = time() . '.' . $file->extension();
+            $destinationPath = public_path().'/images/' ;
+            $file->move($destinationPath, $fileName);
+        }
+
+        session()->put('update-user', [
+            'name' => $request->name,
+            'email' => $request->email,
+            'type' => $request->type,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'dob' => $request->dob,
+            'profile' => $fileName
+        ]);
+
+        return view('user/update_user_confirm', [
+            'profileFromDB' => $profileFromDB,
+            'user' => $request,
+            'profile' => $fileName
+        ]);
     }
 
     /**
@@ -152,6 +228,13 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
+
+    /**
+     * Change Password
+     *
+     * @param Request $request
+     * @return IlluminateHttpResponse
+     */
     public function changePassword(Request $request)
     {
         $request->validate([

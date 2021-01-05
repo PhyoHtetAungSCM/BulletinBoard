@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Phyo Htet Aung',
             'email' => 'scm.phyohtetaung@gmail.com',
             'password' => Hash::make('123123123'),
+            'profile' => 'default.jpg',
             'type' => 0,
             'phone' => '09450040932',
             'address' => 'Blah Yat Kwat',

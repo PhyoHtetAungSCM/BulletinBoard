@@ -4,6 +4,7 @@ $(document).on('click', '.userDetail', function () {
 	let email = $(this).attr('data-email');
 	let type = $(this).attr('data-type');
 	let phone = $(this).attr('data-phone');
+	let address = $(this).attr('data-address');
 	let dob = $(this).attr('data-dob');
 	let profile = $(this).attr('data-profile');
 
@@ -17,11 +18,9 @@ $(document).on('click', '.userDetail', function () {
 	}
 
 	$('#detailPhone').text(phone);
+	$('#detailAddress').text(address);
 	$('#detailDob').text(dob);
-	
-	if(profile) {
-		$("#detailProfile").attr('src', `/images/${profile}`);
-	}
+	$("#detailProfile").attr('src', `/images/${profile}`);
 	
 	$('#userDetailModal').modal('show');
 });

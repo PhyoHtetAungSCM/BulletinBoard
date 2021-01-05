@@ -11,7 +11,7 @@
       <div class="card">
         <div class="card-header font-weight-bold">Update User</div>
         <div class="card-body">
-          <form method="POST" action="{{ route('user.updateUser', ['id' => $user->id]) }}"
+          <form method="POST" action="{{ route('user.updateUserConfirm', ['id' => $user->id]) }}"
             enctype="multipart/form-data">
             @csrf
             @if($errors->any())
@@ -53,11 +53,11 @@
               <div class="col-md-6">
                 <select class="form-control" id="type" name="type">
                   @if($user->type === 0)
-                  <option value="0">Admin</option>
+                  <option value="0" selected>Admin</option>
                   <option value="1">User</option>
                   @else
-                  <option value="1">User</option>
                   <option value="0">Admin</option>
+                  <option value="1" selected>User</option>
                   @endif
                 </select>
               </div>
@@ -68,6 +68,16 @@
               </label>
               <div class="col-md-6">
                 <input type="text" class="form-control" id="phone" name="phone" value="{{ $user->phone }}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="address" class="col-md-4 col-form-label text-md-right font-weight-bold">
+                Address
+              </label>
+              <div class="col-md-6">
+                <textarea rows="3" class="form-control" id="address" name="address">{{ 
+										$user->address
+								}}</textarea>
               </div>
             </div>
             <div class="form-group row">
@@ -93,71 +103,12 @@
             </div>
             <div class="form-group row mb-0">
               <div class="col-md-8 offset-md-4">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateUserModal"
-                  onclick="updateUserConfirmation()">
-                  Update
+                <button type="submit" class="btn btn-primary">
+                  Confirm
                 </button>
                 <button type="button" class="btn btn-secondary px-3" onclick="updateUserClearance()">
                   Clear
                 </button>
-              </div>
-            </div>
-
-            <!-- Update User Modal -->
-            <div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog"
-              aria-labelledby="updateUserModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title font-weight-bold" id="updateUserModalLabel">Update User Confirmation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="form-group row mb-4">
-                      <div class="col-md-12 d-flex justify-content-center">
-                        <div class="user-profile-container">
-                          <img class="user-profile-image" id="confirmProfile" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-md-4 col-sm-3 font-weight-bold">
-                        Name
-                      </label>
-                      <label class="col-md-8 col-sm-9" id="confirmName"></label>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-md-4 col-sm-3 font-weight-bold">
-                        Email Address
-                      </label>
-                      <label class="col-md-8 col-sm-9" id="confirmEmail"></label>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-md-4 col-sm-3 font-weight-bold">
-                        Type
-                      </label>
-                      <label class="col-md-8 col-sm-9" id="confirmType"></label>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-md-4 col-sm-3 font-weight-bold">
-                        Phone
-                      </label>
-                      <label class="col-md-8 col-sm-9" id="confirmPhone"></label>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-md-4 col-sm-3 font-weight-bold">
-                        Date of Birth
-                      </label>
-                      <label class="col-md-8 col-sm-9" id="confirmDob"></label>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Update</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  </div>
-                </div>
               </div>
             </div>
           </form>

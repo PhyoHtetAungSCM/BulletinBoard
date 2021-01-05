@@ -103,8 +103,7 @@ class PostController extends Controller
             'description'   => 'required|string'
         ]);
 
-        $request->flash();
-        session()->put('post', ['title' => $request->title, 'description' => $request->description]);
+        session()->put('create-post', ['title' => $request->title, 'description' => $request->description]);
 
         return view('post/create_post_confirm', [
             'post' => $request
@@ -142,7 +141,7 @@ class PostController extends Controller
      * Update Post Confirm
      *
      * @param Request $request
-     * @return IlluminateHttpResponse with post
+     * @return IlluminateHttpResponse with post and id
      */
     public function updatePostConfirm(Request $request, $id)
     {
@@ -151,7 +150,6 @@ class PostController extends Controller
             'description'   => 'required|string'
         ]);
 
-        $request->flash();
         session()->put('update-post', [
             'id' => $id,
             'title' => $request->title,

@@ -1,4 +1,4 @@
-.profile-container {
+.profile-container{
   width: 150px;
   height: 150px;
   border: 1px solid #ccc;
@@ -11,13 +11,4 @@
   height: 100%;
   border: none;
   border-radius: 50%;
-}
-
-.profile-info {
-  width: 100%;
-  padding: 0 50px;
-}
-
-.profile-edit-btn {
-  width: 80px;
 }

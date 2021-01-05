@@ -38,15 +38,15 @@ class PostDao implements PostDaoInterface
             $postList->appends(['search' => $search]);
         } else {
             /** All active post */
-            $allPost = Post::orderBy('id', 'desc')->where('status', 1)->get();
+            $activePost = Post::orderBy('id', 'desc')->where('status', 1)->get();
 
             /** Inactive but not deleted */
             $inactivePost = Post::where('status', 0)
-                            ->where('create_user_id', Auth::id())
-                            ->where('deleted_user_id', null)->get();
+                                ->where('create_user_id', Auth::id())
+                                ->where('deleted_user_id', null)->get();
 
-            $postList = $allPost->merge($inactivePost);
-            $postList =$this->paginate($postList);
+            $postList = $activePost->merge($inactivePost);
+            $postList = $this->paginate($postList);
         }
         return $postList;
     }
@@ -71,9 +71,13 @@ class PostDao implements PostDaoInterface
      */
     public function createPost($request)
     {
+        $create = session()->get('create-post');
         /** Retrieve data from session */
-        $title = session()->get('post')['title'];
-        $description = session()->get('post')['description'];
+        $title = $create['title'];
+        $description = $create['description'];
+
+        /** Remove Session */
+        session()->forget('create-post');
 
         /** Save data into database */
         $post = new Post();
@@ -84,9 +88,6 @@ class PostDao implements PostDaoInterface
         $post->created_at = Carbon::now();
         $post->updated_at = Carbon::now();
         return $post->save();
-
-        /** Remove Session */
-        session()->forget('post');
     }
 
     /**
@@ -120,6 +121,9 @@ class PostDao implements PostDaoInterface
         $title = $update['title'];
         $description = $update['description'];
 
+        /** Remove Session */
+        session()->forget('update-post');
+
         /** Save data into database */
         $updatePost = Post::find($id);
         $updatePost->title = $title;
@@ -132,9 +136,6 @@ class PostDao implements PostDaoInterface
         $updatePost->updated_user_id = Auth::id();
         $updatePost->updated_at = Carbon::now();
         return $updatePost->save();
-
-        /** Remove Session */
-        session()->forget('post');
     }
 
     /**

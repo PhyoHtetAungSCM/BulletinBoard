@@ -56,7 +56,11 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function () {
 
     Route::post('/create_user', ['uses' => 'UserController@createUser', 'as' => 'user.createUser']);
 
+    Route::post('/create_user_confirm', ['uses' => 'UserController@createUserConfirm', 'as' => 'user.createUserConfirm']);
+
     Route::post('/update_user/{id}', ['uses' => 'UserController@updateUser', 'as' => 'user.updateUser']);
+
+    Route::post('/update_user_confirm/{id}', ['uses' => 'UserController@updateUserConfirm', 'as' => 'user.updateUserConfirm']);
 
     Route::post('/user_list', ['uses' => 'UserController@searchUser', 'as' => 'user.searchUser']);
 

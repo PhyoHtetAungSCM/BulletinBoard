@@ -11,13 +11,9 @@
 			<div class="card">
 				<div class="card-header font-weight-bold">Create User</div>
 				<div class="card-body">
-					<form id="form" method="POST" action="{{ route('user.createUser') }}" enctype="multipart/form-data">
+					<form id="form" method="POST" action="{{ route('user.createUserConfirm') }}"
+						enctype="multipart/form-data">
 						@csrf
-						@if(session('success'))
-						<div class="user-success-box">
-							<span class="user-success-message">{{ session('success') }}</span>
-						</div>
-						@endif
 						@if($errors->any())
 						<div class="user-error-box">
 							@foreach($errors->all() as $error)
@@ -80,6 +76,14 @@
 							</div>
 						</div>
 						<div class="form-group row">
+							<label for="address" class="col-md-4 col-form-label text-md-right font-weight-bold">
+								Address<span class="text-danger">*</span>
+							</label>
+							<div class="col-md-6">
+								<textarea rows="3" class="form-control" id="address" name="address"></textarea>
+							</div>
+						</div>
+						<div class="form-group row">
 							<label for="dob" class="col-md-4 col-form-label text-md-right font-weight-bold">Date of
 								Birth</label>
 							<div class="col-md-6">
@@ -88,7 +92,7 @@
 						</div>
 						<div class="form-group row">
 							<label for="profile" class="col-md-4 col-form-label text-md-right font-weight-bold">
-								Profile
+								Profile<span class="text-danger">*</span>
 							</label>
 							<div class="col-md-6">
 								<input type="file" accept="image/*" onchange="loadFile(event)" id="profile"
@@ -100,80 +104,12 @@
 						</div>
 						<div class="form-group row mb-0">
 							<div class="col-md-8 offset-md-4">
-								<button type="button" class="btn btn-primary" data-toggle="modal"
-									data-target="#createUserModal" onclick="createUserConfirmation()">
-									Create
+								<button type="submit" class="btn btn-primary">
+									Confirm
 								</button>
 								<button type="button" class="btn btn-secondary px-3" onclick="createUserClearance()">
 									Clear
 								</button>
-							</div>
-						</div>
-
-						<!-- Create User Modal -->
-						<div class="modal fade" id="createUserModal" tabindex="-1" role="dialog"
-							aria-labelledby="createUserModalLabel" aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title font-weight-bold" id="createUserModalLabel">Create User
-											Confirmation</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<div class="form-group row mb-4">
-											<div class="col-md-12 d-flex justify-content-center">
-												<div class="profile-container circle">
-													<img class="profile-image circle" id="confirmProfile" />
-												</div>
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-md-4 col-form-label font-weight-bold">
-												Name
-											</label>
-											<label class="col-md-8 col-form-label" id="confirmName"></label>
-										</div>
-										<div class="form-group row">
-											<label class="col-md-4 col-form-label font-weight-bold">
-												Email Address
-											</label>
-											<label class="col-md-8 col-form-label" id="confirmEmail"></label>
-										</div>
-										<div class="form-group row">
-											<label class="col-md-4 col-form-label font-weight-bold">
-												Password
-											</label>
-											<label class="col-md-8 col-form-label" id="confirmPassword"
-												style="-webkit-text-security: disc;"></label>
-										</div>
-										<div class="form-group row">
-											<label class="col-md-4 col-form-label font-weight-bold">
-												Type
-											</label>
-											<label class="col-md-8 col-form-label" id="confirmType"></label>
-										</div>
-										<div class="form-group row">
-											<label class="col-md-4 col-form-label font-weight-bold">
-												Phone
-											</label>
-											<label class="col-md-8 col-form-label" id="confirmPhone"></label>
-										</div>
-										<div class="form-group row">
-											<label class="col-md-4 col-form-label font-weight-bold">
-												DOB
-											</label>
-											<label class="col-md-8 col-form-label" id="confirmDob"></label>
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-primary">Create</button>
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Cancel</button>
-									</div>
-								</div>
 							</div>
 						</div>
 					</form>

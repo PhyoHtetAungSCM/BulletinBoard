@@ -3,7 +3,7 @@
   height: 150px;
   border: 1px solid #ccc;
   border-radius: 50%;
-  margin-top: 15px;
+  margin: 15px 0;
 }
 
 .profile-image {
@@ -11,13 +11,4 @@
   height: 100%;
   border: none;
   border-radius: 50%;
-}
-
-.profile-info {
-  width: 100%;
-  padding: 0 50px;
-}
-
-.profile-edit-btn {
-  width: 80px;
 }

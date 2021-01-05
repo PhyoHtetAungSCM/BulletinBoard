@@ -26,7 +26,7 @@
 							</label>
 							<div class="col-md-6">
 								<input type="text" class="form-control" id="title" name="title"
-									value="{{ old('title') ? old('title') : $post->title }}">
+									value="{{ $post->title }}">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -35,7 +35,7 @@
 							</label>
 							<div class="col-md-6">
 								<textarea rows="3" class="form-control" id="description"
-									name="description">{{ old('description') ? old('description') : $post->description }}</textarea>
+									name="description">{{ $post->description }}</textarea>
 							</div>
 						</div>
 						<div class="form-group row">
