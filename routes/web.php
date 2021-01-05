@@ -62,7 +62,7 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function () {
 
     Route::post('/update_user_confirm/{id}', ['uses' => 'UserController@updateUserConfirm', 'as' => 'user.updateUserConfirm']);
 
-    Route::post('/user_list', ['uses' => 'UserController@searchUser', 'as' => 'user.searchUser']);
+    Route::get('/search_user', ['uses' => 'UserController@searchUser', 'as' => 'user.searchUser']);
 
     Route::delete('/user_list', ['uses' => 'UserController@deleteUser', 'as' => 'user.deleteUser']);
 

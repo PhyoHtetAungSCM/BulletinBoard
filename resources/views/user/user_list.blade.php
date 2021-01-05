@@ -14,7 +14,7 @@
 				</div>
 				<div class="card-body">
 
-					<form method="POST" action="{{ route('user.searchUser') }}">
+					<form method="GET">
 						@csrf
 						<div class="form-group row">
 							<div class="col-lg-2 col-md-3 col-sm-6 p-1">
@@ -30,7 +30,8 @@
 								<input type="text" class="form-control" name="created_to" placeholder="Created To">
 							</div>
 							<div class="col-lg-2 col-md-6 col-sm-6 p-1">
-								<input type="submit" class="btn btn-primary btn-block" value="Search">
+								<a href="{{ route('user.searchUser') }}" type="button"
+									class="btn btn-primary btn-block">Search</a>
 							</div>
 							<div class="col-lg-2 col-md-6 col-sm-6 p-1">
 								<a href="{{ route('user.getCreateUser') }}" type="button"
