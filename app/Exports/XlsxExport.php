@@ -21,7 +21,7 @@ use App\Post;
  * System Name: Bulletinboard
  * Module Name: Download Excel File
  */
-class CsvExport implements FromCollection, WithHeadings, WithColumnFormatting, WithMapping, ShouldAutoSize
+class XlsxExport implements FromCollection, WithHeadings, WithColumnFormatting, WithMapping, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection

@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 use App\Contracts\Services\Post\PostServiceInterface;
 use App\Http\Controllers\Controller;
-use App\Exports\CsvExport;
+use App\Exports\XlsxExport;
 use App\Imports\CsvImport;
 use App\Post;
 
@@ -161,13 +161,13 @@ class PostController extends Controller
     }
 
     /**
-     * CSV Export
+     * XLSX Export
      *
-     * @return SCMBulletinBoard.csv
+     * @return SCMBulletinBoard.xlsx
      */
-    public function csvExport()
+    public function xlsxExport()
     {
-        return Excel::download(new CsvExport, 'SCMBulletinBoard.csv');
+        return Excel::download(new XlsxExport, 'SCMBulletinBoard.xlsx');
     }
 
     /**

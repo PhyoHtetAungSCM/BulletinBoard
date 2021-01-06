@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function () {
     
     Route::get('/upload_post', ['uses' => 'PostController@getUploadPost', 'as' => 'post.getUploadPost']);
 
-    Route::get('/post_list/export', ['uses' => 'PostController@csvExport', 'as' => 'post.export']);
+    Route::get('/post_list/export', ['uses' => 'PostController@xlsxExport', 'as' => 'post.export']);
     
     Route::post('/create_post', ['uses' => 'PostController@createPost', 'as' => 'post.createPost']);
 
