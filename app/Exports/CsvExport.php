@@ -33,7 +33,7 @@ class CsvExport implements FromCollection, WithHeadings, WithColumnFormatting, W
 
     /**
      * Add headings to downloaded file
-     * 
+     *
      * @return heading array
      */
     public function headings(): array // https://docs.laravel-excel.com/3.1/exports/column-formatting.html
@@ -53,7 +53,7 @@ class CsvExport implements FromCollection, WithHeadings, WithColumnFormatting, W
 
     /**
      * Map the downloaded data array
-     * 
+     *
      * @param $post
      * @return mapped data array
      */
@@ -74,7 +74,7 @@ class CsvExport implements FromCollection, WithHeadings, WithColumnFormatting, W
     
     /**
      * Column Formatting
-     * 
+     *
      * @return format array
      */
     public function columnFormats(): array

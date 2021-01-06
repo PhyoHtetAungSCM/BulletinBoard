@@ -6,12 +6,12 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithValidation;
-
-use Carbon\Carbon;
-use App\Post;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithMapping;
+
+use Carbon\Carbon;
+use App\Post;
 
 /**
  * System Name: Bulletinboard
@@ -49,27 +49,27 @@ class CsvImport implements ToModel, WithHeadingRow, WithMapping, WithValidation,
 
     /**
      * Map excel data to set format
-     * 
+     *
      * @param $row
      * @return $row
      */
     public function map($row): array
     {
-        if($row['created_at']) {
+        if ($row['created_at']) {
             $row['created_at'] = Carbon::createFromFormat('d/m/Y', $row['created_at'])->format('Y-m-d');
         }
-        if($row['updated_at']) {
+        if ($row['updated_at']) {
             $row['updated_at'] = Carbon::createFromFormat('d/m/Y', $row['updated_at'])->format('Y-m-d');
-        } 
-        if($row['deleted_at']) {
+        }
+        if ($row['deleted_at']) {
             $row['deleted_at'] = Carbon::createFromFormat('d/m/Y', $row['deleted_at'])->format('Y-m-d');
-        } 
+        }
         return $row;
     }
 
     /**
      * Rules for excel data
-     * 
+     *
      * @return array
      */
     public function rules(): array
