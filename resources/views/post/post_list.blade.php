@@ -57,7 +57,7 @@
 							<tr>
 								<td>
 									<a href="#" class="post-detail" data-title="{{ $post->title }}"
-										data-description="{{ $post->description }}"
+										data-description="{{ $post->description }}" data-status="{{ $post->status }}"
 										data-posted-user="{{ $post->user->name }}"
 										data-posted-date="{{ $post->created_at->format('Y/m/d') }}"
 										data-updated-date="{{ $post->updated_at->format('Y/m/d') }}">
@@ -110,6 +110,10 @@
 											<tr>
 												<td class="font-weight-bold">Description:</td>
 												<td id="detailDescription"></td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">Status:</td>
+												<td id="detailStatus"></td>
 											</tr>
 											<tr>
 												<td class="font-weight-bold">Posted User:</td>

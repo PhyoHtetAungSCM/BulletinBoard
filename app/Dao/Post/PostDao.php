@@ -82,12 +82,25 @@ class PostDao implements PostDaoInterface
      */
     public function searchPost($keyword)
     {
-        $postList = Post::orderBy('id', 'desc')->where('status', 1)
-                        ->whereHas('user', function ($query) use ($keyword) {
-                            $query->where('title', 'like', "%{$keyword->search}%");
-                            $query->orWhere('description', 'like', "%{$keyword->search}%");
-                            $query->orWhere('name', 'like', "%{$keyword->search}%");
-                        })->paginate(5);
+        $activePost = Post::orderBy('id', 'desc')->where('status', 1)
+                            ->whereHas('user', function ($query) use ($keyword) {
+                                $query->where('title', 'like', "%{$keyword->search}%");
+                                $query->orWhere('description', 'like', "%{$keyword->search}%");
+                                $query->orWhere('name', 'like', "%{$keyword->search}%");
+                            })->get();
+
+        $inactivePost = Post::where('status', 0)
+                            ->where('create_user_id', Auth::id())
+                            ->where('deleted_user_id', null)
+                            ->whereHas('user', function ($query) use ($keyword) {
+                                $query->where('title', 'like', "%{$keyword->search}%");
+                                $query->orWhere('description', 'like', "%{$keyword->search}%");
+                                $query->orWhere('name', 'like', "%{$keyword->search}%");
+                            })->get();
+        
+        $postList = $activePost->merge($inactivePost);
+        $postList = $this->paginate($postList);
+        
         return $postList;
     }
 
@@ -102,7 +115,7 @@ class PostDao implements PostDaoInterface
     {
         /** Retrieve data from session */
         $sessionPost = session()->get('update-post');
-        
+
         /** Remove Session */
         session()->forget('update-post');
 
