@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 /** Authentication routes */
-    Route::get('/', ['uses' => 'PostController@index', 'as' => 'post.index']);
+    Route::get('/', ['uses' => 'PostController@index', 'as' => 'post.index']); /** Post List as Index */
 
     Route::get('/login', ['uses' => 'Auth\LoginController@showLoginForm', 'as' => 'login']);
 

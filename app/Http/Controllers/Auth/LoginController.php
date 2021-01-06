@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    protected function credentials(Request $request)
+    {
+        return array_merge($request->only($this->username(), 'password'), ['deleted_user_id' => null]);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -45,6 +50,6 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $this->performLogout($request);
-        return redirect()->route('login');
+        return redirect()->route('post.index');
     }
 }
