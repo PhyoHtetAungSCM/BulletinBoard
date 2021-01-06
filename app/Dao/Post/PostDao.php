@@ -57,18 +57,16 @@ class PostDao implements PostDaoInterface
      */
     public function createPost($request)
     {
-        $create = session()->get('create-post');
         /** Retrieve data from session */
-        $title = $create['title'];
-        $description = $create['description'];
+        $sessionPost = session()->get('create-post');
 
         /** Remove Session */
         session()->forget('create-post');
 
         /** Save data into database */
         $post = new Post();
-        $post->title = $title;
-        $post->description = $description;
+        $post->title = $sessionPost['title'];
+        $post->description = $sessionPost['description'];
         $post->create_user_id = Auth::id();
         $post->updated_user_id = Auth::id();
         $post->created_at = Carbon::now();
@@ -84,7 +82,7 @@ class PostDao implements PostDaoInterface
      */
     public function searchPost($keyword)
     {
-        $postList = Post::orderBy('id', 'desc')->where('posts.status', 1)
+        $postList = Post::orderBy('id', 'desc')->where('status', 1)
                         ->whereHas('user', function ($query) use ($keyword) {
                             $query->where('title', 'like', "%{$keyword->search}%");
                             $query->orWhere('description', 'like', "%{$keyword->search}%");
@@ -102,18 +100,16 @@ class PostDao implements PostDaoInterface
      */
     public function updatePost($request, $id)
     {
-        $update = session()->get('update-post');
         /** Retrieve data from session */
-        $title = $update['title'];
-        $description = $update['description'];
-
+        $sessionPost = session()->get('update-post');
+        
         /** Remove Session */
         session()->forget('update-post');
 
         /** Save data into database */
         $updatePost = Post::find($id);
-        $updatePost->title = $title;
-        $updatePost->description = $description;
+        $updatePost->title = $sessionPost['title'];
+        $updatePost->description = $sessionPost['description'];
         if ($request->status) {
             $updatePost->status = 1;
         } else {

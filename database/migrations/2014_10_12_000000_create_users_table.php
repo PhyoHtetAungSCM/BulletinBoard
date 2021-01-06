@@ -21,9 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('profile', 64)->nullable();
             $table->integer('type')->default('1');
             $table->string('phone')->nullable();
-            $table->string('address')->nullable();
             $table->date('dob')->format('Y/m/d')->nullable();
-            $table->integer('status')->default('1');
+            $table->string('address')->nullable();
 
             $table->integer('create_user_id');
             $table->integer('updated_user_id');

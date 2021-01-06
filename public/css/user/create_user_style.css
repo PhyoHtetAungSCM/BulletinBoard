@@ -11,20 +11,6 @@
   border: none;
 }
 
-.circle {
-  border-radius: 50%;
-}
-
-.user-success-box {
-  background-color: #dff2bf;
-  margin-bottom: 20px;
-  padding: 10px;
-}
-
-.user-success-message {
-  color: #4f8a10;
-}
-
 .user-error-box {
   background-color: #ffd2d2;
   margin-bottom: 20px;

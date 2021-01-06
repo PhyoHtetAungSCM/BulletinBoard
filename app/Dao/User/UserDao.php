@@ -22,7 +22,7 @@ class UserDao implements UserDaoInterface
      */
     public function getUserList()
     {
-        $userList = User::where('status', 1)->paginate(5);
+        $userList = User::orderBy('id', 'desc')->whereNull('deleted_user_id')->paginate(5);
         return $userList;
     }
 
@@ -60,28 +60,20 @@ class UserDao implements UserDaoInterface
     {
         /** Retrieve data from session */
         $sessionUser = session()->get('create-user');
-        $name = $sessionUser['name'];
-        $email = $sessionUser['email'];
-        $password = $sessionUser['password'];
-        $type = $sessionUser['type'];
-        $phone = $sessionUser['phone'];
-        $address = $sessionUser['address'];
-        $dob = $sessionUser['dob'];
-        $profile = $sessionUser['profile'];
 
         /** Remove Session */
         session()->forget('create-user');
 
         /** Save data into database */
         $user = new User();
-        $user->name = $name;
-        $user->email = $email;
-        $user->password = Hash::make($password);
-        $user->type = $type;
-        $user->phone = $phone;
-        $user->address = $address;
-        $user->dob = $dob;
-        $user->profile = $profile;
+        $user->name = $sessionUser['name'];
+        $user->email = $sessionUser['email'];
+        $user->password = Hash::make($sessionUser['password']);
+        $user->type = $sessionUser['type'];
+        $user->phone = $sessionUser['phone'];
+        $user->address = $sessionUser['address'];
+        $user->dob = $sessionUser['dob'];
+        $user->profile = $sessionUser['profile'];
         $user->create_user_id = Auth::id();
         $user->updated_user_id = Auth::id();
         $user->created_at = Carbon::now();
@@ -97,7 +89,9 @@ class UserDao implements UserDaoInterface
      */
     public function searchUser($keyword)
     {
-        $userList = User::where('name', 'like', "%{$keyword->name}%")
+        $userList = User::orderBy('id', 'desc')
+                    ->whereNull('deleted_user_id')
+                    ->where('name', 'like', "%{$keyword->name}%")
                     ->when($keyword->email, function ($query) use ($keyword) {
                         $query->where('email', 'like', "%{$keyword->email}%");
                     })
@@ -121,27 +115,20 @@ class UserDao implements UserDaoInterface
     {
         /** Retrieve data from session */
         $sessionUser = session()->get('update-user');
-        $name = $sessionUser['name'];
-        $email = $sessionUser['email'];
-        $type = $sessionUser['type'];
-        $phone = $sessionUser['phone'];
-        $address = $sessionUser['address'];
-        $dob = $sessionUser['dob'];
-        $profile = $sessionUser['profile'];
 
         /** Remove Session */
         session()->forget('update-user');
 
         /** Save data into database */
         $updateUser = User::find($id);
-        $updateUser->name = $name;
-        $updateUser->email = $email;
-        $updateUser->type = $type;
-        $updateUser->phone = $phone;
-        $updateUser->address = $address;
-        $updateUser->dob = $dob;
-        if ($profile) {
-            $updateUser->profile = $profile;
+        $updateUser->name = $sessionUser['name'];
+        $updateUser->email = $sessionUser['email'];
+        $updateUser->type = $sessionUser['type'];
+        $updateUser->phone = $sessionUser['phone'];
+        $updateUser->address = $sessionUser['address'];
+        $updateUser->dob = $sessionUser['dob'];
+        if ($sessionUser['profile']) {
+            $updateUser->profile = $sessionUser['profile'];
         }
         $updateUser->updated_user_id = Auth::id();
         $updateUser->updated_at = Carbon::now();
@@ -171,7 +158,8 @@ class UserDao implements UserDaoInterface
     public function deleteUser($request)
     {
         $deleteUser = User::find($request->input('deleteUserId'));
-        $deleteUser->status = 0;
+        $deleteUser->deleted_user_id = Auth::id();
+        $deleteUser->deleted_at = Carbon::now();
         return $deleteUser->save();
     }
 
