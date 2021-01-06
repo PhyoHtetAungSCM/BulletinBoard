@@ -12,7 +12,7 @@ $(document).on('click', '.post-detail', function () {
   if(status == 0) {
     $('#detailStatus').text("Inactive").css('color', 'red');
   } else {
-    $('#detailStatus').text("Active");
+    $('#detailStatus').text("Active").css('color', 'green');
   }
   $('#detailPostedUser').text(postedUser);
   $('#detailPostedDate').text(postedDate);

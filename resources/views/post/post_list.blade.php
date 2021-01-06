@@ -113,7 +113,7 @@
 											</tr>
 											<tr>
 												<td class="font-weight-bold">Status:</td>
-												<td id="detailStatus"></td>
+												<td class="font-weight-bold" id="detailStatus"></td>
 											</tr>
 											<tr>
 												<td class="font-weight-bold">Posted User:</td>
