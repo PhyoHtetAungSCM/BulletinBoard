@@ -7,20 +7,20 @@
 @section('content')
 <div class="container">
 	<div class="row justify-content-center">
-		<div class="{{ Auth::check() ? 'col-md-12' : 'col-md-10'}}">
+		<div class="col-md-12">
 			<div class="card">
 				<div class="card-header font-weight-bold">
 					Post List
 				</div>
 				<div class="card-body">
-					<form method="GET">
+					<form method="GET" action="{{ route('post.searchPost') }}">
 						@csrf
 						<div class="form-group row">
 							<div class="col-lg-4 col-md-12 col-sm-12 p-1">
 								<input type="text" class="form-control" name="search" placeholder="Search...">
 							</div>
 							<div class="col-lg-2 col-md-6 col-sm-12 p-1">
-								<button type="submit" class="btn btn-primary btn-block" value="search">Search</button>
+								<button type="submit" class="btn btn-primary btn-block">Search</button>
 							</div>
 							@if(Auth::check())
 							<div class="col-lg-2 col-md-6 col-sm-12 p-1">

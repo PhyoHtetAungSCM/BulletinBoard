@@ -52,12 +52,12 @@
 								<td>{{ $userProfile->phone }}</td>
 							</tr>
 							<tr>
-								<td class="font-weight-bold">Address:</td>
-								<td>{{ $userProfile->address }}</td>
-							</tr>
-							<tr>
 								<td class="font-weight-bold">Date of Birth:</td>
 								<td>{{ $userProfile->dob }}</td>
+							</tr>
+							<tr>
+								<td class="font-weight-bold">Address:</td>
+								<td>{{ $userProfile->address }}</td>
 							</tr>
 						</tbody>
 					</table>

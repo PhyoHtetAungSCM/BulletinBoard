@@ -4,13 +4,13 @@ namespace App\Contracts\Dao\Post;
 
 interface PostDaoInterface
 {
-    public function getPostList($request);
+    public function getPostList();
 
     public function getUpdatePost($id);
 
     public function createPost($request);
 
-    // public function searchPost($keyword);
+    public function searchPost($keyword);
 
     public function updatePost($request, $id);
 

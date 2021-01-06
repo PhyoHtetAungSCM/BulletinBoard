@@ -39,12 +39,14 @@ class DeleteImages extends Command
      */
     public function handle()
     {
+        /** Retrieve images from public folder */
         $files = File::files(public_path('images'));
         $images = [];
         foreach ($files as $file) {
             $images[] = $file->getRelativePathname();
         }
 
+        /** Retrieve images from database */
         $users = DB::table('users')->get();
         $profiles = [];
         foreach ($users as $user) {

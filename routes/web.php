@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function () {
     Route::post('/upload_post/import', ['uses' => 'PostController@csvImport', 'as' => 'post.import']);
 });
 /** Out of middleware due to guest access */
-// Route::post('/post_list', ['uses' => 'PostController@searchPost', 'as' => 'post.searchPost']);
+Route::get('/post/post_list', ['uses' => 'PostController@searchPost', 'as' => 'post.searchPost']);
 
 /** For user screens */
 Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function () {

@@ -22,32 +22,18 @@ class PostDao implements PostDaoInterface
      *
      * @return post list ($postList)
      */
-    public function getPostList($request)
+    public function getPostList()
     {
-        $search =  $request->input('search');
+        /** All active post */
+        $activePost = Post::orderBy('id', 'desc')->where('status', 1)->get();
 
-        /** If input's name(search) exists */
-        if ($search != "") {
-            $postList = Post::where('posts.status', 1)
-                            ->whereHas('user', function ($query) use ($search) {
-                                $query->where('title', 'like', "%{$search}%");
-                                $query->orWhere('description', 'like', "%{$search}%");
-                                $query->orWhere('name', 'like', "%{$search}%");
-                            })
-                            ->paginate(5);
-            $postList->appends(['search' => $search]);
-        } else {
-            /** All active post */
-            $activePost = Post::orderBy('id', 'desc')->where('status', 1)->get();
+        /** Inactive but not deleted */
+        $inactivePost = Post::where('status', 0)
+                            ->where('create_user_id', Auth::id())
+                            ->where('deleted_user_id', null)->get();
 
-            /** Inactive but not deleted */
-            $inactivePost = Post::where('status', 0)
-                                ->where('create_user_id', Auth::id())
-                                ->where('deleted_user_id', null)->get();
-
-            $postList = $activePost->merge($inactivePost);
-            $postList = $this->paginate($postList);
-        }
+        $postList = $activePost->merge($inactivePost);
+        $postList = $this->paginate($postList);
         return $postList;
     }
 
@@ -96,16 +82,16 @@ class PostDao implements PostDaoInterface
      * @param $keyword
      * @return search result ($postList)
      */
-    // public function searchPost($keyword)
-    // {
-    //     $postList = Post::where('posts.status', 1)
-    //                     ->whereHas('user', function ($query) use ($keyword) {
-    //                         $query->where('title', 'like', "%{$keyword->search}%");
-    //                         $query->orWhere('description', 'like', "%{$keyword->search}%");
-    //                         $query->orWhere('name', '=', "%{$keyword->search}%");
-    //                     })->paginate(5);
-    //     return $postList;
-    // }
+    public function searchPost($keyword)
+    {
+        $postList = Post::orderBy('id', 'desc')->where('posts.status', 1)
+                        ->whereHas('user', function ($query) use ($keyword) {
+                            $query->where('title', 'like', "%{$keyword->search}%");
+                            $query->orWhere('description', 'like', "%{$keyword->search}%");
+                            $query->orWhere('name', 'like', "%{$keyword->search}%");
+                        })->paginate(5);
+        return $postList;
+    }
 
     /**
      * Update Post

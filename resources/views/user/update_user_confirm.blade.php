@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link href="{{ asset('css/user/create_user_confirm_style.css') }}" rel="stylesheet">
+<link href="{{ asset('css/user/update_user_confirm_style.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')

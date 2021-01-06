@@ -14,7 +14,7 @@
 				</div>
 				<div class="card-body">
 
-					<form method="GET">
+					<form method="GET" action="{{ route('user.searchUser') }}">
 						@csrf
 						<div class="form-group row">
 							<div class="col-lg-2 col-md-3 col-sm-6 p-1">
@@ -30,8 +30,7 @@
 								<input type="text" class="form-control" name="created_to" placeholder="Created To">
 							</div>
 							<div class="col-lg-2 col-md-6 col-sm-6 p-1">
-								<a href="{{ route('user.searchUser') }}" type="button"
-									class="btn btn-primary btn-block">Search</a>
+								<button type="submit" class="btn btn-primary btn-block">Search</button>
 							</div>
 							<div class="col-lg-2 col-md-6 col-sm-6 p-1">
 								<a href="{{ route('user.getCreateUser') }}" type="button"
@@ -167,7 +166,7 @@
 
 				<!-- Pagination -->
 				<div class="d-flex justify-content-center">
-					{!! $userList->links() !!}
+					{{ $userList->links() }}
 				</div>
 			</div>
 		</div>

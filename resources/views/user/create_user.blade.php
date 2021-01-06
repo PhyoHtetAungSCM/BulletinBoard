@@ -76,18 +76,18 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="address" class="col-md-4 col-form-label text-md-right font-weight-bold">
-								Address<span class="text-danger">*</span>
-							</label>
-							<div class="col-md-6">
-								<textarea rows="3" class="form-control" id="address" name="address"></textarea>
-							</div>
-						</div>
-						<div class="form-group row">
 							<label for="dob" class="col-md-4 col-form-label text-md-right font-weight-bold">Date of
 								Birth</label>
 							<div class="col-md-6">
 								<input type="date" class="form-control" id="dob" name="dob">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="address" class="col-md-4 col-form-label text-md-right font-weight-bold">
+								Address
+							</label>
+							<div class="col-md-6">
+								<textarea rows="3" class="form-control" id="address" name="address"></textarea>
 							</div>
 						</div>
 						<div class="form-group row">

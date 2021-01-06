@@ -37,9 +37,9 @@ class PostController extends Controller
      *
      * @return IlluminateHttpResponse with postList
      */
-    public function index(Request $request)
+    public function index()
     {
-        $postList = $post = $this->postInterface->getPostList($request);
+        $postList = $post = $this->postInterface->getPostList();
         return view('post/post_list', [
             'postList' => $postList
         ]);
@@ -116,13 +116,13 @@ class PostController extends Controller
      * @param Request $keyword
      * @return IlluminateHttpResponse with postList
      */
-    // public function searchPost(Request $keyword)
-    // {
-    //     $postList = $this->postInterface->searchPost($keyword);
-    //     return view('post/post_list', [
-    //         'postList' => $postList
-    //     ]);
-    // }
+    public function searchPost(Request $keyword)
+    {
+        $postList = $this->postInterface->searchPost($keyword);
+        return view('post/post_list', [
+            'postList' => $postList
+        ]);
+    }
 
     /**
      * Update Post

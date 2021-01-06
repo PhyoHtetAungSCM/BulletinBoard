@@ -84,6 +84,8 @@ class UserDao implements UserDaoInterface
         $user->profile = $profile;
         $user->create_user_id = Auth::id();
         $user->updated_user_id = Auth::id();
+        $user->created_at = Carbon::now();
+        $user->updated_at = Carbon::now();
         return $user->save();
     }
 
@@ -141,8 +143,8 @@ class UserDao implements UserDaoInterface
         if ($profile) {
             $updateUser->profile = $profile;
         }
-        $updateUser->create_user_id = Auth::id();
         $updateUser->updated_user_id = Auth::id();
+        $updateUser->updated_at = Carbon::now();
         return $updateUser->save();
     }
 

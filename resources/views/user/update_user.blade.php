@@ -52,7 +52,7 @@
               </label>
               <div class="col-md-6">
                 <select class="form-control" id="type" name="type">
-                  @if($user->type === 0)
+                  @if($user->type == 0)
                   <option value="0" selected>Admin</option>
                   <option value="1">User</option>
                   @else

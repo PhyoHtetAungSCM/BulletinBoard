@@ -55,7 +55,3 @@
 	</div>
 </div>
 @endsection
-
-@section('scripts')
-<script src="{{ asset('js/post/create_post.js') }}" defer></script>
-@endsection
