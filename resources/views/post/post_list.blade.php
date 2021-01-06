@@ -13,9 +13,9 @@
 					Post List
 				</div>
 				<div class="card-body">
-					<form method="GET" action="{{ route('post.searchPost') }}">
+					<form method="GET">
 						@csrf
-						<div class="form-group row">
+						<div class=" form-group row">
 							<div class="col-lg-4 col-md-12 col-sm-12 p-1">
 								<input type="text" class="form-control" name="search" placeholder="Search...">
 							</div>

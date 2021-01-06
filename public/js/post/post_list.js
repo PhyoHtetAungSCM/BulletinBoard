@@ -10,7 +10,7 @@ $(document).on('click', '.post-detail', function () {
   $('#detailTitle').text(title);
   $('#detailDescription').text(description);
   if(status == 0) {
-    $('#detailStatus').text("Inactive");
+    $('#detailStatus').text("Inactive").css('color', 'red');
   } else {
     $('#detailStatus').text("Active");
   }

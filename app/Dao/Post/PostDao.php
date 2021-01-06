@@ -20,20 +20,46 @@ class PostDao implements PostDaoInterface
     /**
      * Get Post List
      *
+     * @param $request
      * @return post list ($postList)
      */
-    public function getPostList()
+    public function getPostList($request)
     {
-        /** All active post */
-        $activePost = Post::orderBy('id', 'desc')->where('status', 1)->get();
+        $search =  $request->input('search');
 
-        /** Inactive but not deleted */
-        $inactivePost = Post::where('status', 0)
+        /** If input's name(search) exists */
+        if ($search != "") {
+            $activePost = Post::orderBy('id', 'desc')->where('status', 1)
+                            ->whereHas('user', function ($query) use ($search) {
+                                $query->where('title', 'like', "%{$search}%");
+                                $query->orWhere('description', 'like', "%{$search}%");
+                                $query->orWhere('name', 'like', "%{$search}%");
+                            })->get();
+
+            $inactivePost = Post::where('status', 0)
+                            ->where('create_user_id', Auth::id())
+                            ->where('deleted_user_id', null)
+                            ->whereHas('user', function ($query) use ($search) {
+                                $query->where('title', 'like', "%{$search}%");
+                                $query->orWhere('description', 'like', "%{$search}%");
+                                $query->orWhere('name', 'like', "%{$search}%");
+                            })->get();
+        
+            $postList = $activePost->merge($inactivePost);
+            $postList = $this->paginate($postList);
+            $postList->appends(['search' => $search]);
+        } else {
+            /** All active post */
+            $activePost = Post::orderBy('id', 'desc')->where('status', 1)->get();
+
+            /** Inactive but not deleted */
+            $inactivePost = Post::where('status', 0)
                             ->where('create_user_id', Auth::id())
                             ->where('deleted_user_id', null)->get();
 
-        $postList = $activePost->merge($inactivePost);
-        $postList = $this->paginate($postList);
+            $postList = $activePost->merge($inactivePost);
+            $postList =$this->paginate($postList);
+        }
         return $postList;
     }
 
@@ -72,36 +98,6 @@ class PostDao implements PostDaoInterface
         $post->created_at = Carbon::now();
         $post->updated_at = Carbon::now();
         return $post->save();
-    }
-
-    /**
-     * Search Post
-     *
-     * @param $keyword
-     * @return search result ($postList)
-     */
-    public function searchPost($keyword)
-    {
-        $activePost = Post::orderBy('id', 'desc')->where('status', 1)
-                            ->whereHas('user', function ($query) use ($keyword) {
-                                $query->where('title', 'like', "%{$keyword->search}%");
-                                $query->orWhere('description', 'like', "%{$keyword->search}%");
-                                $query->orWhere('name', 'like', "%{$keyword->search}%");
-                            })->get();
-
-        $inactivePost = Post::where('status', 0)
-                            ->where('create_user_id', Auth::id())
-                            ->where('deleted_user_id', null)
-                            ->whereHas('user', function ($query) use ($keyword) {
-                                $query->where('title', 'like', "%{$keyword->search}%");
-                                $query->orWhere('description', 'like', "%{$keyword->search}%");
-                                $query->orWhere('name', 'like', "%{$keyword->search}%");
-                            })->get();
-        
-        $postList = $activePost->merge($inactivePost);
-        $postList = $this->paginate($postList);
-        
-        return $postList;
     }
 
     /**

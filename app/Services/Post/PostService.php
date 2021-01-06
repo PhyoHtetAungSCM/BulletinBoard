@@ -29,9 +29,9 @@ class PostService implements PostServiceInterface
      *
      * @return post list
      */
-    public function getPostList()
+    public function getPostList($request)
     {
-        return $this->postDao->getPostList();
+        return $this->postDao->getPostList($request);
     }
 
     /**
@@ -54,17 +54,6 @@ class PostService implements PostServiceInterface
     public function createPost($request)
     {
         return $this->postDao->createPost($request);
-    }
-
-    /**
-     * Search Post
-     *
-     * @param $keyword
-     * @return searched result
-     */
-    public function searchPost($keyword)
-    {
-        return $this->postDao->searchPost($keyword);
     }
 
     /**

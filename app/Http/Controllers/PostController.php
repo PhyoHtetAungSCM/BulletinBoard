@@ -37,9 +37,9 @@ class PostController extends Controller
      *
      * @return IlluminateHttpResponse with postList
      */
-    public function index()
+    public function index(Request $request)
     {
-        $postList = $post = $this->postInterface->getPostList();
+        $postList = $this->postInterface->getPostList($request);
         return view('post/post_list', [
             'postList' => $postList
         ]);
@@ -107,20 +107,6 @@ class PostController extends Controller
 
         return view('post/create_post_confirm', [
             'post' => $request
-        ]);
-    }
-
-    /**
-     * Search Post
-     *
-     * @param Request $keyword
-     * @return IlluminateHttpResponse with postList
-     */
-    public function searchPost(Request $keyword)
-    {
-        $postList = $this->postInterface->searchPost($keyword);
-        return view('post/post_list', [
-            'postList' => $postList
         ]);
     }
 
@@ -195,7 +181,6 @@ class PostController extends Controller
             'file' => 'required|mimes:csv,txt',
         ]);
 
-        $request->session()->forget('failures');
         $authId = Auth::id();
         $fileName = $request->file->getClientOriginalName();
         $file = $request->file('file')->store($authId.'/csv/'.$fileName);

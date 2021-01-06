@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 /** Authentication routes */
-    Route::get('/', ['uses' => 'PostController@index', 'as' => 'post.index']); /** Post List as Index */
+    Route::get('/', ['uses' => 'PostController@index', 'as' => 'post.index']);
 
     Route::get('/login', ['uses' => 'Auth\LoginController@showLoginForm', 'as' => 'login']);
 
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 /** For post screens */
 Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function () {
-    Route::get('/post_list', ['uses' => 'PostController@index', 'as' => 'post.index']);
+    Route::get('/post_list', ['uses' => 'PostController@index', 'as' => 'post.getPostList']);
     
     Route::get('/create_post', ['uses' => 'PostController@getCreatePost', 'as' => 'post.getCreatePost']);
     
@@ -39,12 +39,12 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'post'], function () {
 
     Route::post('/upload_post/import', ['uses' => 'PostController@csvImport', 'as' => 'post.import']);
 });
-/** Out of middleware due to guest access */
-Route::get('/post/post_list', ['uses' => 'PostController@searchPost', 'as' => 'post.searchPost']);
 
 /** For user screens */
 Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function () {
     Route::get('/user_list', ['uses' => 'UserController@index', 'as' => 'user.index']);
+
+    Route::get('/search_user', ['uses' => 'UserController@searchUser', 'as' => 'user.searchUser']);
 
     Route::get('/create_user', ['uses' => 'UserController@getCreateUser', 'as' => 'user.getCreateUser']);
     
@@ -61,8 +61,6 @@ Route::group(['middleware' => 'auth.basic', 'prefix' => 'user'], function () {
     Route::post('/update_user/{id}', ['uses' => 'UserController@updateUser', 'as' => 'user.updateUser']);
 
     Route::post('/update_user_confirm/{id}', ['uses' => 'UserController@updateUserConfirm', 'as' => 'user.updateUserConfirm']);
-
-    Route::get('/search_user', ['uses' => 'UserController@searchUser', 'as' => 'user.searchUser']);
 
     Route::delete('/user_list', ['uses' => 'UserController@deleteUser', 'as' => 'user.deleteUser']);
 
