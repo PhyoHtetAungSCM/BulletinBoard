@@ -245,7 +245,7 @@ class UserController extends Controller
                     }
                 }, 'confirmed', 'min:6'
             ],
-            'new_password'   => 'required|min:6'
+            'new_password' => 'required|min:6'
         ]);
         $result = $this->userInterface->changePassword($request);
         return redirect()->route('post.index');

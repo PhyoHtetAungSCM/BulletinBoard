@@ -103,7 +103,10 @@ class PostController extends Controller
             'description'   => 'required|string'
         ]);
 
-        session()->put('create-post', ['title' => $request->title, 'description' => $request->description]);
+        session()->put('create-post', [
+            'title' => $request->title,
+            'description' => $request->description
+        ]);
 
         return view('post/create_post_confirm', [
             'post' => $request
